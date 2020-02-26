@@ -24,7 +24,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
@@ -37,5 +36,5 @@
 # VisualStudio
 .vs
 Debug
-x64
+./x64
 

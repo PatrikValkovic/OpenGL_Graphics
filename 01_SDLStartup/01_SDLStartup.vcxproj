@@ -77,7 +77,7 @@
   <PropertyGroup>
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)libraries\SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libraries\SDL\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -100,7 +100,7 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)libraries\SDL\lib\SDL2.dll $(OutputPath)</Command>
+      <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy dlls</Message>
@@ -121,7 +121,7 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)libraries\SDL\lib\SDL2.dll $(OutputPath)</Command>
+      <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy dlls</Message>
@@ -146,7 +146,7 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)libraries\SDL\lib\SDL2.dll $(OutputPath)</Command>
+      <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy dlls</Message>
@@ -171,7 +171,7 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)libraries\SDL\lib\SDL2.dll $(OutputPath)</Command>
+      <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath)</Command>
       <Message>Copy dlls</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
