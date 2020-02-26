@@ -2,7 +2,7 @@
 #include <chrono>
 #include <SDL.h>
 
-int SDL_main(int argc, char** argn) {
+int SDL_main(int argc, char** arg) {
 	SDL_Init(SDL_INIT_VIDEO);
 
 	SDL_Window* window = nullptr;
