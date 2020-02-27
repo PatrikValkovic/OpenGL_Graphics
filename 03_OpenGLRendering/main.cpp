@@ -16,6 +16,10 @@ int main(int argc, char** args)
         800, 600, SDL_WINDOW_OPENGL);
     SDL_GLContext glcontext = SDL_GL_CreateContext(window);
     gladLoadGL();
+    int x, y, w, h;
+    SDL_GetWindowSize(window, &w, &h);
+    SDL_GetWindowPosition(window, &x, &y);
+    glViewport(x, y, w, h);
     
     // compile shaders
     GLuint vshader = compile_shader("vs.vert", GL_VERTEX_SHADER);
@@ -50,7 +54,7 @@ int main(int argc, char** args)
         glUseProgram(shaderProgram);
         // Draw the scene geometry - just tell OpenGL we're drawing at this point
         glPointSize(10.0f);
-        glDrawArrays(GL_POINTS, 0, 1);
+        glDrawArrays(GL_POINTS, 0, 4);
         // Unbind the shader program
         glUseProgram(0);
 
