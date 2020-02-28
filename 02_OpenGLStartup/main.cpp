@@ -2,7 +2,7 @@
 #include <thread>
 #include <chrono>
 #include <SDL.h>
-#include <glad.h>
+#include <glad/glad.h>
 
 int main(int argc, char** arg) {
 

@@ -2,7 +2,7 @@
 #include <thread>
 #include <chrono>
 #include <SDL.h>
-#include <glad.h>
+#include <glad/glad.h>
 #include "ShadersSupport.h"
 
 
@@ -11,7 +11,7 @@ int main(int argc, char** args)
     // load everything
     SDL_SetMainReady();
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("03 / OpenGL Rendering",
+    SDL_Window* window = SDL_CreateWindow("03 - OpenGL Rendering",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         800, 600, SDL_WINDOW_OPENGL);
     SDL_GLContext glcontext = SDL_GL_CreateContext(window);
@@ -54,7 +54,7 @@ int main(int argc, char** args)
         glUseProgram(shaderProgram);
         // Draw the scene geometry - just tell OpenGL we're drawing at this point
         glPointSize(10.0f);
-        glDrawArrays(GL_POINTS, 0, 4);
+        glDrawArrays(GL_POINTS, 0, 1);
         // Unbind the shader program
         glUseProgram(0);
 

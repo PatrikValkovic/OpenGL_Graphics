@@ -2,7 +2,7 @@
 #include <thread>
 #include <chrono>
 #include <SDL.h>
-#include <glad.h>
+#include <glad/glad.h>
 #include "ShadersSupport.h"
 #include "RAII.h"
 
@@ -18,6 +18,7 @@ int main(int argc, char** args)
 	RAII<SDL_Window*> windowRaii(SDL_DestroyWindow, window);
 	RAII<SDL_GLContext> context(SDL_GL_DeleteContext, SDL_GL_CreateContext, window);
 	gladLoadGL();
+	glViewport(0, 0, 800, 600);
 
 	// compile shaders
 	RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "vs.vert", GL_VERTEX_SHADER);
@@ -48,7 +49,7 @@ int main(int argc, char** args)
 		}
 
 		glClearColor(0.1f, 0.2f, 0.4f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL we'd like to use the previously compiled shader program
 		glUseProgram(program);
 		// Draw the scene geometry - just tell OpenGL we're drawing at this point
