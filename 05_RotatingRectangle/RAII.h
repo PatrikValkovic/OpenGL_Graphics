@@ -9,9 +9,12 @@ class RAII
 {
 	static_assert(std::is_scalar<T>::value, "RAII can handle only scalars");
 private:
-	const T _resource;
+	T _resource;
 	std::function<void(T)> _destroy;
 public:
+	RAII() noexcept : _resource(0), _destroy(nullptr)
+	{}
+
 	RAII(std::function<void(T)> destroy, T resource) noexcept : _resource(resource), _destroy(destroy)
 	{}
 
@@ -32,16 +35,28 @@ public:
 		}
 	}
 
-	inline const T& getResource() {
+	inline const T& getResource() const noexcept {
 		return _resource;
 	}
 
-	operator T() {
+	inline operator const T() const noexcept {
+		return _resource;
+	}
+
+	inline T& getResource() noexcept {
+		return _resource;
+	}
+
+	inline operator T() noexcept {
 		return _resource;
 	}
 
 	inline void free() {
 		this->~RAII();
+	}
+
+	inline operator bool() const noexcept {
+		return _destroy != nullptr;
 	}
 };
 
@@ -52,6 +67,9 @@ class RAII<void> {
 private:
 	std::function<void()> _destroy;
 public:
+	RAII() noexcept : _destroy(nullptr)
+	{}
+
 	RAII(std::function<void()> destroy) noexcept : _destroy(destroy)
 	{}
 
@@ -72,8 +90,12 @@ public:
 		}
 	}
 
-	void free() {
+	inline void free() {
 		this->~RAII();
+	}
+
+	inline operator bool() const noexcept {
+		return _destroy != nullptr;
 	}
 };
 

@@ -181,6 +181,7 @@
   <ItemGroup>
     <ClCompile Include="..\libraries\Glad\glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="SDLsupport.cpp" />
     <ClCompile Include="ShaderSupport.cpp" />
   </ItemGroup>
@@ -188,11 +189,16 @@
     <None Include="fs.frag">
       <DeploymentContent>true</DeploymentContent>
     </None>
+    <None Include="learngl.frag" />
+    <None Include="learngl.vert">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
     <None Include="vs.vert">
       <DeploymentContent>true</DeploymentContent>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MainLoop.h" />
     <ClInclude Include="RAII.h" />
     <ClInclude Include="SDLsupport.h" />
     <ClInclude Include="ShadersSupport.h" />

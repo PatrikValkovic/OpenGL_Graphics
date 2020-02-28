@@ -27,12 +27,21 @@
     <ClCompile Include="SDLsupport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MainLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vs.vert">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="fs.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="learngl.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="learngl.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -44,6 +53,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDLsupport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

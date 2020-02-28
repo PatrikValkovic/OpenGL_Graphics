@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <memory>
+#include <algorithm>
 #include "SDLsupport.h"
 
 
@@ -55,8 +56,9 @@ void link_program(GLuint program)
 	if (status == GL_FALSE) {
 		GLint length = 0;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
-		char* info_log = new char[length];
+		char* info_log = new char[std::max(length, 1)];
 		glGetProgramInfoLog(program, length, nullptr, info_log);
+		info_log[length] = 0;
 		cerr << info_log << endl;
 		delete[] info_log;
 		throw LoadException("Coudn't link program");
