@@ -29,18 +29,21 @@ void MainLoop::loop()
 	// create vertex buffer
 	RAII<GLuint> vertexBuffer([](GLuint b) {glDeleteBuffers(1, &b); }, GLuint(0));
 	RAII<GLuint> rotationBuffer([](GLuint b) {glDeleteBuffers(1, &b); }, GLuint(0));
+	RAII<GLuint> elementBuffer([](GLuint b) {glDeleteBuffers(1, &b); }, GLuint(0));
 	RAII<GLuint> rotaryAO([](GLuint a) { glDeleteVertexArrays(1, &a); }, GLuint(0));
 	float rotation = 0;
 	{
 		// fill vertices
 		float vertices[] = {
-			 -0.7f, 0.7f, 0.0f,
-			 0.0f, 0.7f, 0.0f,
-			 -0.7f,  0.4f, 0.0f,
-
-			  0.0f, 0.7f, 0.0f,
-			 -0.7f,  0.4f, 0.0f,
-			  0.0f, 0.4f, 0.0f,
+			 -0.5f, 0.5f, 0.0f,
+			 0.0f, 0.5f, 0.0f,
+			 -0.5f,  0.0f, 0.0f,
+			  0.0f, 0.0f, 0.0f,
+		};
+		// vertices order
+		unsigned int indices[] = {
+			0, 1, 2, // top left triangle
+			1, 2, 3, // bottom right triangle
 		};
 		glGenBuffers(1, &(vertexBuffer.getResource()));
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -51,7 +54,13 @@ void MainLoop::loop()
 		glBindBuffer(GL_ARRAY_BUFFER, rotationBuffer);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float), nullptr, GL_DYNAMIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		// fill element buffer
+		glGenBuffers(1, &(elementBuffer.getResource()));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		// create AO
+		glGenVertexArrays(1, &(rotaryAO.getResource()));
 		glBindVertexArray(rotaryAO); // bind VAO
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); // active vertex buffer
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr); // setup shader attribute
@@ -62,8 +71,11 @@ void MainLoop::loop()
 		glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(float), nullptr); // setup shader attribute
 		glEnableVertexAttribArray(1); // enable shader attribue
 		glBindBuffer(GL_ARRAY_BUFFER, 0); // unbind rotation buffer
-		glBindVertexArray(0); // unbind VAO
 
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer); // use element buffer for rendering
+
+		glBindVertexArray(0); // unbind VAO
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // unbind EBO - must be after unbind of VAO, otherwise is unbinded in VAO as well
 	}
 
 	// main loop
@@ -103,7 +115,7 @@ void MainLoop::loop()
 
 		// render
 		glBindVertexArray(rotaryAO); // bind VAO
-		glDrawArrays(GL_TRIANGLES, 0, 6); // render
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // render
 		glBindVertexArray(0); // unbind VAO
 
 		// Swap the buffers
