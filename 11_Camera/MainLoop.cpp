@@ -60,9 +60,9 @@ void MainLoop::loop()
 				keep_running = false;
 			if (e.type == SDL_KEYDOWN) {
 				if (e.key.keysym.sym == SDLK_w)
-					c.moveZ(-movement);
-				if (e.key.keysym.sym == SDLK_s)
 					c.moveZ(movement);
+				if (e.key.keysym.sym == SDLK_s)
+					c.moveZ(-movement);
 				if (e.key.keysym.sym == SDLK_a)
 					c.moveX(-movement);
 				if (e.key.keysym.sym == SDLK_d)
@@ -71,6 +71,10 @@ void MainLoop::loop()
 					c.moveY(movement);
 				if (e.key.keysym.sym == SDLK_f)
 					c.moveY(-movement);
+				if (e.key.keysym.sym == SDLK_q)
+					c.rotate(-movement);
+				if (e.key.keysym.sym == SDLK_e)
+					c.rotate(movement);
 			}
 			if (e.type == SDL_MOUSEMOTION) {
 				
