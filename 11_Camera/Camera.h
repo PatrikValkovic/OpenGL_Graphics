@@ -16,6 +16,12 @@ public:
 	void moveY(float distance) noexcept;
 	void moveZ(float distance) noexcept;
 
+	void look(glm::vec2 direction) noexcept;
+	void lookUp(float degree);
+	void lookDown(float degree);
+	void lookLeft(float degree);
+	void lookRight(float degree);
+
 	void rotate(float degree) noexcept;
 
 	glm::mat4 createTransformMatrix() const noexcept;

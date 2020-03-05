@@ -43,7 +43,8 @@ void MainLoop::loop()
 	FPSCounter fps;
 	HouseModel house(wallTexture, roofTexture);
 	Camera c;
-	float movement = 0.2;
+	float movement_speed = 0.2f;
+	float rotation_speed = 20;
 	float rotation = 0.0;
 
 	// main loop
@@ -60,21 +61,21 @@ void MainLoop::loop()
 				keep_running = false;
 			if (e.type == SDL_KEYDOWN) {
 				if (e.key.keysym.sym == SDLK_w)
-					c.moveZ(movement);
+					c.moveZ(movement_speed);
 				if (e.key.keysym.sym == SDLK_s)
-					c.moveZ(-movement);
+					c.moveZ(-movement_speed);
 				if (e.key.keysym.sym == SDLK_a)
-					c.moveX(-movement);
+					c.moveX(-movement_speed);
 				if (e.key.keysym.sym == SDLK_d)
-					c.moveX(movement);
+					c.moveX(movement_speed);
 				if (e.key.keysym.sym == SDLK_r)
-					c.moveY(movement);
+					c.moveY(movement_speed);
 				if (e.key.keysym.sym == SDLK_f)
-					c.moveY(-movement);
+					c.moveY(-movement_speed);
 				if (e.key.keysym.sym == SDLK_q)
-					c.rotate(-movement);
+					c.rotate(-rotation_speed);
 				if (e.key.keysym.sym == SDLK_e)
-					c.rotate(movement);
+					c.rotate(rotation_speed);
 			}
 			if (e.type == SDL_MOUSEMOTION) {
 				
