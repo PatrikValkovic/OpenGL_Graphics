@@ -33,6 +33,20 @@ void Camera::moveZ(float direction) noexcept
 
 void Camera::look(glm::vec2 direction) noexcept
 {
+	glm::mat4 rotY = glm::rotate(
+		glm::mat4(1.0),
+		glm::radians(direction.y), 
+		-glm::cross(_view_direction, _up)
+	);
+	glm::mat4 rotX = glm::rotate(
+		glm::mat4(1.0),
+		glm::radians(direction.x),
+		-_up
+	);
+	glm::vec4 new_up = rotX * rotY * glm::vec4(_up, 1.0f);
+	_up = glm::vec3(new_up.x, new_up.y, new_up.z);
+	glm::vec4 new_direction = rotX * rotY * glm::vec4(_view_direction, 1.0f);
+	_view_direction = glm::vec3(new_direction.x, new_direction.y, new_direction.z);
 }
 
 void Camera::lookUp(float degree)

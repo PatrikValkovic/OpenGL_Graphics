@@ -43,8 +43,9 @@ void MainLoop::loop()
 	FPSCounter fps;
 	HouseModel house(wallTexture, roofTexture);
 	Camera c;
-	float movement_speed = 0.2f;
-	float rotation_speed = 20;
+	float movement_speed = 2.5f;
+	float rotation_speed = 60;
+	float mouse_sensitivity = 0.6;
 	float rotation = 0.0;
 
 	// main loop
@@ -53,36 +54,29 @@ void MainLoop::loop()
 	while (keep_running) {
 
 		fps.tick();
-		double delta_time = fps.getDelta();
+		float delta_time = (float)fps.getDelta();
 
 		// handle events
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+			if (e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
 				keep_running = false;
-			if (e.type == SDL_KEYDOWN) {
-				if (e.key.keysym.sym == SDLK_w)
-					c.moveZ(movement_speed);
-				if (e.key.keysym.sym == SDLK_s)
-					c.moveZ(-movement_speed);
-				if (e.key.keysym.sym == SDLK_a)
-					c.moveX(-movement_speed);
-				if (e.key.keysym.sym == SDLK_d)
-					c.moveX(movement_speed);
-				if (e.key.keysym.sym == SDLK_r)
-					c.moveY(movement_speed);
-				if (e.key.keysym.sym == SDLK_f)
-					c.moveY(-movement_speed);
-				if (e.key.keysym.sym == SDLK_q)
-					c.rotate(-rotation_speed);
-				if (e.key.keysym.sym == SDLK_e)
-					c.rotate(rotation_speed);
 			}
 			if (e.type == SDL_MOUSEMOTION) {
-				
+				c.lookUp((float)e.motion.yrel * mouse_sensitivity);
+				c.lookRight((float)e.motion.xrel * mouse_sensitivity);
 			}
 		}
+		Uint8 const* keyboard_state = SDL_GetKeyboardState(nullptr);
+		if (keyboard_state[SDL_SCANCODE_W]) c.moveZ(delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_S]) c.moveZ(-delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_A]) c.moveX(-delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_D]) c.moveX(delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_R]) c.moveY(delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_F]) c.moveY(-delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_E]) c.rotate(delta_time * rotation_speed);
+		if (keyboard_state[SDL_SCANCODE_Q]) c.rotate(-delta_time * rotation_speed);
 
-		rotation += 30 * (float)delta_time;
+		//rotation += 30 * (float)delta_time;
 		if (rotation > 360) rotation -= 360;
 
 		// Set up viewport
