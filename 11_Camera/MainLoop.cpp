@@ -1,13 +1,15 @@
 #include "MainLoop.h"
 #include <chrono>
 #include <iostream>
+#include <memory>
 #include <SDL_image.h>
 #include <gtc/matrix_transform.hpp>
 #include "ShadersSupport.h"
 #include "SDLsupport.h"
 #include "FPSCounter.h"
 #include "HouseModel.h"
-#include "Camera.h"
+#include "SimCamera.h"
+#include "FlyCamera.h"
 
 MainLoop::MainLoop(SDL_Window* win) : _window(win)
 {}
@@ -42,11 +44,11 @@ void MainLoop::loop()
 
 	FPSCounter fps;
 	HouseModel house(wallTexture, roofTexture);
-	Camera c;
+	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0,1,0));
 	float movement_speed = 2.5f;
 	float rotation_speed = 60;
-	float mouse_sensitivity = 0.6;
-	float rotation = 0.0;
+	float mouse_sensitivity = 0.4f;
+	float rotation = 0.0f;
 
 	// main loop
 	SDL_Event e;
@@ -62,19 +64,33 @@ void MainLoop::loop()
 				keep_running = false;
 			}
 			if (e.type == SDL_MOUSEMOTION) {
-				c.lookUp((float)e.motion.yrel * mouse_sensitivity);
-				c.lookRight((float)e.motion.xrel * mouse_sensitivity);
+				c->lookUp((float)e.motion.yrel * mouse_sensitivity);
+				c->lookRight((float)e.motion.xrel * mouse_sensitivity);
+			}
+			if (e.type == SDL_KEYDOWN) {
+				if (e.key.keysym.scancode == SDL_SCANCODE_F1)
+					glIsEnabled(GL_DEPTH_TEST) ? glDisable(GL_DEPTH_TEST) : glEnable(GL_DEPTH_TEST);
+				if (e.key.keysym.scancode == SDL_SCANCODE_F2)
+					glIsEnabled(GL_BLEND) ? glDisable(GL_BLEND) : glEnable(GL_BLEND);
+				if (e.key.keysym.scancode == SDL_SCANCODE_F3)
+					SDL_GL_SetSwapInterval(1 - SDL_GL_GetSwapInterval());
+				if(e.key.keysym.scancode == SDL_SCANCODE_F4)
+					glIsEnabled(GL_CULL_FACE) ? glDisable(GL_CULL_FACE) : glEnable(GL_CULL_FACE);
+				if (e.key.keysym.scancode == SDL_SCANCODE_F11)
+					c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), c->getPos(), c->getViewDirection());
+				if (e.key.keysym.scancode == SDL_SCANCODE_F10)
+					c = std::make_unique<SimCamera>(c->getPos(), c->getViewDirection(), c->getCameraUp());
 			}
 		}
 		Uint8 const* keyboard_state = SDL_GetKeyboardState(nullptr);
-		if (keyboard_state[SDL_SCANCODE_W]) c.moveZ(delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_S]) c.moveZ(-delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_A]) c.moveX(-delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_D]) c.moveX(delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_R]) c.moveY(delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_F]) c.moveY(-delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_E]) c.rotate(delta_time * rotation_speed);
-		if (keyboard_state[SDL_SCANCODE_Q]) c.rotate(-delta_time * rotation_speed);
+		if (keyboard_state[SDL_SCANCODE_W]) c->moveZ(delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_S]) c->moveZ(-delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_A]) c->moveX(-delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_D]) c->moveX(delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_R]) c->moveY(delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_F]) c->moveY(-delta_time * movement_speed);
+		if (keyboard_state[SDL_SCANCODE_E]) c->rotateRight(delta_time * rotation_speed);
+		if (keyboard_state[SDL_SCANCODE_Q]) c->rotateLeft(-delta_time * rotation_speed);
 
 		//rotation += 30 * (float)delta_time;
 		if (rotation > 360) rotation -= 360;
@@ -92,7 +108,7 @@ void MainLoop::loop()
 
 		// render
 		glm::mat4 projective = glm::perspective(glm::degrees(45.0f), 8.0f / 6.0f, 0.1f, 200.0f);
-		glm::mat4 view = c.createTransformMatrix();
+		glm::mat4 view = c->createTransformMatrix();
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -1.3f));
 		model = glm::rotate(model, glm::radians(rotation), glm::normalize(glm::vec3(0.6f, 0.1f, -0.2f)));
 		house.render(_program, model, view, projective);

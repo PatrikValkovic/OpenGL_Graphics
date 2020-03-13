@@ -20,7 +20,7 @@ static const float vertices[] = {
 };
 
 static const unsigned int indices[] = {
-			0, 1, 2, 2, 3, 0,
+			0, 1, 2, 0, 2, 3,
 			0, 1, 5, 0, 5, 4,
 			0, 3, 4, 3, 4, 7,
 			3, 2, 7, 7, 2, 6,

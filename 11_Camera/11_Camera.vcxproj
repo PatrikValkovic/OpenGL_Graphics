@@ -204,7 +204,9 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\libraries\Glad\glad.c" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="BaseCamera.cpp" />
+    <ClCompile Include="FlyCamera.cpp" />
+    <ClCompile Include="SimCamera.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="HouseModel.cpp" />
     <ClCompile Include="main.cpp" />
@@ -219,7 +221,9 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="BaseCamera.h" />
+    <ClInclude Include="FlyCamera.h" />
+    <ClInclude Include="SimCamera.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="HouseModel.h" />
     <ClInclude Include="MainLoop.h" />
