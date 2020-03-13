@@ -206,30 +206,44 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClCompile Include="..\libraries\Glad\glad.c" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BaseModel.cpp" />
+    <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
+    <ClCompile Include="LightModel.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="SimCamera.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
-    <ClCompile Include="HouseModel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="SDLsupport.cpp" />
     <ClCompile Include="ShaderSupport.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="learngl.frag" />
-    <None Include="learngl.vert">
+    <None Include="light.frag">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </None>
+    <None Include="light.vert">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </None>
+    <None Include="object.frag" />
+    <None Include="object.vert">
       <DeploymentContent>true</DeploymentContent>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="BaseModel.h" />
+    <ClInclude Include="CubeModel.h" />
     <ClInclude Include="FlyCamera.h" />
+    <ClInclude Include="LightModel.h" />
     <ClInclude Include="RenderableObject.h" />
     <ClInclude Include="SimCamera.h" />
     <ClInclude Include="FPSCounter.h" />
-    <ClInclude Include="HouseModel.h" />
     <ClInclude Include="MainLoop.h" />
     <ClInclude Include="RAII.h" />
     <ClInclude Include="SDLsupport.h" />

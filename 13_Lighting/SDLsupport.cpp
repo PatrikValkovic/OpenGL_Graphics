@@ -20,8 +20,6 @@ RAII<void> load_sdl(unsigned int flags, bool main_ready)
 		throw LoadException("Can't load SDL Image library");
 	}
 
-	SDL_SetRelativeMouseMode(SDL_TRUE);
-
 	return RAII<void>([]() {
 		IMG_Quit();
 		SDL_Quit();

@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\models">
+      <UniqueIdentifier>{0fbce2ca-7f4e-48de-9e6a-a02f641c4ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\models">
+      <UniqueIdentifier>{a6c5d4d5-2a12-47ba-a2d0-e0228f6cf022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\camera">
+      <UniqueIdentifier>{0ae21ffc-72e8-4ce5-a1dc-963cd0527f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\camera">
+      <UniqueIdentifier>{d8470b2b-a54a-4597-a333-a83ba0ce44e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,30 +45,39 @@
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HouseModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SimCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FlyCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RenderableObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CubeModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="LightModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyCamera.cpp">
+      <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SimCamera.cpp">
+      <Filter>Source Files\camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="learngl.vert">
+    <None Include="object.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="learngl.frag">
+    <None Include="object.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -73,26 +94,29 @@
     <ClInclude Include="MainLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RenderableObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyCamera.h">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCamera.h">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
     <ClInclude Include="FPSCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HouseModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SimCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FlyCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderableObject.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

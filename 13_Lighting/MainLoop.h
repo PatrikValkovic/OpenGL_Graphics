@@ -8,7 +8,8 @@ class MainLoop
 {
 private:
 	SDL_Window* _window;
-	RAII<GLuint> _program;
+	RAII<GLuint> _objectProgram;
+	RAII<GLuint> _lightProgram;
 public:
 	MainLoop(SDL_Window* win);
 	void compile_program();

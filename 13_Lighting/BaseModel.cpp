@@ -9,6 +9,7 @@ BaseModel::BaseModel():
 
 void BaseModel::transformations(GLuint program, glm::mat4* model, glm::mat4* view, glm::mat4* projection)
 {
+	glUseProgram(program);
 	// get sampler locations
 	static bool locationsLoaded = false;
 	static GLint _modelMatrix = -1;

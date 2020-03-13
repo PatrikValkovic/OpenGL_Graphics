@@ -7,65 +7,55 @@
 #include "ShadersSupport.h"
 #include "SDLsupport.h"
 #include "FPSCounter.h"
-#include "HouseModel.h"
+#include "CubeModel.h"
 #include "SimCamera.h"
 #include "FlyCamera.h"
 #include "RenderableObject.h"
+#include "LightModel.h"
 
 MainLoop::MainLoop(SDL_Window* win) : _window(win)
 {}
 
-void MainLoop::compile_program()
+void MainLoop::compile_program() 
 {
 	// compile shaders
-	RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "learngl.vert", GL_VERTEX_SHADER);
-	RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "learngl.frag", GL_FRAGMENT_SHADER);
+	{
+		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "object.vert", GL_VERTEX_SHADER);
+		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "object.frag", GL_FRAGMENT_SHADER);
+		// create program
+		_objectProgram = RAII<GLuint>(glDeleteProgram, glCreateProgram);
+		glAttachShader(_objectProgram, vertexShader);
+		glAttachShader(_objectProgram, fragmentShader);
+		link_program(_objectProgram);
+	}
 
-	// create program
-	_program = RAII<GLuint>(glDeleteProgram, glCreateProgram);
-	glAttachShader(_program, vertexShader);
-	glAttachShader(_program, fragmentShader);
-	link_program(_program);
+	// compile light program
+	{
+		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "light.vert", GL_VERTEX_SHADER);
+		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "light.frag", GL_FRAGMENT_SHADER);
+		_lightProgram = RAII<GLuint>(glDeleteProgram, glCreateProgram);
+		glAttachShader(_lightProgram, vertexShader);
+		glAttachShader(_lightProgram, fragmentShader);
+		link_program(_lightProgram);
+	}
 }
 
 void MainLoop::loop()
 {
-	RAIIArray<> wallTexture = load_texture("wall.jpg");
-	RAIIArray<> roofTexture = load_texture("roof.jpg");
-
-
 	// CONFIGURE
 	glClearColor(0.1f, 0.2f, 0.4f, 1.0f);
 	glClearDepth(1.0);
-	// enable blending
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// enable depth
 	glEnable(GL_DEPTH_TEST);
 
 	FPSCounter fps;
-	std::unique_ptr<BaseModel> house = std::make_unique<HouseModel>(wallTexture, roofTexture);
+	std::unique_ptr<BaseModel> cube = std::make_unique<CubeModel>();
+	std::unique_ptr<BaseModel> light = std::make_unique<LightModel>();
 	std::vector<RenderableObject> toRender{
-		RenderableObject(*house, glm::vec3(0, 0, -2), glm::vec3(1), glm::vec3(0)),
-		RenderableObject(*house, glm::vec3(1, 1, -3), glm::vec3(1), glm::vec3(0)),
-		RenderableObject(*house, glm::vec3(-4, 0, -3), glm::vec3(1.0f, 2.0f, 1.0f), glm::vec3(0)),
-		RenderableObject(*house, glm::vec3(-4, 0, -5), glm::vec3(2.0f, 1.0f, 1.0f), glm::vec3(0)),
-		RenderableObject(*house, glm::vec3(-4, 0, -8), glm::vec3(1.0f, 1.0f, 2.0f), glm::vec3(0)),
-		RenderableObject(*house, glm::vec3(-4, 0, -12), glm::vec3(1.5f, 1.5f, 1.5f), glm::vec3(0)),
-		RenderableObject(*house, glm::vec3(-7, 0, -3), glm::vec3(1), glm::vec3(0.0f, 0.0f, 0.0f)),
-		RenderableObject(*house, glm::vec3(-7, 0, -5), glm::vec3(1), glm::vec3(30.0f, 0.0f, 0.0f)),
-		RenderableObject(*house, glm::vec3(-7, 0, -7), glm::vec3(1), glm::vec3(0.0f, 30.0f, 0.0f)),
-		RenderableObject(*house, glm::vec3(-7, 0, -9), glm::vec3(1), glm::vec3(0.0f, 0.0f, 30.0f)),
-		RenderableObject(*house, glm::vec3(-7, 0, -14), glm::vec3(1), glm::vec3(30.0f, 30.0f, 0.0f)),
-		RenderableObject(*house, glm::vec3(-7, 0, -16), glm::vec3(1), glm::vec3(30.0f, 0.0f, 30.0f)),
-		RenderableObject(*house, glm::vec3(-7, 0, -18), glm::vec3(1), glm::vec3(0.0f, 30.0f, 30.0f)),
-		RenderableObject(*house, glm::vec3(-7, 0, -22), glm::vec3(1), glm::vec3(30.0f, 30.0f, 30.0f)),
-		RenderableObject(*house, glm::vec3(-10, 0, -3), glm::vec3(1), glm::vec3(90.0f, 30.0f, 0.0f)),
-		RenderableObject(*house, glm::vec3(-10, 0, -5), glm::vec3(1), glm::vec3(90.0f, 0.0f, 30.0f)),
-		RenderableObject(*house, glm::vec3(-10, 0, -8), glm::vec3(1), glm::vec3(30.0f, 90.0f, 0.0f)),
-		RenderableObject(*house, glm::vec3(-10, 0, -10), glm::vec3(1), glm::vec3(0.0f, 90.0f, 30.0f)),
-		RenderableObject(*house, glm::vec3(-10, 0, -13), glm::vec3(1), glm::vec3(30.0f, 0.0f, 90.0f)),
-		RenderableObject(*house, glm::vec3(-10, 0, -15), glm::vec3(1), glm::vec3(0.0f, 30.0f, 90.0f)),
+		RenderableObject(*cube, glm::vec3(1, 0, -3)),
+	};
+	std::vector<RenderableObject> lights{
+		RenderableObject(*light, glm::vec3(-2, 1, -5), glm::vec3(0.3f)),
 	};
 	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0));
 	float movement_speed = 2.5f;
@@ -85,7 +75,7 @@ void MainLoop::loop()
 			if (e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {
 				keep_running = false;
 			}
-			if (e.type == SDL_MOUSEMOTION) {
+			if (e.type == SDL_MOUSEMOTION && SDL_GetRelativeMouseMode() == SDL_TRUE) {
 				c->lookUp((float)e.motion.yrel * mouse_sensitivity);
 				c->lookRight((float)e.motion.xrel * mouse_sensitivity);
 			}
@@ -98,6 +88,8 @@ void MainLoop::loop()
 					SDL_GL_SetSwapInterval(1 - SDL_GL_GetSwapInterval());
 				if (e.key.keysym.scancode == SDL_SCANCODE_F4)
 					glIsEnabled(GL_CULL_FACE) ? glDisable(GL_CULL_FACE) : glEnable(GL_CULL_FACE);
+				if (e.key.keysym.scancode == SDL_SCANCODE_F5)
+					SDL_SetRelativeMouseMode(static_cast<SDL_bool>(!SDL_GetRelativeMouseMode()));
 				if (e.key.keysym.scancode == SDL_SCANCODE_F11)
 					c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), c->getPos(), c->getViewDirection());
 				if (e.key.keysym.scancode == SDL_SCANCODE_F10)
@@ -122,17 +114,21 @@ void MainLoop::loop()
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Use program
-		glUseProgram(_program);
 
 		// compute transformations
 		glm::mat4 projective = glm::perspective(glm::degrees(45.0f), 8.0f / 6.0f, 0.1f, 200.0f);
 		glm::mat4 view = c->createTransformMatrix();
-		BaseModel::transformations(_program, nullptr, &view, &projective);
 
-		// render
+		// render light
+		BaseModel::transformations(_lightProgram, nullptr, &view, &projective);
+		for (RenderableObject& obj : lights) {
+			obj.render(_lightProgram);
+		}
+
+		// render objects
+		BaseModel::transformations(_objectProgram, nullptr, &view, &projective);
 		for (RenderableObject& obj : toRender) {
-			obj.render(_program);
+			obj.render(_objectProgram);
 		}
 
 		// Swap the buffers
