@@ -31,9 +31,7 @@ static const unsigned int indices[] = {
 };
 
 HouseModel::HouseModel(GLuint wallTexture, GLuint roofTexture) :
-	_vertexArray(glDeleteVertexArrays, glGenVertexArrays),
 	_elementBuffer(glDeleteBuffers, glGenBuffers),
-	_vertexBuffer(glDeleteBuffers, glGenBuffers),
 	_wallTexture(wallTexture),
 	_roofTexture(roofTexture)
 {
@@ -67,16 +65,12 @@ HouseModel::HouseModel(GLuint wallTexture, GLuint roofTexture) :
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // unbind EBO - must be after unbind of VAO, otherwise is unbinded in VAO as well
 }
 
-void HouseModel::render(GLuint program, glm::mat4 model, glm::mat4 view, glm::mat4 projection)
+void HouseModel::render(GLuint program, glm::mat4* model, glm::mat4* view, glm::mat4* projection)
 {
-	// attach program
-	glUseProgram(program);
-
 	// get sampler locations
 	static bool locationsLoaded = false;
 	static GLint _wallSampler = -1;
 	static GLint _roofSampler = -1;
-	static GLint _transformation = -1;
 	if (!locationsLoaded) {
 		_wallSampler = glGetUniformLocation(program, "wallTexture");
 		if (_wallSampler == -1) {
@@ -86,13 +80,9 @@ void HouseModel::render(GLuint program, glm::mat4 model, glm::mat4 view, glm::ma
 		if (_roofSampler == -1) {
 			cerr << "roofTexture uniform variable not found" << endl;
 		}
-		_transformation = glGetUniformLocation(program, "transformation");
-		if (_transformation == -1) {
-			cerr << "transformation uniform variable not found" << endl;
-		}
 		locationsLoaded = true;
 	}
-	
+
 	// attach textures
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, _wallTexture);
@@ -102,17 +92,11 @@ void HouseModel::render(GLuint program, glm::mat4 model, glm::mat4 view, glm::ma
 	glUniform1i(_roofSampler, 7);
 	//glBindTexture(GL_TEXTURE_2D, 0); cant unbind because its deactivate it
 
-	// set transformations
-	glm::mat4 final_rotation = projection * view * model;
-	glUniformMatrix4fv(
-		_transformation, // location of variable to modify
-		1, // number of matrices to change (in case the uniform variable is array of matrices)
-		GL_FALSE, // whether to transpose data
-		glm::value_ptr(final_rotation)
-		);
-
-	// render
-	glBindVertexArray(_vertexArray); // bind VAO
-	glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(float), GL_UNSIGNED_INT, nullptr); // render
-	glBindVertexArray(0); // unbind VAO
+	this->_render(
+		program,
+		[]() {
+			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(float), GL_UNSIGNED_INT, nullptr); // render
+		},
+		model, view, projection
+	);
 }

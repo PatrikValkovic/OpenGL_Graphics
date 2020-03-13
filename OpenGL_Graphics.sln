@@ -25,7 +25,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_3DCube", "10_3DCube\10_3
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11_Camera", "11_Camera\11_Camera.vcxproj", "{495101C0-C577-4A78-90B3-F161EC405ED7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12_Lighting", "12_Lighting\12_Lighting.vcxproj", "{E5E279A9-5010-4781-8FF6-4C1D02299C52}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12_BetterRendering", "12_BetterRendering\12_BetterRendering.vcxproj", "{E5E279A9-5010-4781-8FF6-4C1D02299C52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
