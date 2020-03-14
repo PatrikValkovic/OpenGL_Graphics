@@ -93,6 +93,9 @@
     <ClCompile Include="BaseLight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
+    <ClCompile Include="SpecularLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="object.frag">
@@ -162,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="Renderable.h">
       <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecularLight.h">
+      <Filter>Header Files\lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

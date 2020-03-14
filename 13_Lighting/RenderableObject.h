@@ -26,6 +26,9 @@ public:
 
 	RenderableObject& moveTo(glm::vec3 where) noexcept;
 	RenderableObject& moveBy(glm::vec3 by) noexcept;
+	RenderableObject& moveX(float distance) noexcept;
+	RenderableObject& moveY(float distance) noexcept;
+	RenderableObject& moveZ(float distance) noexcept;
 	RenderableObject& scale(glm::vec3 scale) noexcept;
 	RenderableObject& scaleX(float ratio) noexcept;
 	RenderableObject& scaleY(float ratio) noexcept;

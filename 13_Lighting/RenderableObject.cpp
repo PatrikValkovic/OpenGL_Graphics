@@ -16,6 +16,21 @@ RenderableObject& RenderableObject::moveBy(glm::vec3 by) noexcept
 	return *this;
 }
 
+RenderableObject& RenderableObject::moveX(float distance) noexcept
+{
+	return this->moveBy(glm::vec3(distance, 0.0f, 0.0f));
+}
+
+RenderableObject& RenderableObject::moveY(float distance) noexcept
+{
+	return this->moveBy(glm::vec3(0.0f, distance, 0.0f));
+}
+
+RenderableObject& RenderableObject::moveZ(float distance) noexcept
+{
+	return this->moveBy(glm::vec3(0.0f, 0.0f, distance));
+}
+
 RenderableObject& RenderableObject::scale(glm::vec3 scale) noexcept
 {
 	_scale *= scale;

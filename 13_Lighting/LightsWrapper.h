@@ -4,6 +4,7 @@
 #include <vector>
 #include <glad/glad.h>
 #include "LightObject.h"
+#include "BaseCamera.h"
 
 
 class LightsWrapper
@@ -14,7 +15,7 @@ public:
 	void clear();
 	void addLight(LightObject &light);
 
-	void updateRendering(GLuint program);
+	void updateRendering(GLuint program, BaseCamera &camera);
 };
 
 #endif

@@ -221,6 +221,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="SDLsupport.cpp" />
     <ClCompile Include="ShaderSupport.cpp" />
+    <ClCompile Include="SpecularLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="light.frag">
@@ -259,6 +260,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClInclude Include="RAII.h" />
     <ClInclude Include="SDLsupport.h" />
     <ClInclude Include="ShadersSupport.h" />
+    <ClInclude Include="SpecularLight.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="roof.jpg">
