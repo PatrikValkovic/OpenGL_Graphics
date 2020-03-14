@@ -25,6 +25,18 @@
     <Filter Include="Source Files\camera">
       <UniqueIdentifier>{d8470b2b-a54a-4597-a333-a83ba0ce44e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\lighting">
+      <UniqueIdentifier>{03d54900-e3f5-4615-90bd-993a8a9d4499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lighting">
+      <UniqueIdentifier>{f99621ff-f6d4-481e-9d52-2f9a8edd26ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects">
+      <UniqueIdentifier>{301806e6-71f4-43ce-8ae7-ad0dd4344e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects">
+      <UniqueIdentifier>{18dc304c-b1ff-4170-8d29-d52402804d89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,9 +57,6 @@
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RenderableObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CubeModel.cpp">
       <Filter>Source Files\models</Filter>
     </ClCompile>
@@ -65,6 +74,24 @@
     </ClCompile>
     <ClCompile Include="SimCamera.cpp">
       <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="AmbientLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="LightsWrapper.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableModel.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLight.cpp">
+      <Filter>Source Files\lighting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +121,6 @@
     <ClInclude Include="MainLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderableObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LightModel.h">
       <Filter>Header Files\models</Filter>
     </ClInclude>
@@ -117,6 +141,27 @@
     </ClInclude>
     <ClInclude Include="SimCamera.h">
       <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="AmbientLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="LightsWrapper.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableModel.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

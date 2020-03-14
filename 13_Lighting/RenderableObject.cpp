@@ -1,20 +1,8 @@
 #include "RenderableObject.h"
-#include <gtx/transform.hpp>
-#include <gtx/euler_angles.hpp>
 
-RenderableObject::RenderableObject(BaseModel& model, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
-	: _model(model), _scale(scale), _rotate(rotate), _translate(translate)
+RenderableObject::RenderableObject(glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
+	: _scale(scale), _rotate(rotate), _translate(translate)
 {}
-
-void RenderableObject::render(GLuint program, glm::mat4 parent, glm::mat4* view, glm::mat4* projection)
-{
-	glm::mat4 my_transform = parent * glm::translate(_translate) * glm::yawPitchRoll(
-		glm::radians(_rotate.y),
-		glm::radians(_rotate.x),
-		glm::radians(_rotate.z)
-	) * glm::scale(_scale);
-	_model.render(program, &my_transform, view, projection);
-}
 
 RenderableObject& RenderableObject::moveTo(glm::vec3 where) noexcept
 {

@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <vector>
+#include <memory>
 #include <SDL_image.h>
 #include <gtc/matrix_transform.hpp>
 #include "ShadersSupport.h"
@@ -10,8 +11,10 @@
 #include "CubeModel.h"
 #include "SimCamera.h"
 #include "FlyCamera.h"
-#include "RenderableObject.h"
+#include "RenderableModel.h"
 #include "LightModel.h"
+#include "AmbientLight.h"
+#include "LightsWrapper.h"
 
 MainLoop::MainLoop(SDL_Window* win) : _window(win)
 {}
@@ -48,19 +51,24 @@ void MainLoop::loop()
 	// enable depth
 	glEnable(GL_DEPTH_TEST);
 
-	FPSCounter fps;
-	std::unique_ptr<BaseModel> cube = std::make_unique<CubeModel>();
-	std::unique_ptr<BaseModel> light = std::make_unique<LightModel>();
-	std::vector<RenderableObject> toRender{
-		RenderableObject(*cube, glm::vec3(1, 0, -3)),
-	};
-	std::vector<RenderableObject> lights{
-		RenderableObject(*light, glm::vec3(-2, 1, -5), glm::vec3(0.3f)),
-	};
-	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0));
 	float movement_speed = 2.5f;
 	float rotation_speed = 60;
 	float mouse_sensitivity = 0.4f;
+	float ambient_strength_speed = 0.2f;
+	float ambient_color_speed = 0.25f;
+
+	FPSCounter fps;
+	std::unique_ptr<BaseModel> cube = std::make_unique<CubeModel>();
+	std::unique_ptr<BaseModel> light = std::make_unique<LightModel>();
+	std::vector<std::unique_ptr<RenderableObject>> toRender;
+	toRender.push_back(std::make_unique<RenderableModel>(*cube, glm::vec3(0, 0, 0)));
+	toRender.push_back(std::make_unique<RenderableModel>(*cube, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
+	std::vector<LightObject> lights{
+		LightObject(*light, glm::vec3(1, 3, -2) * 4.0f, glm::vec3(0.3f), glm::vec3(0), glm::vec3(1), 0.7f),
+	};
+	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), glm::vec3(1, 1, 2));
+	AmbientLight ambient(0.4f);
+	LightsWrapper lights_wrapper;
 
 	// main loop
 	SDL_Event e;
@@ -105,6 +113,15 @@ void MainLoop::loop()
 		if (keyboard_state[SDL_SCANCODE_F]) c->moveY(-delta_time * movement_speed);
 		if (keyboard_state[SDL_SCANCODE_E]) c->rotateRight(delta_time * rotation_speed);
 		if (keyboard_state[SDL_SCANCODE_Q]) c->rotateLeft(-delta_time * rotation_speed);
+		if (keyboard_state[SDL_SCANCODE_PAGEUP]) ambient.updateStrength(delta_time * ambient_strength_speed);
+		if (keyboard_state[SDL_SCANCODE_PAGEDOWN]) ambient.updateStrength(-delta_time * ambient_strength_speed);
+		if (keyboard_state[SDL_SCANCODE_T]) ambient.updateRed(delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_G]) ambient.updateGreen(delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_B]) ambient.updateBlue(delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_Y]) ambient.updateRed(-delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_H]) ambient.updateGreen(-delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_N]) ambient.updateBlue(-delta_time * ambient_color_speed);
+
 
 		// Set up viewport
 		int w, h;
@@ -120,15 +137,19 @@ void MainLoop::loop()
 		glm::mat4 view = c->createTransformMatrix();
 
 		// render light
+		lights_wrapper.clear();
 		BaseModel::transformations(_lightProgram, nullptr, &view, &projective);
-		for (RenderableObject& obj : lights) {
+		for (LightObject& obj : lights) {
 			obj.render(_lightProgram);
+			lights_wrapper.addLight(obj);
 		}
 
 		// render objects
+		ambient.use(_objectProgram);
+		lights_wrapper.updateRendering(_objectProgram);
 		BaseModel::transformations(_objectProgram, nullptr, &view, &projective);
-		for (RenderableObject& obj : toRender) {
-			obj.render(_objectProgram);
+		for (auto &obj : toRender) {
+			obj->render(_objectProgram);
 		}
 
 		// Swap the buffers

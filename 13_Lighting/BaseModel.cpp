@@ -9,27 +9,23 @@ BaseModel::BaseModel():
 
 void BaseModel::transformations(GLuint program, glm::mat4* model, glm::mat4* view, glm::mat4* projection)
 {
+	using namespace std;
 	glUseProgram(program);
 	// get sampler locations
-	static bool locationsLoaded = false;
-	static GLint _modelMatrix = -1;
-	static GLint _viewMatrix = -1;
-	static GLint _projectionMatrix = -1;
-	if (!locationsLoaded) {
-		using namespace std;
-		_modelMatrix = glGetUniformLocation(program, "model");
-		if (_modelMatrix == -1) {
-			cerr << "model uniform variable not found" << endl;
-		}
-		_viewMatrix = glGetUniformLocation(program, "view");
-		if (_viewMatrix == -1) {
-			cerr << "view uniform variable not found" << endl;
-		}
-		_projectionMatrix = glGetUniformLocation(program, "projection");
-		if (_projectionMatrix == -1) {
-			cerr << "projection uniform variable not found" << endl;
-		}
-		locationsLoaded = true;
+	GLint _modelMatrix = -1;
+	GLint _viewMatrix = -1;
+	GLint _projectionMatrix = -1;
+	_modelMatrix = glGetUniformLocation(program, "model");
+	if (_modelMatrix == -1) {
+		cerr << "model uniform variable not found" << endl;
+	}
+	_viewMatrix = glGetUniformLocation(program, "view");
+	if (_viewMatrix == -1) {
+		cerr << "view uniform variable not found" << endl;
+	}
+	_projectionMatrix = glGetUniformLocation(program, "projection");
+	if (_projectionMatrix == -1) {
+		cerr << "projection uniform variable not found" << endl;
 	}
 
 	// fill matrices

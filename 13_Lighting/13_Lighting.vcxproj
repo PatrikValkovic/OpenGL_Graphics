@@ -204,11 +204,16 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\libraries\Glad\glad.c" />
+    <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
+    <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="BaseModel.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="LightModel.cpp" />
+    <ClCompile Include="LightObject.cpp" />
+    <ClCompile Include="LightsWrapper.cpp" />
+    <ClCompile Include="RenderableModel.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="SimCamera.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
@@ -236,11 +241,17 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="BaseCamera.h" />
+    <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BaseModel.h" />
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="FlyCamera.h" />
     <ClInclude Include="LightModel.h" />
+    <ClInclude Include="LightObject.h" />
+    <ClInclude Include="LightsWrapper.h" />
+    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="RenderableModel.h" />
     <ClInclude Include="RenderableObject.h" />
     <ClInclude Include="SimCamera.h" />
     <ClInclude Include="FPSCounter.h" />

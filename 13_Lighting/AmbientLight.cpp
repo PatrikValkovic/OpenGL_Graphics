@@ -1,0 +1,31 @@
+#include "AmbientLight.h"
+#include <iostream>
+
+
+AmbientLight::AmbientLight(float strength, glm::vec3 color)
+	: BaseLight(strength, color)
+{}
+
+void AmbientLight::use(GLuint program) const
+{
+	glUseProgram(program);
+	// set strength
+	GLint ambientStrengthLocation = glGetUniformLocation(program, "ambient_strength");
+	if (ambientStrengthLocation == -1) {
+		std::cerr << "ambient_strength was not found" << std::endl;
+	}
+	glUniform1f(ambientStrengthLocation, _lightStrength);
+	
+	// set color
+	GLint ambientColorLocation = glGetUniformLocation(program, "ambient_color");
+	if (ambientColorLocation == -1) {
+		std::cerr << "ambient_color was not found" << std::endl;
+	}
+	glUniform3f(ambientColorLocation, _lightColor.r, _lightColor.g, _lightColor.b);
+}
+
+void AmbientLight::printInfo() const noexcept
+{
+	using namespace std;
+	std::cout << "Ambient: strength(" << _lightStrength << ") color(" << _lightColor.r << "," << _lightColor.g << "," << _lightColor.b << ")" << endl;
+}

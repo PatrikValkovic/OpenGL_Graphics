@@ -2,37 +2,37 @@
 
 
 static const float vertices[] = {
-	// positions
+	// positions			// normals
 	//front
-	-1.0f, -1.0f,  1.0f,
-	 1.0f, -1.0f,  1.0f,
-	 1.0f,  1.0f,  1.0f,
-	-1.0f,  1.0f,  1.0f,
+	-1.0f, -1.0f,  1.0f,	 0.0f,  0.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f,	 0.0f,  0.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,	 0.0f,  0.0f,  1.0f,
+	-1.0f,  1.0f,  1.0f,	 0.0f,  0.0f,  1.0f,
 	//bottom
-	-1.0f, -1.0f,  1.0f,
-	-1.0f, -1.0f, -1.0f,
-	 1.0f, -1.0f, -1.0f,
-	 1.0f, -1.0f,  1.0f,
+	-1.0f, -1.0f,  1.0f,	 0.0f, -1.0f,  0.0f,
+	-1.0f, -1.0f, -1.0f,	 0.0f, -1.0f,  0.0f,
+	 1.0f, -1.0f, -1.0f,	 0.0f, -1.0f,  0.0f,
+	 1.0f, -1.0f,  1.0f,	 0.0f, -1.0f,  0.0f,
 	//left
-	-1.0f, -1.0f,  1.0f,
-	-1.0f,  1.0f,  1.0f,
-	-1.0f,  1.0f, -1.0f,
-	-1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f,  1.0f,	-1.0f,  0.0f,  0.0f,
+	-1.0f,  1.0f,  1.0f,	-1.0f,  0.0f,  0.0f,
+	-1.0f,  1.0f, -1.0f,	-1.0f,  0.0f,  0.0f,
+	-1.0f, -1.0f, -1.0f,	-1.0f,  0.0f,  0.0f,
 	//right
-	 1.0f, -1.0f,  1.0f,
-	 1.0f, -1.0f, -1.0f,
-	 1.0f,  1.0f, -1.0f,
-	 1.0f,  1.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f,	 1.0f,  0.0f,  0.0f,
+	 1.0f, -1.0f, -1.0f,	 1.0f,  0.0f,  0.0f,
+	 1.0f,  1.0f, -1.0f,	 1.0f,  0.0f,  0.0f,
+	 1.0f,  1.0f,  1.0f,	 1.0f,  0.0f,  0.0f,
 	//back
-	 1.0f, -1.0f, -1.0f,
-	-1.0f, -1.0f, -1.0f,
-	-1.0f,  1.0f, -1.0f,
-	 1.0f,  1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,	 0.0f,  0.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,	 0.0f,  0.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,	 0.0f,  0.0f, -1.0f,
+	 1.0f,  1.0f, -1.0f,	 0.0f,  0.0f, -1.0f,
 	//top
-	-1.0f,  1.0f,  1.0f,
-	 1.0f,  1.0f,  1.0f,
-	 1.0f,  1.0f, -1.0f,
-	-1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f,  1.0f,	 0.0f,  1.0f,  0.0f,
+	 1.0f,  1.0f,  1.0f,	 0.0f,  1.0f,  0.0f,
+	 1.0f,  1.0f, -1.0f,	 0.0f,  1.0f,  0.0f,
+	-1.0f,  1.0f, -1.0f,	 0.0f,  1.0f,  0.0f,
 };
 
 static const unsigned int indices[] = {
@@ -57,8 +57,10 @@ CubeModel::CubeModel() :
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// setup position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), reinterpret_cast<void*>(0));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<void*>(0));
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<void*>(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
 	// unbind
 	glBindVertexArray(0);
