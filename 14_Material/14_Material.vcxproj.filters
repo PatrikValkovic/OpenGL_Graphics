@@ -43,6 +43,12 @@
     <Filter Include="Source Files\base">
       <UniqueIdentifier>{2f1815cf-4aa2-475a-a898-898e305c7e91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\materials">
+      <UniqueIdentifier>{91f1e079-631c-4716-a3e2-f34c4ff760ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\materials">
+      <UniqueIdentifier>{a721863b-0f54-49f7-bf50-dca1501b2f2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,6 +113,18 @@
     </ClCompile>
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="ComposeRenderable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialRenderable.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials.cpp">
+      <Filter>Source Files\materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +204,18 @@
     </ClInclude>
     <ClInclude Include="SpotLight.h">
       <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="ComposeRenderable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialRenderable.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\materials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
