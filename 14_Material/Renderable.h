@@ -14,7 +14,7 @@ public:
 	Renderable& operator=(Renderable&&) = default;
 	virtual ~Renderable() = default;
 
-	virtual void render(GLuint program, glm::mat4* model = nullptr, glm::mat4* view = nullptr, glm::mat4* projection = nullptr) = 0;
+	virtual void render(GLuint program) = 0;
 };
 
 #endif

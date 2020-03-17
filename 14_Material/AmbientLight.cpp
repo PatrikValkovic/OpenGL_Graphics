@@ -21,11 +21,11 @@ void AmbientLight::use(GLuint program) const
 	if (ambientColorLocation == -1) {
 		std::cerr << "ambient_color was not found" << std::endl;
 	}
-	glUniform3f(ambientColorLocation, _lightColor.r, _lightColor.g, _lightColor.b);
+	glUniform3f(ambientColorLocation, _color.r, _color.g, _color.b);
 }
 
 void AmbientLight::printInfo() const noexcept
 {
 	using namespace std;
-	std::cout << "Ambient: strength(" << _lightStrength << ") color(" << _lightColor.r << "," << _lightColor.g << "," << _lightColor.b << ")" << endl;
+	std::cout << "Ambient: strength(" << _lightStrength << ") color(" << _color.r << "," << _color.g << "," << _color.b << ")" << endl;
 }

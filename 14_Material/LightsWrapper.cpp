@@ -1,4 +1,5 @@
 #include "LightsWrapper.h"
+#include <iostream>
 
 void LightsWrapper::clear()
 {
@@ -12,19 +13,45 @@ void LightsWrapper::addLight(LightObject &light)
 
 void LightsWrapper::updateRendering(GLuint program, BaseCamera& camera)
 {
+
+	using namespace std;
+
+	glm::vec3 pos = _lights[0]->getPosition();
+	glm::vec3 color = _lights[0]->getLight().getColor();
+	float light_distance = _lights[0]->getLight().getDistance();
+	float strength = _lights[0]->getLight().getStrength();
+	glm::vec3 camera_dir = camera.getViewDirection();
+
 	glUseProgram(program);
 
-	glm::vec3 camera_dir = camera.getViewDirection();
-	glm::vec3 pos = _lights[0]->getPosition();
-	glm::vec3 color = _lights[0]->getColor();
-	float strength = _lights[0]->getStrength();
-	float specular = _lights[0]->getSpecularStrength();
-	unsigned int reflectness = _lights[0]->getReflectness();
+	GLint position_loc = glGetUniformLocation(program, "light.position");
+	if (position_loc == -1) {
+		cerr << "light.position uniform variable not found" << endl;
+	}
+	glUniform3f(position_loc, pos.x, pos.y, pos.z);
 
-	glUniform3f(glGetUniformLocation(program, "light_pos"), pos.x, pos.y, pos.z);
-	glUniform3f(glGetUniformLocation(program, "light_color"), color.x, color.y, color.z);
-	glUniform3f(glGetUniformLocation(program, "camera_view_direction"), camera_dir.x, camera_dir.y, camera_dir.z);
-	glUniform1f(glGetUniformLocation(program, "light_strength"), strength);
-	glUniform1f(glGetUniformLocation(program, "ligh_specular_strength"), specular);
-	glUniform1ui(glGetUniformLocation(program, "ligh_reflectness"), reflectness);
+	GLint color_loc = glGetUniformLocation(program, "light.color");
+	if (color_loc == -1) {
+		cerr << "light.color uniform variable not found" << endl;
+	}
+	glUniform3f(color_loc, color.x, color.y, color.z);
+
+	GLint distance_loc = glGetUniformLocation(program, "light.distanceCoeficient");
+	if (distance_loc == -1) {
+		cerr << "light.distanceCoeficient uniform variable not found" << endl;
+	}
+	glUniform1f(distance_loc, light_distance);
+
+	GLint strength_loc = glGetUniformLocation(program, "light.strength");
+	if (strength_loc == -1) {
+		cerr << "light.strength uniform variable not found" << endl;
+	}
+	glUniform1f(strength_loc, strength);
+
+	GLint camera_view_direction_log = glGetUniformLocation(program, "camera_view_direction");
+	if (camera_view_direction_log == -1) {
+		cerr << "camera_view_direction uniform variable not found" << endl;
+	}
+	glUniform3f(camera_view_direction_log, camera_dir.x, camera_dir.y, camera_dir.z);
+
 }

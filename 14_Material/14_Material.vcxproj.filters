@@ -37,6 +37,12 @@
     <Filter Include="Header Files\objects">
       <UniqueIdentifier>{18dc304c-b1ff-4170-8d29-d52402804d89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\base">
+      <UniqueIdentifier>{2e59b1b8-2f8a-4581-8cf4-4f34b1454465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\base">
+      <UniqueIdentifier>{2f1815cf-4aa2-475a-a898-898e305c7e91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,13 +93,19 @@
     <ClCompile Include="LightObject.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
-    <ClCompile Include="RenderableModel.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="BaseLight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
-    <ClCompile Include="SpecularLight.cpp">
+    <ClCompile Include="Transformable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="Positionable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="Colorable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
   </ItemGroup>
@@ -160,13 +172,19 @@
     <ClInclude Include="BaseLight.h">
       <Filter>Header Files\lighting</Filter>
     </ClInclude>
-    <ClInclude Include="RenderableModel.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
     <ClInclude Include="Renderable.h">
-      <Filter>Header Files\objects</Filter>
+      <Filter>Header Files\base</Filter>
     </ClInclude>
-    <ClInclude Include="SpecularLight.h">
+    <ClInclude Include="Transformable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Positionable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Colorable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
       <Filter>Header Files\lighting</Filter>
     </ClInclude>
   </ItemGroup>

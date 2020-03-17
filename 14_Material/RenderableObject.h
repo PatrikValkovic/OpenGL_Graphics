@@ -3,16 +3,16 @@
 
 #include <glm.hpp>
 #include "Renderable.h"
+#include "Transformable.h"
 
 
-class RenderableObject : public Renderable
+class RenderableObject : public Renderable, public Transformable
 {
 protected:
-	glm::vec3 _scale;
-	glm::vec3 _rotate;
-	glm::vec3 _translate;
+	Renderable* _renderable;
 public:
 	RenderableObject(
+		Renderable* renderable,
 		glm::vec3 translate = glm::vec3(0.0f),
 		glm::vec3 scale = glm::vec3(1.0f),
 		glm::vec3 rotate = glm::vec3(0.0f)
@@ -24,24 +24,10 @@ public:
 	RenderableObject& operator=(RenderableObject&&) = default;
 	virtual ~RenderableObject() = default;
 
-	RenderableObject& moveTo(glm::vec3 where) noexcept;
-	RenderableObject& moveBy(glm::vec3 by) noexcept;
-	RenderableObject& moveX(float distance) noexcept;
-	RenderableObject& moveY(float distance) noexcept;
-	RenderableObject& moveZ(float distance) noexcept;
-	RenderableObject& scale(glm::vec3 scale) noexcept;
-	RenderableObject& scaleX(float ratio) noexcept;
-	RenderableObject& scaleY(float ratio) noexcept;
-	RenderableObject& scaleZ(float ratio) noexcept;
-	RenderableObject& rotate(glm::vec3 rotation) noexcept;
-	RenderableObject& rotateAroundX(float degree) noexcept;
-	RenderableObject& rotateAroundY(float degree) noexcept;
-	RenderableObject& rotateAroundZ(float degree) noexcept;
+	virtual void render(GLuint program, glm::mat4 model, glm::mat4* view = nullptr, glm::mat4* projection = nullptr);
+	virtual void render(GLuint program) override;
 
-
-	inline glm::vec3 getPosition() const noexcept {
-		return _translate;
-	}
+	static void transformations(GLuint program, glm::mat4* model = nullptr, glm::mat4* view = nullptr, glm::mat4* projection = nullptr);
 };
 
 #endif

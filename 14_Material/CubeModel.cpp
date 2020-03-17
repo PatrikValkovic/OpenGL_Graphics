@@ -68,13 +68,12 @@ CubeModel::CubeModel() :
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void CubeModel::render(GLuint program, glm::mat4* model, glm::mat4* view, glm::mat4* projection)
+void CubeModel::render(GLuint program)
 {
 	this->_render(
 		program,
 		[]() {
 			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(unsigned int), GL_UNSIGNED_INT, nullptr);
-		},
-		model, view, projection
+		}
 	);
 }

@@ -9,7 +9,7 @@ private:
 	RAIIArray<> _elementBuffer;
 public:
 	CubeModel();
-	virtual void render(GLuint program, glm::mat4* model = nullptr, glm::mat4* view = nullptr, glm::mat4* projection = nullptr) override;
+	virtual void render(GLuint program) override;
 };
 
 

@@ -208,12 +208,13 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="BaseModel.cpp" />
+    <ClCompile Include="Colorable.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="LightModel.cpp" />
     <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="LightsWrapper.cpp" />
-    <ClCompile Include="RenderableModel.cpp" />
+    <ClCompile Include="Positionable.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="SimCamera.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
@@ -221,7 +222,8 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="SDLsupport.cpp" />
     <ClCompile Include="ShaderSupport.cpp" />
-    <ClCompile Include="SpecularLight.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="Transformable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="light.frag">
@@ -246,13 +248,14 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BaseModel.h" />
+    <ClInclude Include="Colorable.h" />
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="FlyCamera.h" />
     <ClInclude Include="LightModel.h" />
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="LightsWrapper.h" />
+    <ClInclude Include="Positionable.h" />
     <ClInclude Include="Renderable.h" />
-    <ClInclude Include="RenderableModel.h" />
     <ClInclude Include="RenderableObject.h" />
     <ClInclude Include="SimCamera.h" />
     <ClInclude Include="FPSCounter.h" />
@@ -260,7 +263,8 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClInclude Include="RAII.h" />
     <ClInclude Include="SDLsupport.h" />
     <ClInclude Include="ShadersSupport.h" />
-    <ClInclude Include="SpecularLight.h" />
+    <ClInclude Include="SpotLight.h" />
+    <ClInclude Include="Transformable.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="roof.jpg">

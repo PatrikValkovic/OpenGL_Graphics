@@ -13,18 +13,10 @@ class BaseModel : public Renderable
 protected:
 	RAIIArray<> _vertexBuffer;
 	RAIIArray<> _vertexArray;
-	void _render(
-		GLuint program,
-		std::function<void()> render,
-		glm::mat4* model = nullptr,
-		glm::mat4* view = nullptr, 
-		glm::mat4* projection = nullptr
-	);
+	void _render(GLuint program, std::function<void()> render);
 public:
 	BaseModel();
 	virtual ~BaseModel() = default;
-
-	static void transformations(GLuint program, glm::mat4* model = nullptr, glm::mat4* view = nullptr, glm::mat4* projection = nullptr);
 };
 
 #endif

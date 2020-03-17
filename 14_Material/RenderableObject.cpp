@@ -1,80 +1,65 @@
 #include "RenderableObject.h"
+#include <iostream>
+#include <gtx/transform.hpp>
+#include <gtx/euler_angles.hpp>
+#include <gtc/type_ptr.hpp>
 
-RenderableObject::RenderableObject(glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
-	: _scale(scale), _rotate(rotate), _translate(translate)
+RenderableObject::RenderableObject(Renderable* renderable, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
+	: Transformable(translate, scale, rotate), _renderable(renderable)
 {}
 
-RenderableObject& RenderableObject::moveTo(glm::vec3 where) noexcept
+void RenderableObject::render(GLuint program)
 {
-	_translate = where;
-	return *this;
+	this->render(program, glm::mat4(1.0f), nullptr, nullptr);
 }
 
-RenderableObject& RenderableObject::moveBy(glm::vec3 by) noexcept
+void RenderableObject::render(GLuint program, glm::mat4 model, glm::mat4* view, glm::mat4* projection)
 {
-	_translate += by;
-	return *this;
+	if (this->_renderable == nullptr)
+		return;
+
+	glm::mat4 my_transform = model * glm::translate(_position) * glm::yawPitchRoll(
+		glm::radians(_rotate.y),
+		glm::radians(_rotate.x),
+		glm::radians(_rotate.z)
+	) * glm::scale(_scale);
+
+	RenderableObject::transformations(program, &my_transform, view, projection);
+
+	_renderable->render(program);
 }
 
-RenderableObject& RenderableObject::moveX(float distance) noexcept
+void RenderableObject::transformations(GLuint program, glm::mat4* model, glm::mat4* view, glm::mat4* projection)
 {
-	return this->moveBy(glm::vec3(distance, 0.0f, 0.0f));
-}
+	using namespace std;
+	glUseProgram(program);
+	// get sampler locations
+	GLint _modelMatrix = -1;
+	GLint _viewMatrix = -1;
+	GLint _projectionMatrix = -1;
+	_modelMatrix = glGetUniformLocation(program, "model");
+	if (_modelMatrix == -1) {
+		cerr << "model uniform variable not found" << endl;
+	}
+	_viewMatrix = glGetUniformLocation(program, "view");
+	if (_viewMatrix == -1) {
+		cerr << "view uniform variable not found" << endl;
+	}
+	_projectionMatrix = glGetUniformLocation(program, "projection");
+	if (_projectionMatrix == -1) {
+		cerr << "projection uniform variable not found" << endl;
+	}
 
-RenderableObject& RenderableObject::moveY(float distance) noexcept
-{
-	return this->moveBy(glm::vec3(0.0f, distance, 0.0f));
+	// fill matrices
+	if (model != nullptr)
+		glUniformMatrix4fv(
+			_modelMatrix, // location of variable to modify
+			1, // number of matrices to change (in case the uniform variable is array of matrices)
+			GL_FALSE, // whether to transpose data
+			glm::value_ptr(*model) // value to store
+		);
+	if (view != nullptr)
+		glUniformMatrix4fv(_viewMatrix, 1, GL_FALSE, glm::value_ptr(*view));
+	if (projection != nullptr)
+		glUniformMatrix4fv(_projectionMatrix, 1, GL_FALSE, glm::value_ptr(*projection));
 }
-
-RenderableObject& RenderableObject::moveZ(float distance) noexcept
-{
-	return this->moveBy(glm::vec3(0.0f, 0.0f, distance));
-}
-
-RenderableObject& RenderableObject::scale(glm::vec3 scale) noexcept
-{
-	_scale *= scale;
-	return *this;
-}
-
-RenderableObject& RenderableObject::scaleX(float ratio) noexcept
-{
-	this->scale(glm::vec3(ratio, 1.0f, 1.0f));
-	return *this;
-}
-
-RenderableObject& RenderableObject::scaleY(float ratio) noexcept
-{
-	this->scale(glm::vec3(1.0, ratio, 1.0f));
-	return *this;
-}
-
-RenderableObject& RenderableObject::scaleZ(float ratio) noexcept
-{
-	this->scale(glm::vec3(1.0, ratio, 1.0f));
-	return *this;
-}
-
-RenderableObject& RenderableObject::rotate(glm::vec3 rotation) noexcept
-{
-	return *this;
-}
-
-RenderableObject& RenderableObject::rotateAroundX(float degree) noexcept
-{
-	this->rotate(glm::vec3(degree, 0.0f, 0.0f));
-	return *this;
-}
-
-RenderableObject& RenderableObject::rotateAroundY(float degree) noexcept
-{
-	this->rotate(glm::vec3(0.0f, degree, 0.0f));
-	return *this;
-}
-
-RenderableObject& RenderableObject::rotateAroundZ(float degree) noexcept
-{
-	this->rotate(glm::vec3(0.0f, 0.0f, degree));
-	return *this;
-}
-
