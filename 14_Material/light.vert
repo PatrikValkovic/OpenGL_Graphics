@@ -6,6 +6,7 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+
 void main(){
 	// create transformation matrix
 	mat4 transformation = projection * view * model;

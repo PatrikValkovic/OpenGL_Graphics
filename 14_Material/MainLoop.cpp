@@ -161,12 +161,17 @@ void MainLoop::loop()
 		glm::mat4 projective = glm::perspective(glm::radians(45.0f), (float)w / (float)h, 0.1f, 200.0f);
 		glm::mat4 view = c->createTransformMatrix();
 
-		// render light
+		// update lighting
 		lights_wrapper.clear();
+		for (LightObject& obj : lights) {
+			lights_wrapper.addLight(obj);
+		}
+
+		// render light cube
+		lights_wrapper.updateRendering(_lightProgram, *c);
 		RenderableObject::transformations(_lightProgram, nullptr, &view, &projective);
 		for (LightObject& obj : lights) {
 			obj.render(_lightProgram);
-			lights_wrapper.addLight(obj);
 		}
 
 		// render objects
