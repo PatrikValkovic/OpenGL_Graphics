@@ -11,12 +11,12 @@
 #include "CubeModel.h"
 #include "SimCamera.h"
 #include "FlyCamera.h"
-#include "RenderableObject.h"
 #include "LightModel.h"
 #include "AmbientLight.h"
 #include "LightsWrapper.h"
 #include "Materials.h"
 #include "MaterialRenderable.h"
+#include "TextureRenderable.h"
 
 MainLoop::MainLoop(SDL_Window* win) : _window(win)
 {}
@@ -61,23 +61,26 @@ void MainLoop::loop()
 
 	FPSCounter fps;
 	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), glm::vec3(1, 1, 2));
-	std::unique_ptr<BaseModel> cube = std::make_unique<CubeModel>();
-	std::unique_ptr<BaseModel> light_model = std::make_unique<LightModel>();
+	CubeModel cube_model;
+	LightModel light_model;
 	SpotLight spot_light(1.0f, 200.0f);
+	Texture texture_diffuse = Texture::fromFile("container.png");
+	Texture texture_specular = Texture::fromFile("container_specular.png");
+	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
+	TextureRenderable texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
 
 	std::vector<std::unique_ptr<RenderableObject>> toRender;
-	std::unique_ptr<MaterialRenderable> first_cube_with_material = std::make_unique<MaterialRenderable>(*cube, MATERIALS::emerald);
-	std::unique_ptr<MaterialRenderable> second_cube_with_material = std::make_unique<MaterialRenderable>(*cube, MATERIALS::gold);
-	std::unique_ptr<MaterialRenderable> floor_cube_with_material = std::make_unique<MaterialRenderable>(*cube, MATERIALS::obsidian);
+	std::unique_ptr<MaterialRenderable> first_cube_with_material = std::make_unique<MaterialRenderable>(texturedCube, MATERIALS::emerald);
+	std::unique_ptr<MaterialRenderable> second_cube_with_material = std::make_unique<MaterialRenderable>(texturedCube, MATERIALS::gold);
+	std::unique_ptr<MaterialRenderable> floor_cube_with_material = std::make_unique<MaterialRenderable>(texturedCube, MATERIALS::obsidian);
 	toRender.push_back(std::make_unique<RenderableObject>(floor_cube_with_material.get(), glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
 	toRender.push_back(std::make_unique<RenderableObject>(first_cube_with_material.get(), glm::vec3(0, 0, 0)));
 	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material.get(), glm::vec3(0, 0, 8)));
 
 	std::vector<LightObject> lights {
-		LightObject(spot_light, light_model.get())
+		LightObject(spot_light, &light_model)
 	};
-	lights[0].setPosition(glm::vec3(1.5f, 2.0f, -3.f));
-	lights[0].setScale(glm::vec3(0.2f));
+	lights[0].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.f));
 	AmbientLight ambient(0.25f);
 	LightsWrapper lights_wrapper;
 
@@ -169,7 +172,7 @@ void MainLoop::loop()
 		}
 
 		// render light cube
-		lights_wrapper.updateRendering(_lightProgram, *c);
+		lights_wrapper.updateRendering(_lightProgram, *c, false);
 		RenderableObject::transformations(_lightProgram, nullptr, &view, &projective);
 		for (LightObject& obj : lights) {
 			obj.render(_lightProgram);
