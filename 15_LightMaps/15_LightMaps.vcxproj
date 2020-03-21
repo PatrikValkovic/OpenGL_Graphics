@@ -226,7 +226,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="SDLsupport.cpp" />
     <ClCompile Include="ShaderSupport.cpp" />
-    <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureRenderable.cpp" />
     <ClCompile Include="Transformable.cpp" />
@@ -273,7 +273,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClInclude Include="RAII.h" />
     <ClInclude Include="SDLsupport.h" />
     <ClInclude Include="ShadersSupport.h" />
-    <ClInclude Include="SpotLight.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureRenderable.h" />
     <ClInclude Include="TextureSlots.h" />

@@ -117,9 +117,6 @@
     <ClCompile Include="Colorable.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
-    <ClCompile Include="SpotLight.cpp">
-      <Filter>Source Files\lighting</Filter>
-    </ClCompile>
     <ClCompile Include="ComposeRenderable.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
@@ -137,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="TextureRenderable.cpp">
       <Filter>Source Files\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Source Files\lighting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,9 +214,6 @@
     <ClInclude Include="Colorable.h">
       <Filter>Header Files\base</Filter>
     </ClInclude>
-    <ClInclude Include="SpotLight.h">
-      <Filter>Header Files\lighting</Filter>
-    </ClInclude>
     <ClInclude Include="ComposeRenderable.h">
       <Filter>Header Files\base</Filter>
     </ClInclude>
@@ -237,6 +234,9 @@
     </ClInclude>
     <ClInclude Include="TextureRenderable.h">
       <Filter>Header Files\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Header Files\lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

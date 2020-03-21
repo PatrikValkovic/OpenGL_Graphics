@@ -63,22 +63,22 @@ void MainLoop::loop()
 	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), glm::vec3(1, 1, 2));
 	CubeModel cube_model;
 	LightModel light_model;
-	SpotLight spot_light(1.0f, 200.0f);
+	PointLight point_light(1.0f, 200.0f);
 	Texture texture_diffuse = Texture::fromFile("container.png");
 	Texture texture_specular = Texture::fromFile("container_specular.png");
 	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
 	TextureRenderable texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
 
 	std::vector<std::unique_ptr<RenderableObject>> toRender;
-	std::unique_ptr<MaterialRenderable> first_cube_with_material = std::make_unique<MaterialRenderable>(texturedCube, MATERIALS::emerald);
-	std::unique_ptr<MaterialRenderable> second_cube_with_material = std::make_unique<MaterialRenderable>(texturedCube, MATERIALS::gold);
-	std::unique_ptr<MaterialRenderable> floor_cube_with_material = std::make_unique<MaterialRenderable>(texturedCube, MATERIALS::obsidian);
-	toRender.push_back(std::make_unique<RenderableObject>(floor_cube_with_material.get(), glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
-	toRender.push_back(std::make_unique<RenderableObject>(first_cube_with_material.get(), glm::vec3(0, 0, 0)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material.get(), glm::vec3(0, 0, 8)));
+	MaterialRenderable first_cube_with_material(texturedCube, MATERIALS::emerald);
+	MaterialRenderable second_cube_with_material(texturedCube, MATERIALS::gold);
+	MaterialRenderable floor_cube_with_material(texturedCube, MATERIALS::obsidian);
+	toRender.push_back(std::make_unique<RenderableObject>(floor_cube_with_material, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
+	toRender.push_back(std::make_unique<RenderableObject>(first_cube_with_material, glm::vec3(0, 0, 0)));
+	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(0, 0, 8)));
 
 	std::vector<LightObject> lights {
-		LightObject(spot_light, &light_model)
+		LightObject(point_light, light_model)
 	};
 	lights[0].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.f));
 	AmbientLight ambient(0.25f);
@@ -135,16 +135,16 @@ void MainLoop::loop()
 		if (keyboard_state[SDL_SCANCODE_Y]) ambient.updateRed(-delta_time * ambient_color_speed);
 		if (keyboard_state[SDL_SCANCODE_H]) ambient.updateGreen(-delta_time * ambient_color_speed);
 		if (keyboard_state[SDL_SCANCODE_N]) ambient.updateBlue(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_1]) spot_light.updateRed(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_4]) spot_light.updateRed(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_2]) spot_light.updateGreen(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_5]) spot_light.updateGreen(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_3]) spot_light.updateBlue(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_6]) spot_light.updateBlue(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_7]) spot_light.updateStrength(delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_8]) spot_light.updateStrength(-delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_9]) spot_light.updateDistance(delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_0]) spot_light.updateDistance(-delta_time * ambient_strength_speed);
+		if (keyboard_state[SDL_SCANCODE_1]) point_light.updateRed(delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_4]) point_light.updateRed(-delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_2]) point_light.updateGreen(delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_5]) point_light.updateGreen(-delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_3]) point_light.updateBlue(delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_6]) point_light.updateBlue(-delta_time * ambient_color_speed);
+		if (keyboard_state[SDL_SCANCODE_7]) point_light.updateStrength(delta_time * ambient_strength_speed);
+		if (keyboard_state[SDL_SCANCODE_8]) point_light.updateStrength(-delta_time * ambient_strength_speed);
+		if (keyboard_state[SDL_SCANCODE_9]) point_light.updateDistance(delta_time * ambient_strength_speed);
+		if (keyboard_state[SDL_SCANCODE_0]) point_light.updateDistance(-delta_time * ambient_strength_speed);
 		if (keyboard_state[SDL_SCANCODE_I]) lights[0].moveZ(delta_time * movement_speed);
 		if (keyboard_state[SDL_SCANCODE_K]) lights[0].moveZ(-delta_time * movement_speed);
 		if (keyboard_state[SDL_SCANCODE_J]) lights[0].moveX(-delta_time * movement_speed);

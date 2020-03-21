@@ -1,5 +1,5 @@
 #include "ComposeRenderable.h"
 
-ComposeRenderable::ComposeRenderable(Renderable& inner)
+ComposeRenderable::ComposeRenderable(const Renderable& inner)
 	: _inner(inner)
 {}

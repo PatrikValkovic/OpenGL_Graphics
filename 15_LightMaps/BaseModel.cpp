@@ -7,7 +7,7 @@ BaseModel::BaseModel():
 	_vertexArray(glDeleteVertexArrays, glGenVertexArrays)
 {}
 
-void BaseModel::_render(GLuint program, std::function<void()> render)
+void BaseModel::_render(GLuint program, std::function<void()> render) const
 {
 	// attach program
 	glUseProgram(program);

@@ -13,7 +13,7 @@ class BaseModel : public Renderable
 protected:
 	RAIIArray<> _vertexBuffer;
 	RAIIArray<> _vertexArray;
-	void _render(GLuint program, std::function<void()> render);
+	void _render(GLuint program, std::function<void()> render) const;
 public:
 	BaseModel();
 	virtual ~BaseModel() = default;

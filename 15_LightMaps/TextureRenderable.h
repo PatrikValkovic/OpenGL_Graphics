@@ -14,9 +14,9 @@ private:
 	TextureSlots _slot;
 	std::string _variable;
 public:
-	TextureRenderable(Renderable& inner, GLuint texture, TextureSlots slot, std::string uniform_variable);
+	TextureRenderable(const Renderable& inner, GLuint texture, TextureSlots slot, std::string uniform_variable);
 
-	virtual void render(GLuint program) override;
+	virtual void render(GLuint program) const override;
 
 };
 

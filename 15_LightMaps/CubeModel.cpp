@@ -70,7 +70,7 @@ CubeModel::CubeModel() :
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void CubeModel::render(GLuint program)
+void CubeModel::render(GLuint program) const
 {
 	this->_render(
 		program,

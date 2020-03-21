@@ -6,8 +6,8 @@
 class ComposeRenderable : public Renderable
 {
 protected:
-	Renderable& _inner;
-	ComposeRenderable(Renderable& inner);
+	const Renderable& _inner;
+	ComposeRenderable(const Renderable& inner);
 public:
 	ComposeRenderable(const ComposeRenderable&) = default;
 	ComposeRenderable(ComposeRenderable&&) = default;

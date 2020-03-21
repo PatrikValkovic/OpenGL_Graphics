@@ -2,26 +2,20 @@
 #define __LIGHT_OBJECT_H__
 
 
-#include "SpotLight.h"
+#include "PointLight.h"
 #include "RenderableObject.h"
 
 class LightObject : public RenderableObject
 {
 private:
-	SpotLight& _light;
+	const PointLight& _light;
 public:
-	LightObject(
-		SpotLight& light,
-		Renderable* model = nullptr
-	);
+	LightObject(const PointLight& light);
+	LightObject(const PointLight& light, const Renderable& inner);
 
-	virtual void render(GLuint program) override;
+	virtual void render(GLuint program) const override;
 
-	inline SpotLight& getLight() noexcept {
-		return _light;
-	}
-
-	inline const SpotLight& getLight() const noexcept {
+	inline const PointLight& getLight() const noexcept {
 		return _light;
 	}
 };

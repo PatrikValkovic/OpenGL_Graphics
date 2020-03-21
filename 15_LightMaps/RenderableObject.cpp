@@ -4,16 +4,21 @@
 #include <gtx/euler_angles.hpp>
 #include <gtc/type_ptr.hpp>
 
-RenderableObject::RenderableObject(Renderable* renderable, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
-	: Transformable(translate, scale, rotate), _renderable(renderable)
+RenderableObject::RenderableObject(glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
+	: Transformable(translate, scale, rotate), _renderable(nullptr)
 {}
 
-void RenderableObject::render(GLuint program)
+
+RenderableObject::RenderableObject(const Renderable &renderable, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
+	: Transformable(translate, scale, rotate), _renderable(&renderable)
+{}
+
+void RenderableObject::render(GLuint program) const
 {
 	this->render(program, glm::mat4(1.0f), nullptr, nullptr);
 }
 
-void RenderableObject::render(GLuint program, glm::mat4 model, glm::mat4* view, glm::mat4* projection)
+void RenderableObject::render(GLuint program, glm::mat4 model, glm::mat4* view, glm::mat4* projection) const
 {
 	if (this->_renderable == nullptr)
 		return;

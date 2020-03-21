@@ -65,7 +65,7 @@ LightModel::LightModel() :
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void LightModel::render(GLuint program)
+void LightModel::render(GLuint program) const
 {
 	this->_render(
 		program,

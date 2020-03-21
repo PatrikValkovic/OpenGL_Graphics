@@ -9,7 +9,7 @@ class MaterialRenderable : public ComposeRenderable
 protected:
 	Material _material;
 public:
-	MaterialRenderable(Renderable& inner, const Material& material);
+	MaterialRenderable(const Renderable& inner, const Material& material);
 
 	MaterialRenderable(const MaterialRenderable&) = default;
 	MaterialRenderable(MaterialRenderable&&) = default;
@@ -17,7 +17,7 @@ public:
 	MaterialRenderable& operator=(MaterialRenderable&&) = default;
 	virtual ~MaterialRenderable() = default;
 
-	virtual void render(GLuint program) override;
+	virtual void render(GLuint program) const override;
 
 	inline MaterialRenderable& setMaterial(const Material& m) noexcept {
 		_material = m;

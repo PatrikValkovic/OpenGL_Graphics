@@ -9,7 +9,7 @@ private:
 	RAIIArray<> _elementBuffer;
 public:
 	CubeModel();
-	virtual void render(GLuint program) override;
+	virtual void render(GLuint program) const override;
 };
 
 

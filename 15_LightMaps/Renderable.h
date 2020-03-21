@@ -14,7 +14,7 @@ public:
 	Renderable& operator=(Renderable&&) = default;
 	virtual ~Renderable() = default;
 
-	virtual void render(GLuint program) = 0;
+	virtual void render(GLuint program) const = 0;
 };
 
 #endif
