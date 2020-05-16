@@ -17,6 +17,7 @@
 #include "Materials.h"
 #include "MaterialRenderable.h"
 #include "TextureRenderable.h"
+#include "PointLight.h"
 
 MainLoop::MainLoop(SDL_Window* win) : _window(win)
 {}
@@ -56,8 +57,6 @@ void MainLoop::loop()
 	float movement_speed = 2.5f;
 	float rotation_speed = 60;
 	float mouse_sensitivity = 0.4f;
-	float ambient_strength_speed = 0.2f;
-	float ambient_color_speed = 0.25f;
 
 	FPSCounter fps;
 	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), glm::vec3(1, 1, 2));
@@ -127,30 +126,6 @@ void MainLoop::loop()
 		if (keyboard_state[SDL_SCANCODE_F]) c->moveY(-delta_time * movement_speed);
 		if (keyboard_state[SDL_SCANCODE_E]) c->rotateRight(delta_time * rotation_speed);
 		if (keyboard_state[SDL_SCANCODE_Q]) c->rotateLeft(-delta_time * rotation_speed);
-		if (keyboard_state[SDL_SCANCODE_PAGEUP]) ambient.updateStrength(delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_PAGEDOWN]) ambient.updateStrength(-delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_T]) ambient.updateRed(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_G]) ambient.updateGreen(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_B]) ambient.updateBlue(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_Y]) ambient.updateRed(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_H]) ambient.updateGreen(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_N]) ambient.updateBlue(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_1]) point_light.updateRed(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_4]) point_light.updateRed(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_2]) point_light.updateGreen(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_5]) point_light.updateGreen(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_3]) point_light.updateBlue(delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_6]) point_light.updateBlue(-delta_time * ambient_color_speed);
-		if (keyboard_state[SDL_SCANCODE_7]) point_light.updateStrength(delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_8]) point_light.updateStrength(-delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_9]) point_light.updateDistance(delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_0]) point_light.updateDistance(-delta_time * ambient_strength_speed);
-		if (keyboard_state[SDL_SCANCODE_I]) lights[0].moveZ(delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_K]) lights[0].moveZ(-delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_J]) lights[0].moveX(-delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_L]) lights[0].moveX(delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_O]) lights[0].moveY(delta_time * movement_speed);
-		if (keyboard_state[SDL_SCANCODE_U]) lights[0].moveY(-delta_time * movement_speed);
 
 		// Set up viewport
 		int w, h;

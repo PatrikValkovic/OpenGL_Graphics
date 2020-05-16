@@ -2,11 +2,12 @@
 
 out vec4 color;
 
-struct SpotLight {
+struct LightDefinition {
+	uint type;
 	vec3 position;
+	vec3 direction;
 	vec3 color;
-	float distanceCoeficient;
-	float strength;
+	float parameters[8];
 };
 
 struct Material {
@@ -24,7 +25,7 @@ in vec2 TextureCoord;
 uniform float ambient_strength;
 uniform vec3 ambient_color;
 
-uniform SpotLight light;
+uniform LightDefinition light;
 uniform vec3 camera_view_direction;
 uniform Material material;
 
@@ -35,23 +36,26 @@ uniform sampler2D specular_texture;
 
 void main() {
 	
+	float distanceCoeficient = light.parameters[0];
+	float lightStrength = light.parameters[1];
+
 	// get colors from textures
 	vec3 objectColor = vec3(texture(diffuse_texture, TextureCoord));
 	vec3 specularStrength = vec3(texture(specular_texture, TextureCoord));
 
-	// distance between fragment and light
-	vec3 fragmentLight = light.position - FragmentPosition;
-	float dist = length(fragmentLight);
-	float distanceReduction = max(0.0f, (light.distanceCoeficient - dist) / light.distanceCoeficient);
-
 	// ambient light
 	vec3 ambient = ambient_color * ambient_strength * objectColor;
 	
+	// distance between fragment and light
+	vec3 fragmentLight = light.position - FragmentPosition;
+	float dist = length(fragmentLight);
+	float distanceReduction = max(0.0f, (distanceCoeficient - dist) / distanceCoeficient);
+
 	// diffuse
 	vec3 norm = normalize(Normal);
 	vec3 lightDirection = normalize(fragmentLight);
 	float diffuseStrength = max(dot(norm, lightDirection), 0.0f);
-	vec3 diffuse = diffuseStrength * light.strength * light.color * distanceReduction * objectColor;
+	vec3 diffuse = diffuseStrength * lightStrength * light.color * distanceReduction * objectColor;
 	
 	// specular
 	vec3 viewDir = normalize(camera_view_direction);
@@ -60,7 +64,7 @@ void main() {
 	float spec = pow(viewReflectAngle, material.shininess);
 	//vec3 specular_self = light.strength * distanceReduction * spec * objectColor * material.specular_self;
 	//vec3 specular_light = light.strength * distanceReduction * spec * light.color * material.specular_light;
-	vec3 specular = light.strength * distanceReduction * spec * objectColor * specularStrength;
+	vec3 specular = lightStrength * distanceReduction * spec * objectColor * specularStrength;
 	
 
 	color = vec4(ambient + diffuse + specular, 1.0f);

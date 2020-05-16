@@ -27,6 +27,12 @@ public:
 	inline void updateStrength(float amount) noexcept {
 		this->setStrength(this->getStrength() + amount);
 	}
+
+	virtual unsigned int getType() const noexcept = 0;
+
+	virtual glm::vec3 getDirection() const noexcept;
+
+	virtual int getParameters(float parameters[8]) const noexcept;
 };
 
 #endif

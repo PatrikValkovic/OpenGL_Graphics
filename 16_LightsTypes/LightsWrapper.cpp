@@ -1,5 +1,6 @@
 #include "LightsWrapper.h"
 #include <iostream>
+#include <sstream>
 
 void LightsWrapper::clear()
 {
@@ -16,13 +17,20 @@ void LightsWrapper::updateRendering(GLuint program, BaseCamera& camera, bool ver
 
 	using namespace std;
 
+	unsigned int lighttype = _lights[0]->getLight().getType();
 	glm::vec3 pos = _lights[0]->getPosition();
 	glm::vec3 color = _lights[0]->getLight().getColor();
-	float light_distance = _lights[0]->getLight().getDistance();
-	float strength = _lights[0]->getLight().getStrength();
+	float parameters[8];
+	int num_of_params = _lights[0]->getLight().getParameters(parameters);
 	glm::vec3 camera_dir = camera.getViewDirection();
 
 	glUseProgram(program);
+
+	GLint type_loc = glGetUniformLocation(program, "light.type");
+	if (type_loc == -1 && verbose) {
+		cerr << "light.type uniform variable not found" << endl;
+	}
+	glUniform1ui(type_loc, lighttype);
 
 	GLint position_loc = glGetUniformLocation(program, "light.position");
 	if (position_loc == -1 && verbose) {
@@ -36,17 +44,15 @@ void LightsWrapper::updateRendering(GLuint program, BaseCamera& camera, bool ver
 	}
 	glUniform3f(color_loc, color.x, color.y, color.z);
 
-	GLint distance_loc = glGetUniformLocation(program, "light.distanceCoeficient");
-	if (distance_loc == -1 && verbose) {
-		cerr << "light.distanceCoeficient uniform variable not found" << endl;
+	for (int i = 0; i < num_of_params; i++) {
+		std::stringstream str;
+		str << "light.parameters[" << i << "]";
+		GLint color_loc = glGetUniformLocation(program, str.str().c_str());
+		if (color_loc == -1 && verbose) {
+			cerr << str.str() << " uniform variable not found" << endl;
+		}
+		glUniform1f(color_loc, parameters[i]);
 	}
-	glUniform1f(distance_loc, light_distance);
-
-	GLint strength_loc = glGetUniformLocation(program, "light.strength");
-	if (strength_loc == -1 && verbose) {
-		cerr << "light.strength uniform variable not found" << endl;
-	}
-	glUniform1f(strength_loc, strength);
 
 	GLint camera_view_direction_log = glGetUniformLocation(program, "camera_view_direction");
 	if (camera_view_direction_log == -1 && verbose) {

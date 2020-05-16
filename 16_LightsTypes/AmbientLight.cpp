@@ -29,3 +29,8 @@ void AmbientLight::printInfo() const noexcept
 	using namespace std;
 	std::cout << "Ambient: strength(" << _lightStrength << ") color(" << _color.r << "," << _color.g << "," << _color.b << ")" << endl;
 }
+
+unsigned int AmbientLight::getType() const noexcept
+{
+	return 0;
+}

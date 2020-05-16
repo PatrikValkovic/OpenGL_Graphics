@@ -2,11 +2,11 @@
 
 
 
-LightObject::LightObject(const PointLight& light)
+LightObject::LightObject(const BaseLight& light)
 	: RenderableObject(), _light(light)
 {}
 
-LightObject::LightObject(const PointLight& light, const Renderable& inner)
+LightObject::LightObject(const BaseLight& light, const Renderable& inner)
 	: RenderableObject(inner), _light(light)
 {}
 

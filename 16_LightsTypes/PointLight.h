@@ -25,6 +25,10 @@ public:
 	inline PointLight& updateDistance(float step) noexcept {
 		return this->setDistance(this->getDistance() + step);
 	}
+
+	virtual unsigned int getType() const noexcept;
+
+	virtual int getParameters(float parameters[8]) const noexcept;
 };
 
 #endif
