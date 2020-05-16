@@ -64,9 +64,9 @@ void MainLoop::loop()
 	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), glm::vec3(1, 1, 2));
 	CubeModel cube_model;
 	LightModel light_model;
-	PointLight point_light(glm::vec3(1.0, 0.14, 0.07), 2.0f);
 	Spotlight spot_light(5.0f, 10.0f, glm::vec3(-1, -1, 4));
-	DirectionalLight direction_light(glm::vec3(1.0, -5.0, -2.0), glm::vec3(1.0, 1.0, 1.0), 0.7f);
+	PointLight point_light(glm::vec3(1.0, 0.14, 0.07), 2.0f);
+	DirectionalLight direction_light(glm::vec3(1.0, -5.0, -2.0), glm::vec3(1.0, 1.0, 1.0), 2.0f);
 	Texture texture_diffuse = Texture::fromFile("container.png");
 	Texture texture_specular = Texture::fromFile("container_specular.png");
 	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
@@ -93,7 +93,7 @@ void MainLoop::loop()
 	};
 	lights[0].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.0f));
 	lights[1].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-7.0f, 1.0f, 5.0f));
-	AmbientLight ambient(0.1f);
+	AmbientLight ambient(0.25f);
 	LightsWrapper lights_wrapper;
 
 	// main loop

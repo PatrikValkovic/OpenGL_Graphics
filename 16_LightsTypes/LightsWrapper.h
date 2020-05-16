@@ -11,7 +11,9 @@ class LightsWrapper
 {
 private:
 	std::vector<LightObject*> _lights;
+	GLuint _ssbo;
 public:
+	LightsWrapper();
 	void clear();
 	void addLight(LightObject &light);
 
