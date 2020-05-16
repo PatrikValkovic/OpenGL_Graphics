@@ -18,16 +18,21 @@ void RenderableObject::render(GLuint program) const
 	this->render(program, glm::mat4(1.0f), nullptr, nullptr);
 }
 
+glm::mat4 RenderableObject::transformMatrix() const noexcept
+{
+	return glm::translate(_position) * glm::yawPitchRoll(
+		glm::radians(_rotate.y),
+		glm::radians(_rotate.x),
+		glm::radians(_rotate.z)
+	) * glm::scale(_scale);
+}
+
 void RenderableObject::render(GLuint program, glm::mat4 model, glm::mat4* view, glm::mat4* projection) const
 {
 	if (this->_renderable == nullptr)
 		return;
 
-	glm::mat4 my_transform = model * glm::translate(_position) * glm::yawPitchRoll(
-		glm::radians(_rotate.y),
-		glm::radians(_rotate.x),
-		glm::radians(_rotate.z)
-	) * glm::scale(_scale);
+	glm::mat4 my_transform = model * this->transformMatrix();
 
 	RenderableObject::transformations(program, &my_transform, view, projection);
 

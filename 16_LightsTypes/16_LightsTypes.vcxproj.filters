@@ -138,6 +138,15 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Spotlight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AttenuatibleLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="object.frag">
@@ -238,6 +247,15 @@
     <ClInclude Include="PointLight.h">
       <Filter>Header Files\lighting</Filter>
     </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Spotlight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="AttenuatibleLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="container.png">
@@ -246,5 +264,10 @@
     <Image Include="container_specular.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="light_types.txt">
+      <Filter>Header Files\lighting</Filter>
+    </Text>
   </ItemGroup>
 </Project>

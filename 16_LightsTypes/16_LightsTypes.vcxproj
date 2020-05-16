@@ -205,12 +205,14 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
   <ItemGroup>
     <ClCompile Include="..\libraries\Glad\glad.c" />
     <ClCompile Include="AmbientLight.cpp" />
+    <ClCompile Include="AttenuatibleLight.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="BaseModel.cpp" />
     <ClCompile Include="Colorable.cpp" />
     <ClCompile Include="ComposeRenderable.cpp" />
     <ClCompile Include="CubeModel.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="LightModel.cpp" />
     <ClCompile Include="LightObject.cpp" />
@@ -227,6 +229,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClCompile Include="SDLsupport.cpp" />
     <ClCompile Include="ShaderSupport.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureRenderable.cpp" />
     <ClCompile Include="Transformable.cpp" />
@@ -251,12 +254,14 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmbientLight.h" />
+    <ClInclude Include="AttenuatibleLight.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BaseModel.h" />
     <ClInclude Include="Colorable.h" />
     <ClInclude Include="ComposeRenderable.h" />
     <ClInclude Include="CubeModel.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="FlyCamera.h" />
     <ClInclude Include="LightModel.h" />
     <ClInclude Include="LightObject.h" />
@@ -274,6 +279,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <ClInclude Include="SDLsupport.h" />
     <ClInclude Include="ShadersSupport.h" />
     <ClInclude Include="PointLight.h" />
+    <ClInclude Include="Spotlight.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureRenderable.h" />
     <ClInclude Include="TextureSlots.h" />
@@ -296,6 +302,9 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="light_types.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

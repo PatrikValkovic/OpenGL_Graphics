@@ -18,6 +18,8 @@
 #include "MaterialRenderable.h"
 #include "TextureRenderable.h"
 #include "PointLight.h"
+#include "DirectionalLight.h"
+#include "Spotlight.h"
 
 MainLoop::MainLoop(SDL_Window* win) : _window(win)
 {}
@@ -62,7 +64,9 @@ void MainLoop::loop()
 	std::unique_ptr<BaseCamera> c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), glm::vec3(1, 1, 2));
 	CubeModel cube_model;
 	LightModel light_model;
-	PointLight point_light(1.0f, 200.0f);
+	PointLight point_light(glm::vec3(1.0, 0.14, 0.07), 2.0f);
+	Spotlight spot_light(5.0f, 10.0f, glm::vec3(-1, -1, 4));
+	DirectionalLight direction_light(glm::vec3(1.0, -5.0, -2.0), glm::vec3(1.0, 1.0, 1.0), 0.4f);
 	Texture texture_diffuse = Texture::fromFile("container.png");
 	Texture texture_specular = Texture::fromFile("container_specular.png");
 	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
@@ -75,12 +79,21 @@ void MainLoop::loop()
 	toRender.push_back(std::make_unique<RenderableObject>(floor_cube_with_material, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
 	toRender.push_back(std::make_unique<RenderableObject>(first_cube_with_material, glm::vec3(0, 0, 0)));
 	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(0, 0, 8)));
+	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-9, 5, 9)));
+	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-7, 4, 5)));
+	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-5, 2, 2)));
+	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(7, 6, 7)));
+	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-7, 3, -2)));
+	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-9, 1, -4)));
 
 	std::vector<LightObject> lights {
-		LightObject(point_light, light_model)
+		LightObject(spot_light, light_model),
+		LightObject(point_light, light_model),
+		LightObject(direction_light),
 	};
-	lights[0].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.f));
-	AmbientLight ambient(0.25f);
+	lights[0].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.0f));
+	lights[1].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-7.0f, 1.0f, 5.0f));
+	AmbientLight ambient(0.1f);
 	LightsWrapper lights_wrapper;
 
 	// main loop

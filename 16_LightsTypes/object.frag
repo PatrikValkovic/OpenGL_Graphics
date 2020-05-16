@@ -35,10 +35,6 @@ uniform sampler2D specular_texture;
 
 
 void main() {
-	
-	float distanceCoeficient = light.parameters[0];
-	float lightStrength = light.parameters[1];
-
 	// get colors from textures
 	vec3 objectColor = vec3(texture(diffuse_texture, TextureCoord));
 	vec3 specularStrength = vec3(texture(specular_texture, TextureCoord));
@@ -46,26 +42,88 @@ void main() {
 	// ambient light
 	vec3 ambient = ambient_color * ambient_strength * objectColor;
 	
-	// distance between fragment and light
-	vec3 fragmentLight = light.position - FragmentPosition;
-	float dist = length(fragmentLight);
-	float distanceReduction = max(0.0f, (distanceCoeficient - dist) / distanceCoeficient);
+	// light
+	vec3 light_color = vec3(0.0);
+	if(light.type == 1){ // point light
+		float lightStrength = light.parameters[0];
+		float constant_att = light.parameters[1];
+		float linear_att = light.parameters[2];
+		float quadratic_att = light.parameters[3];
 
-	// diffuse
-	vec3 norm = normalize(Normal);
-	vec3 lightDirection = normalize(fragmentLight);
-	float diffuseStrength = max(dot(norm, lightDirection), 0.0f);
-	vec3 diffuse = diffuseStrength * lightStrength * light.color * distanceReduction * objectColor;
-	
-	// specular
-	vec3 viewDir = normalize(camera_view_direction);
-	vec3 reflectDir = reflect(-lightDirection, norm);
-	float viewReflectAngle = max(dot(-viewDir, reflectDir), 0.0f);
-	float spec = pow(viewReflectAngle, material.shininess);
-	//vec3 specular_self = light.strength * distanceReduction * spec * objectColor * material.specular_self;
-	//vec3 specular_light = light.strength * distanceReduction * spec * light.color * material.specular_light;
-	vec3 specular = lightStrength * distanceReduction * spec * objectColor * specularStrength;
-	
+		// distance between fragment and light
+		vec3 fragmentLight = light.position - FragmentPosition;
+		float dist = length(fragmentLight);
+		float distanceReduction = 1.0 / (constant_att + linear_att * dist + quadratic_att * dist * dist);
 
-	color = vec4(ambient + diffuse + specular, 1.0f);
+		// diffuse
+		vec3 norm = normalize(Normal);
+		vec3 lightDirection = normalize(fragmentLight);
+		float diffuseStrength = max(dot(norm, lightDirection), 0.0f);
+		vec3 diffuse = diffuseStrength * light.color;
+	
+		// specular
+		vec3 viewDir = normalize(camera_view_direction);
+		vec3 reflectDir = reflect(-lightDirection, norm);
+		float viewReflectAngle = max(dot(-viewDir, reflectDir), 0.0f);
+		float spec = pow(viewReflectAngle, material.shininess);
+		//vec3 specular_self = light.strength * distanceReduction * spec * objectColor * material.specular_self;
+		//vec3 specular_light = light.strength * distanceReduction * spec * light.color * material.specular_light;
+		vec3 specular = spec * specularStrength;
+
+		light_color = (diffuse + specular) * distanceReduction * objectColor * lightStrength;
+	}
+	if(light.type == 2){ // directional light
+		float lightStrength = light.parameters[0];
+
+		// diffuse
+		vec3 norm = normalize(Normal);
+		vec3 lightDirection = normalize(-light.direction);
+		float diffuseStrength = max(dot(norm, lightDirection), 0.0f);
+		vec3 diffuse = diffuseStrength * light.color;
+
+		// specular
+		vec3 viewDir = normalize(camera_view_direction);
+		vec3 reflectDir = reflect(-lightDirection, norm);
+		float viewReflectAngle = max(dot(-viewDir, reflectDir), 0.0f);
+		float spec = pow(viewReflectAngle, material.shininess);
+		vec3 specular = spec * specularStrength;
+
+		light_color = (diffuse + specular) * objectColor * lightStrength;
+	}
+	if(light.type == 3){ // spotlight
+		float lightStrength = light.parameters[0];
+		float innerCutoff_angle = light.parameters[1];
+		float outerCutoff_angle = light.parameters[2];
+		float constant_att = light.parameters[3];
+		float linear_att = light.parameters[4];
+		float quadratic_att = light.parameters[5];
+		float innerCutoff = cos(radians(innerCutoff_angle));
+		float outerCutoff = cos(radians(outerCutoff_angle));
+
+		// spotlight effect
+		vec3 norm = normalize(Normal);
+		vec3 lightDirection = normalize(-light.direction);
+		vec3 fragmentLight = light.position - FragmentPosition;
+		float dist = length(fragmentLight);
+		float between = dot(normalize(fragmentLight), lightDirection);
+
+		float intensity = clamp((between - outerCutoff) / (innerCutoff - outerCutoff), 0.0, 1.0);
+		float attenuation = 1.0 / (constant_att + linear_att * dist + quadratic_att * dist * dist);
+
+		// diffuse 
+        float diffuseStrength = max(dot(norm, fragmentLight), 0.0);
+        vec3 diffuse = diffuseStrength * light.color;
+		
+		// specular
+		vec3 viewDir = normalize(camera_view_direction);
+		vec3 reflectDir = reflect(-lightDirection, norm);
+		float viewReflectAngle = max(dot(-viewDir, reflectDir), 0.0f);
+		float spec = pow(viewReflectAngle, material.shininess);
+		vec3 specular = spec * specularStrength;
+
+		light_color = (diffuse + specular) * objectColor * lightStrength * intensity * attenuation;
+	}
+	
+	
+	color = vec4(ambient + light_color, 1.0f);
 }

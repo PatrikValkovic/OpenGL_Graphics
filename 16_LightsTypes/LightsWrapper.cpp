@@ -1,6 +1,7 @@
 #include "LightsWrapper.h"
 #include <iostream>
 #include <sstream>
+#include <gtx/euler_angles.hpp>
 
 void LightsWrapper::clear()
 {
@@ -20,6 +21,10 @@ void LightsWrapper::updateRendering(GLuint program, BaseCamera& camera, bool ver
 	unsigned int lighttype = _lights[0]->getLight().getType();
 	glm::vec3 pos = _lights[0]->getPosition();
 	glm::vec3 color = _lights[0]->getLight().getColor();
+	glm::mat4 transform_matrix = _lights[0]->transformMatrix();
+	glm::vec4 direction = glm::vec4(_lights[0]->getLight().getDirection(), 0.0);
+	glm::vec4 new_direction = transform_matrix * direction;
+	glm::vec3 real_direction = glm::vec3(new_direction);
 	float parameters[8];
 	int num_of_params = _lights[0]->getLight().getParameters(parameters);
 	glm::vec3 camera_dir = camera.getViewDirection();
@@ -38,6 +43,12 @@ void LightsWrapper::updateRendering(GLuint program, BaseCamera& camera, bool ver
 	}
 	glUniform3f(position_loc, pos.x, pos.y, pos.z);
 
+	GLint direction_loc = glGetUniformLocation(program, "light.direction");
+	if (direction_loc == -1 && verbose) {
+		cerr << "light.direction uniform variable not found" << endl;
+	}
+	glUniform3f(direction_loc, real_direction.x, real_direction.y, real_direction.z);
+
 	GLint color_loc = glGetUniformLocation(program, "light.color");
 	if (color_loc == -1 && verbose) {
 		cerr << "light.color uniform variable not found" << endl;
@@ -54,10 +65,10 @@ void LightsWrapper::updateRendering(GLuint program, BaseCamera& camera, bool ver
 		glUniform1f(color_loc, parameters[i]);
 	}
 
-	GLint camera_view_direction_log = glGetUniformLocation(program, "camera_view_direction");
-	if (camera_view_direction_log == -1 && verbose) {
+	GLint camera_view_direction_pos = glGetUniformLocation(program, "camera_view_direction");
+	if (camera_view_direction_pos == -1 && verbose) {
 		cerr << "camera_view_direction uniform variable not found" << endl;
 	}
-	glUniform3f(camera_view_direction_log, camera_dir.x, camera_dir.y, camera_dir.z);
+	glUniform3f(camera_view_direction_pos, camera_dir.x, camera_dir.y, camera_dir.z);
 
 }

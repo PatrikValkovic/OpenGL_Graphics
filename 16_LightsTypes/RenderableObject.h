@@ -32,6 +32,8 @@ public:
 
 	virtual void render(GLuint program, glm::mat4 model, glm::mat4* view = nullptr, glm::mat4* projection = nullptr) const;
 	virtual void render(GLuint program) const override;
+	
+	glm::mat4 transformMatrix() const noexcept;
 
 	static void transformations(GLuint program, glm::mat4* model = nullptr, glm::mat4* view = nullptr, glm::mat4* projection = nullptr);
 };
