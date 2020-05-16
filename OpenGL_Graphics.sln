@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14_Material", "14_Material\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15_LightMaps", "15_LightMaps\15_LightMaps.vcxproj", "{090D29C6-98E1-4099-9FD0-34220A74D148}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "16_LightsTypes", "16_LightsTypes\16_LightsTypes.vcxproj", "{A95A0946-DC66-49B0-BB42-AF069957C39A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -161,6 +163,14 @@ Global
 		{090D29C6-98E1-4099-9FD0-34220A74D148}.Release|x64.Build.0 = Release|x64
 		{090D29C6-98E1-4099-9FD0-34220A74D148}.Release|x86.ActiveCfg = Release|Win32
 		{090D29C6-98E1-4099-9FD0-34220A74D148}.Release|x86.Build.0 = Release|Win32
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Debug|x64.ActiveCfg = Debug|x64
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Debug|x64.Build.0 = Debug|x64
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Debug|x86.ActiveCfg = Debug|Win32
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Debug|x86.Build.0 = Debug|Win32
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Release|x64.ActiveCfg = Release|x64
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Release|x64.Build.0 = Release|x64
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Release|x86.ActiveCfg = Release|Win32
+		{A95A0946-DC66-49B0-BB42-AF069957C39A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
