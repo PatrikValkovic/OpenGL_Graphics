@@ -76,23 +76,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(SolutionDir)libraries\assimp-5.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(SolutionDir)libraries\assimp-5.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(SolutionDir)libraries\assimp-5.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\SDL\include;$(SolutionDir)libraries\Glad\include;$(SolutionDir)libraries\SDL_image\include;$(SolutionDir)libraries\glm;$(SolutionDir)libraries\assimp-5.0.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\SDL\lib\$(PlatformTarget);$(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget);$(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -107,7 +107,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;zlibstatic.lib;IrrXML.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath);
@@ -116,7 +116,8 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libpng16-16.dll $(O
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libtiff-5.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libwebp-7.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\SDL2_image.dll $(OutputPath);
-copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);</Command>
+copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);
+copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -132,7 +133,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;zlibstatic.lib;IrrXML.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath);
@@ -141,7 +142,8 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libpng16-16.dll $(O
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libtiff-5.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libwebp-7.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\SDL2_image.dll $(OutputPath);
-copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);</Command>
+copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);
+copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -161,7 +163,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;zlibstatic.lib;IrrXML.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath);
@@ -170,7 +172,8 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libpng16-16.dll $(O
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libtiff-5.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libwebp-7.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\SDL2_image.dll $(OutputPath);
-copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);</Command>
+copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);
+copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -190,7 +193,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;zlibstatic.lib;IrrXML.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)libraries\SDL\lib\$(PlatformTarget)\SDL2.dll $(OutputPath);
@@ -199,7 +202,8 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libpng16-16.dll $(O
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libtiff-5.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\libwebp-7.dll $(OutputPath);
 copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\SDL2_image.dll $(OutputPath);
-copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);</Command>
+copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputPath);
+copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

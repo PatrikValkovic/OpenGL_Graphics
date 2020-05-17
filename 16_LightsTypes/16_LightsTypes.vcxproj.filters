@@ -141,10 +141,10 @@
     <ClCompile Include="DirectionalLight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
-    <ClCompile Include="Spotlight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AttenuatibleLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Spotlight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <SDL_image.h>
+#include <assimp/version.h>
 
 RAII<void> load_sdl(unsigned int flags, bool main_ready)
 {
@@ -50,10 +51,12 @@ RAII<SDL_GLContext> create_context(SDL_Window* window)
 	}
 	RAII<SDL_GLContext> contextRaii(SDL_GL_DeleteContext, context);
 
-	// laod extensions
+	// load extensions
 	if (!gladLoadGL()) {
 		throw LoadException("Can't load OpenGL extension by glad");
 	}
+
+	std::cout << "Using Assimp version: " << aiGetVersionMajor() << "." << aiGetVersionMinor() << std::endl;
 
 	// vsync
 	SDL_GL_SetSwapInterval(0); // set 0 to disable vsync
