@@ -5,15 +5,17 @@
 #include <glad/glad.h>
 #include "LightObject.h"
 #include "BaseCamera.h"
+#include "RAII.h"
 
 
 class LightsWrapper
 {
 private:
 	std::vector<LightObject*> _lights;
-	GLuint _ssbo;
+	RAIIArray<> _ssbo;
 public:
 	LightsWrapper();
+	~LightsWrapper() = default;
 	void clear();
 	void addLight(LightObject &light);
 

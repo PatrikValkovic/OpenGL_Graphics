@@ -1,14 +1,13 @@
 #version 440 core
-#define MAX_LIGHTS 20
 
 out vec4 color;
 
 struct LightDefinition {
-	vec3 position;
-	vec3 direction;
-	vec3 color;
-	uint type;
 	float parameters[8];
+	vec4 position;
+	vec4 direction;
+	vec4 color;
+	uint type;
 };
 
 struct Material {
@@ -26,8 +25,6 @@ in vec2 TextureCoord;
 uniform float ambient_strength;
 uniform vec3 ambient_color;
 
-uniform uint n_lights;
-uniform LightDefinition lights[MAX_LIGHTS];
 uniform vec3 camera_view_direction;
 uniform Material material;
 
@@ -35,7 +32,7 @@ uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
 
 layout (std430, binding=3) buffer LightsBuffer {
-	LightDefinition blights[];
+	LightDefinition lights[];
 };
 
 vec3 compute_point_light(LightDefinition light, vec3 fragmentColor, vec3 specularStrength);
@@ -52,20 +49,18 @@ void main() {
 	vec3 ambient = ambient_color * ambient_strength * objectColor;
 	vec3 tmpcolor = ambient;
 	
-	for(int i=0;i< blights.length();i++){
-		// light
-		LightDefinition light = blights[i];
+	for(int i=0;i<lights.length();i++)
+	{
 		vec3 light_influence;
-
-		switch(light.type){
+		switch(lights[i].type){
 			case 1:
-				light_influence = compute_point_light(light, objectColor, specularStrength);
+				light_influence = compute_point_light(lights[i], objectColor, specularStrength);
 				break;
 			case 2:
-				light_influence = compute_direction_light(light, objectColor, specularStrength);
+				light_influence = compute_direction_light(lights[i], objectColor, specularStrength);
 				break;
 			case 3:
-				light_influence = compute_spot_light(light, objectColor, specularStrength);
+				light_influence = compute_spot_light(lights[i], objectColor, specularStrength);
 				break;
 			default:
 				light_influence = vec3(0.9, 0.156, 0.8125);
@@ -87,7 +82,7 @@ vec3 compute_point_light(LightDefinition light, vec3 fragmentColor, vec3 specula
 	float quadratic_att = light.parameters[3];
 
 	// distance between fragment and light
-	vec3 fragmentLight = light.position - FragmentPosition;
+	vec3 fragmentLight = vec3(light.position) - FragmentPosition;
 	float dist = length(fragmentLight);
 	float distanceReduction = 1.0 / (constant_att + linear_att * dist + quadratic_att * dist * dist);
 
@@ -95,7 +90,7 @@ vec3 compute_point_light(LightDefinition light, vec3 fragmentColor, vec3 specula
 	vec3 norm = normalize(Normal);
 	vec3 lightDirection = normalize(fragmentLight);
 	float diffuseStrength = max(dot(norm, lightDirection), 0.0f);
-	vec3 diffuse = diffuseStrength * light.color;
+	vec3 diffuse = diffuseStrength * vec3(light.color);
 	
 	// specular
 	vec3 viewDir = normalize(camera_view_direction);
@@ -114,9 +109,9 @@ vec3 compute_direction_light(LightDefinition light, vec3 fragmentColor, vec3 spe
 
 	// diffuse
 	vec3 norm = normalize(Normal);
-	vec3 lightDirection = normalize(-light.direction);
+	vec3 lightDirection = normalize(vec3(-light.direction));
 	float diffuseStrength = max(dot(norm, lightDirection), 0.0f);
-	vec3 diffuse = diffuseStrength * light.color;
+	vec3 diffuse = diffuseStrength * vec3(light.color);
 
 	// specular
 	vec3 viewDir = normalize(camera_view_direction);
@@ -140,8 +135,8 @@ vec3 compute_spot_light(LightDefinition light, vec3 fragmentColor, vec3 specular
 
 	// spotlight effect
 	vec3 norm = normalize(Normal);
-	vec3 lightDirection = normalize(-light.direction);
-	vec3 fragmentLight = light.position - FragmentPosition;
+	vec3 lightDirection = normalize(-vec3(light.direction));
+	vec3 fragmentLight = vec3(light.position) - FragmentPosition;
 	float dist = length(fragmentLight);
 	float between = dot(normalize(fragmentLight), lightDirection);
 
@@ -150,7 +145,7 @@ vec3 compute_spot_light(LightDefinition light, vec3 fragmentColor, vec3 specular
 
 	// diffuse 
 	float diffuseStrength = max(dot(norm, fragmentLight), 0.0);
-	vec3 diffuse = diffuseStrength * light.color;
+	vec3 diffuse = diffuseStrength * vec3(light.color);
 		
 	// specular
 	vec3 viewDir = normalize(camera_view_direction);
