@@ -6,9 +6,9 @@ TexturedObject::TexturedObject(Renderable& renderable, glm::vec3 translate, glm:
 	: RenderableObject(renderable, translate, scale, rotate)
 {}
 
-TexturedObject& TexturedObject::useTexture(const char* texturefile, TextureTypes type, unsigned int coords_index)
+TexturedObject& TexturedObject::useTexture(const char* texturefile, TextureTypes type, unsigned int coords_index, bool flip_texture)
 {
-	return this->useTexture(Texture::fromFile(texturefile), type, coords_index);
+	return this->useTexture(Texture::fromFile(texturefile, flip_texture), type, coords_index);
 }
 
 TexturedObject& TexturedObject::useTexture(Texture&& texture, TextureTypes type, unsigned int coords_index)
@@ -47,12 +47,15 @@ void TexturedObject::render(GLuint program, glm::mat4 model, glm::mat4* view, gl
 		glActiveTexture(slot);
 		glBindTexture(GL_TEXTURE_2D, w.texture);
 		glUniform1i(w.sampler_location, slot - GL_TEXTURE0);
-		glUniform1ui(w.pos_location, w.coord_index);
+		glUniform1i(w.pos_location, w.coord_index);
 		not_used.erase(w.type);
 	}
 
-	for (TextureTypes type : not_used)
-		glUniform1i(glGetUniformLocation(program, TEXTURETYPE_TO_COORD.at(type)), -1);
+	for (TextureTypes type : not_used) {
+		const char* name = TEXTURETYPE_TO_COORD.at(type);
+		int position = glGetUniformLocation(program, name);
+		glUniform1i(position, -1);
+	}
 
 	return RenderableObject::render(program, model, view, projection);
 }

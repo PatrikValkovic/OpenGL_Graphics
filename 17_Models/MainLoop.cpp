@@ -67,7 +67,6 @@ void MainLoop::loop()
 	glClearDepth(1.0);
 	// enable depth
 	glEnable(GL_DEPTH_TEST);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	float movement_speed = 2.5f;
 	float rotation_speed = 60;
@@ -85,20 +84,19 @@ void MainLoop::loop()
 	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
 	TextureRenderable texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
 	LoadedModel<> guitar("models/SurvivalBackPack/Survival_BackPack_2.fbx", _lightProgram);
-	Texture guitar_texture = Texture::fromFile("models/SurvivalBackPack/1001_albedo.jpg", false);
 	TexturedObject guitar_textured(guitar);
 	guitar_textured
-		.useTexture(std::move(guitar_texture), TextureTypes::diffuse, 0)
-		.useTexture("models/SurvivalBackPack/1001_AO.jpg", TextureTypes::ambient_occlusion, 0)
-		.useTexture("models/SurvivalBackPack/1001_metallic.jpg", TextureTypes::specular_light, 0)
-		.useTexture("models/SurvivalBackPack/1001_normal.png", TextureTypes::normal, 0)
-		.useTexture("models/SurvivalBackPack/1001_roughness.jpg", TextureTypes::rougness, 0);
-	guitar_textured.setScale(glm::vec3(0.004f));
-	guitar_textured.setPosition(glm::vec3(3,2,4));
+		.useTexture("models/SurvivalBackPack/1001_albedo.jpg", TextureTypes::diffuse, 0, false)
+		.useTexture("models/SurvivalBackPack/1001_AO.jpg", TextureTypes::ambient_occlusion, 0, false)
+		.useTexture("models/SurvivalBackPack/1001_metallic.jpg", TextureTypes::specular, 0, false)
+		.useTexture("models/SurvivalBackPack/1001_normal.png", TextureTypes::normal, 0, false)
+		.useTexture("models/SurvivalBackPack/1001_roughness.jpg", TextureTypes::rougness, 0, false);
+	guitar_textured.setScale(glm::vec3(0.004f))
+				   .setPosition(glm::vec3(-0.5,1.5,3));
 	LoadedModel<> calculator("models/calculator/calculadora.obj", _lightProgram);
 	TexturedObject calcTextured(calculator);
-	Texture calcTexture = Texture::fromFile("models/calculator/Calculadora_Color.png", false);
-	calcTextured.useTexture(std::move(calcTexture), TextureTypes::diffuse, 0);
+	calcTextured.useTexture("models/calculator/Calculadora_Color.png", TextureTypes::diffuse, 0, false);
+	calcTextured.setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-5, 0, 4));
 
 	std::vector<std::unique_ptr<RenderableObject>> toRender;
 	MaterialRenderable first_cube_with_material(texturedCube, MATERIALS::emerald);
@@ -152,6 +150,10 @@ void MainLoop::loop()
 					glIsEnabled(GL_CULL_FACE) ? glDisable(GL_CULL_FACE) : glEnable(GL_CULL_FACE);
 				if (e.key.keysym.scancode == SDL_SCANCODE_F5)
 					SDL_SetRelativeMouseMode(static_cast<SDL_bool>(!SDL_GetRelativeMouseMode()));
+				if (e.key.keysym.scancode == SDL_SCANCODE_F6)
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				if (e.key.keysym.scancode == SDL_SCANCODE_F7)
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 				if (e.key.keysym.scancode == SDL_SCANCODE_F11)
 					c = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), c->getPos(), c->getViewDirection());
 				if (e.key.keysym.scancode == SDL_SCANCODE_F10)
@@ -188,27 +190,26 @@ void MainLoop::loop()
 		}
 
 		// render light cube
-		//lights_wrapper.updateRendering(_lightProgram, *c, false);
+		lights_wrapper.updateRendering(_lightProgram, *c, false);
 		RenderableObject::transformations(_lightProgram, nullptr, &view, &projective);
 		for (LightObject& obj : lights) {
 			obj.render(_lightProgram);
 		}
 
 		// render imported
-		//lights_wrapper.updateRendering(_importedProgram, *c);
+		ambient.use(_importedProgram);
+		lights_wrapper.updateRendering(_importedProgram, *c);
 		RenderableObject::transformations(_importedProgram, nullptr, &view, &projective);
 		guitar_textured.render(_importedProgram);
 		calcTextured.render(_importedProgram);
 
-		/*
 		// render objects
 		ambient.use(_objectProgram);
 		RenderableObject::transformations(_objectProgram, nullptr, &view, &projective);
 		lights_wrapper.updateRendering(_objectProgram, *c);
 		for (auto& obj : toRender) {
-			obj->render(_objectProgram);
+			//obj->render(_objectProgram);
 		}
-		*/
 
 		// Swap the buffers
 		SDL_GL_SwapWindow(_window);

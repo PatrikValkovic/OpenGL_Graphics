@@ -17,16 +17,18 @@ uniform mat4 view;
 uniform mat4 projection;
 uniform mat4 modeltransform;
 
-
 void main(){
 
-	mat4 transformation = projection * view * model;
+	mat4 model_within = model;
 	if(use_modelintern)
-		transformation = transformation * modelintern;
+		model_within = model_within * modelintern;
 
-	Normal = mat3(transpose(inverse(model))) * aNormal;
+	mat4 transformation = projection * view * model_within;
+
+
+	Normal = mat3(transpose(inverse(model_within))) * aNormal;
 	Color = aColor;
-	Position = vec3(model * vec4(aPosition, 1.0f));
+	Position = vec3(model_within * vec4(aPosition, 1.0f));
 	for(uint i=0;i < 4;i++)
 		TextureCoords[i]=aTextureCoords[i];
 

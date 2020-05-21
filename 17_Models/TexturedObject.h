@@ -16,7 +16,7 @@ protected:
 		TextureTypes type;
 		GLint sampler_location;
 		GLint pos_location;
-		unsigned int coord_index;
+		int coord_index;
 	};
 	std::vector<Wrap> _textures;
 public:
@@ -27,7 +27,7 @@ public:
 		glm::vec3 rotate = glm::vec3(0.0f)
 	);
 
-	TexturedObject& useTexture(const char* texturefile, TextureTypes type, unsigned int coords_index);
+	TexturedObject& useTexture(const char* texturefile, TextureTypes type, unsigned int coords_index, bool flip_texture = true);
 	TexturedObject& useTexture(Texture &&texture, TextureTypes type, unsigned int coords_index);
 
 	virtual void render(GLuint program, glm::mat4 model, glm::mat4* view = nullptr, glm::mat4* projection = nullptr) override;

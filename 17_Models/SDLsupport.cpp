@@ -77,7 +77,7 @@ RAII<SDL_GLContext> create_context(SDL_Window* window)
 					 << " from source 0x" << source << endl;
 			}
 			else {
-				cout << "OpenGL log: " << message << endl;
+				//cout << "OpenGL log: " << message << endl;
 			}
 	}, nullptr);
 
