@@ -21,11 +21,12 @@
 #include "DirectionalLight.h"
 #include "Spotlight.h"
 #include "LoadedModel.h"
+#include "TexturedObject.h"
 
 MainLoop::MainLoop(SDL_Window* win) : _window(win)
 {}
 
-void MainLoop::compile_program() 
+void MainLoop::compile_program()
 {
 	// compile shaders
 	{
@@ -66,6 +67,7 @@ void MainLoop::loop()
 	glClearDepth(1.0);
 	// enable depth
 	glEnable(GL_DEPTH_TEST);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	float movement_speed = 2.5f;
 	float rotation_speed = 60;
@@ -83,6 +85,20 @@ void MainLoop::loop()
 	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
 	TextureRenderable texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
 	LoadedModel<> guitar("models/SurvivalBackPack/Survival_BackPack_2.fbx", _lightProgram);
+	Texture guitar_texture = Texture::fromFile("models/SurvivalBackPack/1001_albedo.jpg", false);
+	TexturedObject guitar_textured(guitar);
+	guitar_textured
+		.useTexture(std::move(guitar_texture), TextureTypes::diffuse, 0)
+		.useTexture("models/SurvivalBackPack/1001_AO.jpg", TextureTypes::ambient_occlusion, 0)
+		.useTexture("models/SurvivalBackPack/1001_metallic.jpg", TextureTypes::specular_light, 0)
+		.useTexture("models/SurvivalBackPack/1001_normal.png", TextureTypes::normal, 0)
+		.useTexture("models/SurvivalBackPack/1001_roughness.jpg", TextureTypes::rougness, 0);
+	guitar_textured.setScale(glm::vec3(0.004f));
+	guitar_textured.setPosition(glm::vec3(3,2,4));
+	LoadedModel<> calculator("models/calculator/calculadora.obj", _lightProgram);
+	TexturedObject calcTextured(calculator);
+	Texture calcTexture = Texture::fromFile("models/calculator/Calculadora_Color.png", false);
+	calcTextured.useTexture(std::move(calcTexture), TextureTypes::diffuse, 0);
 
 	std::vector<std::unique_ptr<RenderableObject>> toRender;
 	MaterialRenderable first_cube_with_material(texturedCube, MATERIALS::emerald);
@@ -98,7 +114,7 @@ void MainLoop::loop()
 	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-7, 3, -2)));
 	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-9, 1, -4)));
 
-	std::vector<LightObject> lights {
+	std::vector<LightObject> lights{
 		LightObject(spot_light, light_model),
 		LightObject(point_light, light_model),
 		LightObject(direction_light),
@@ -172,24 +188,27 @@ void MainLoop::loop()
 		}
 
 		// render light cube
-		lights_wrapper.updateRendering(_lightProgram, *c, false);
+		//lights_wrapper.updateRendering(_lightProgram, *c, false);
 		RenderableObject::transformations(_lightProgram, nullptr, &view, &projective);
 		for (LightObject& obj : lights) {
 			obj.render(_lightProgram);
 		}
 
 		// render imported
-		lights_wrapper.updateRendering(_importedProgram, *c);
+		//lights_wrapper.updateRendering(_importedProgram, *c);
 		RenderableObject::transformations(_importedProgram, nullptr, &view, &projective);
-		guitar.render(_importedProgram);
+		guitar_textured.render(_importedProgram);
+		calcTextured.render(_importedProgram);
 
+		/*
 		// render objects
 		ambient.use(_objectProgram);
 		RenderableObject::transformations(_objectProgram, nullptr, &view, &projective);
 		lights_wrapper.updateRendering(_objectProgram, *c);
-		for (auto &obj : toRender) {
+		for (auto& obj : toRender) {
 			obj->render(_objectProgram);
 		}
+		*/
 
 		// Swap the buffers
 		SDL_GL_SwapWindow(_window);

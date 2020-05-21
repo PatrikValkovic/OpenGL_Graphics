@@ -6,8 +6,6 @@
 
 class MeshModel : public ElementBufferModel
 {
-private:
-	bool _binded;
 public:
 	MeshModel(const aiMesh* mesh);
 	MeshModel(const MeshModel&) = delete;

@@ -67,6 +67,9 @@
     <Filter Include="Resource Files\textures">
       <UniqueIdentifier>{969df55b-6a4f-422b-97a5-5a1b930bc827}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\models\calculator">
+      <UniqueIdentifier>{ae1a8768-7763-43cc-8a6b-66b0a0181048}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="..\libraries\Glad\glad.c">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedObject.cpp">
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +310,12 @@
     <ClInclude Include="VertexDefinition.h">
       <Filter>Header Files\base</Filter>
     </ClInclude>
+    <ClInclude Include="TexturedObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureTypes.h">
+      <Filter>Header Files\textures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="models\SurvivalBackPack\1001_albedo.jpg">
@@ -327,10 +339,18 @@
     <Image Include="textures\container_specular.png">
       <Filter>Resource Files\textures</Filter>
     </Image>
+    <Image Include="models\calculator\Calculadora_Color.png">
+      <Filter>Resource Files\models\calculator</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="light_types.txt">
       <Filter>Header Files\lighting</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="models\calculator\calculadora.obj">
+      <Filter>Resource Files\models\calculator</Filter>
+    </Object>
   </ItemGroup>
 </Project>

@@ -239,6 +239,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TexturedObject.cpp" />
     <ClCompile Include="TextureRenderable.cpp" />
     <ClCompile Include="Transformable.cpp" />
   </ItemGroup>
@@ -279,6 +280,8 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="BaseModel.h" />
     <ClInclude Include="Colorable.h" />
     <ClInclude Include="ComposerRenderable.h" />
+    <ClInclude Include="TexturedObject.h" />
+    <ClInclude Include="TextureTypes.h" />
     <ClInclude Include="VertexDefinition.h" />
     <ClInclude Include="WrapRenderable.h" />
     <ClInclude Include="CubeModel.h" />
@@ -310,6 +313,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="Transformable.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="models\calculator\Calculadora_Color.png" />
     <Image Include="models\SurvivalBackPack\1001_albedo.jpg">
       <DeploymentContent>true</DeploymentContent>
     </Image>
@@ -334,6 +338,15 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
   </ItemGroup>
   <ItemGroup>
     <Text Include="light_types.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="models\calculator\calculadora.obj">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

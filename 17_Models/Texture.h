@@ -20,6 +20,7 @@ public:
 
 	static Texture fromSurface(
 		SDL_Surface* surf,
+		bool flip_texture = true,
 		GLenum wrap_s = GL_REPEAT,
 		GLenum wrap_t = GL_REPEAT,
 		GLenum min_filter = GL_NEAREST,
@@ -28,6 +29,7 @@ public:
 
 	static Texture fromFile(
 		std::string filepath,
+		bool flip_texture = true,
 		GLenum wrap_s = GL_REPEAT,
 		GLenum wrap_t = GL_REPEAT,
 		GLenum min_filter = GL_NEAREST,

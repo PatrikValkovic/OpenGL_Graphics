@@ -72,7 +72,9 @@ RAII<SDL_GLContext> create_context(SDL_Window* window)
 		const void* userParam) {
 			using namespace std;
 			if (severity == GL_DEBUG_SEVERITY_HIGH || severity == GL_DEBUG_SEVERITY_MEDIUM) {
-				cerr << "Error in OpenGL: " << message << endl << "\tof type 0x" << hex << type << " from source 0x" << source << endl;
+				cerr << "Error in OpenGL: " << message << endl 
+					 << "\tof type 0x" << hex << type << "("
+					 << " from source 0x" << source << endl;
 			}
 			else {
 				cout << "OpenGL log: " << message << endl;

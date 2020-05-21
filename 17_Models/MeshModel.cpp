@@ -4,13 +4,13 @@
 
 using namespace std;
 
-MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel(), _binded(false)
+MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel()
 {
 	vector<VertexDefinition> vertices;
 	vector<unsigned int> indices;
 
 	if (!mesh->mColors[0]) {
-		cerr << "Model doesn't have defiend colors" << endl;
+		cerr << "Model doesn't has colors defined" << endl;
 	}
 
 	for (unsigned int vertex_i = 0; vertex_i < mesh->mNumVertices; vertex_i++) {
@@ -44,7 +44,9 @@ MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel(), _binded(false)
 
 	for (unsigned int face_i = 0; face_i < mesh->mNumFaces; face_i++) {
 		aiFace& face = mesh->mFaces[face_i];
-		indices.insert(indices.end(), face.mIndices, face.mIndices + face.mNumIndices);
+		for (unsigned int i = 0; i < face.mNumIndices; i++)
+			indices.push_back(face.mIndices[i]);
+		//indices.insert(indices.end(), face.mIndices, face.mIndices + face.mNumIndices);
 	}
 	_numOfElements = static_cast<unsigned int>(indices.size());
 
@@ -55,6 +57,16 @@ MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel(), _binded(false)
 	// fill data
 	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexDefinition) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data(), GL_STATIC_DRAW);
+	// bind attribs
+	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, position)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, normal)));
+	glVertexAttribPointer(2, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[0])));
+	glVertexAttribPointer(3, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[1])));
+	glVertexAttribPointer(4, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[2])));
+	glVertexAttribPointer(5, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[3])));
+	glVertexAttribPointer(6, 4, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, color)));
+	for (unsigned int i = 0; i < 6; i++)
+		glEnableVertexAttribArray(i);
 	// unbind
 	glBindVertexArray(0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -63,23 +75,6 @@ MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel(), _binded(false)
 
 void MeshModel::render(GLuint program)
 {
-	if (!_binded) {
-		glUseProgram(program);
-		glBindVertexArray(_vertexArray);
-		glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer); // TODO why this need to be here, if it should be already in vertex array?
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, position)));
-		glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, normal)));
-		glVertexAttribPointer(2, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[0])));
-		glVertexAttribPointer(3, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[1])));
-		glVertexAttribPointer(4, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[2])));
-		glVertexAttribPointer(5, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[3])));
-		glVertexAttribPointer(6, 4, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, color)));
-		for (unsigned int i = 0; i < 6; i++)
-			glEnableVertexAttribArray(i);
-		glBindVertexArray(0);
-		_binded = true;
-	}
-
 	this->_render(
 		program,
 		[this]() {
