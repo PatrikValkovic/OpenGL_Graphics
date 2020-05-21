@@ -1,5 +1,5 @@
-#include "ComposeRenderable.h"
+#include "WrapRenderable.h"
 
-ComposeRenderable::ComposeRenderable(const Renderable& inner)
+WrapRenderable::WrapRenderable(Renderable& inner)
 	: _inner(inner)
 {}

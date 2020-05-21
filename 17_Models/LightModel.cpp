@@ -45,7 +45,7 @@ static const unsigned int indices[] = {
 
 
 LightModel::LightModel() :
-	_elementBuffer(glDeleteBuffers, glGenBuffers)
+	ElementBufferModel()
 {
 	// bind
 	glBindVertexArray(_vertexArray);
@@ -65,7 +65,7 @@ LightModel::LightModel() :
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void LightModel::render(GLuint program) const
+void LightModel::render(GLuint program)
 {
 	this->_render(
 		program,

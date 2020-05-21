@@ -1,16 +1,14 @@
 #ifndef __LIGHT_MODEL_H__
 #define __LIGHT_MODEL_H__
 
-#include "BaseModel.h"
+#include "ElementBufferModel.h"
 
-class LightModel : public BaseModel
+class LightModel : public ElementBufferModel
 {
-private:
-	RAIIArray<> _elementBuffer;
 public:
 	LightModel();
 
-	virtual void render(GLuint program) const override;
+	virtual void render(GLuint program) override;
 
 };
 

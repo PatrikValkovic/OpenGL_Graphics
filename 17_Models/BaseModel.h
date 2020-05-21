@@ -13,9 +13,13 @@ class BaseModel : public Renderable
 protected:
 	RAIIArray<> _vertexBuffer;
 	RAIIArray<> _vertexArray;
-	void _render(GLuint program, std::function<void()> render) const;
+	virtual void _render(GLuint program, std::function<void()> render) const;
 public:
 	BaseModel();
+	BaseModel(const BaseModel&) = delete;
+	BaseModel(BaseModel&&) = default;
+	BaseModel& operator=(const BaseModel&) = delete;
+	BaseModel& operator=(BaseModel&&) = default;
 	virtual ~BaseModel() = default;
 };
 

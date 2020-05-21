@@ -72,9 +72,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\libraries\Glad\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderSupport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -162,6 +159,18 @@
     <ClCompile Include="LoadedModel.cpp">
       <Filter>Source Files\models</Filter>
     </ClCompile>
+    <ClCompile Include="MeshModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ElementBufferModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ComposerRenderable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\Glad\glad.c">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="models\SurvivalBackPack\Survival_BackPack_2.fbx">
@@ -247,9 +256,6 @@
     <ClInclude Include="Colorable.h">
       <Filter>Header Files\base</Filter>
     </ClInclude>
-    <ClInclude Include="ComposeRenderable.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
     <ClInclude Include="MaterialRenderable.h">
       <Filter>Header Files\materials</Filter>
     </ClInclude>
@@ -282,6 +288,21 @@
     </ClInclude>
     <ClInclude Include="LoadedModel.h">
       <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="ElementBufferModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="WrapRenderable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="ComposerRenderable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexDefinition.h">
+      <Filter>Header Files\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

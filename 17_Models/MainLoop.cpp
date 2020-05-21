@@ -82,7 +82,7 @@ void MainLoop::loop()
 	Texture texture_specular = Texture::fromFile("textures/container_specular.png");
 	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
 	TextureRenderable texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
-	LoadedModel guitar("models/SurvivalBackPack/Survival_BackPack_2.fbx", _lightProgram);
+	LoadedModel<> guitar("models/SurvivalBackPack/Survival_BackPack_2.fbx", _lightProgram);
 
 	std::vector<std::unique_ptr<RenderableObject>> toRender;
 	MaterialRenderable first_cube_with_material(texturedCube, MATERIALS::emerald);

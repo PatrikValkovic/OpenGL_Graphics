@@ -2,11 +2,11 @@
 #include <glad/glad.h>
 #include <iostream>
 
-MaterialRenderable::MaterialRenderable(const Renderable& inner, const Material& material)
-	: ComposeRenderable(inner), _material(material)
+MaterialRenderable::MaterialRenderable(Renderable& inner, const Material& material)
+	: WrapRenderable(inner), _material(material)
 {}
 
-void MaterialRenderable::render(GLuint program) const
+void MaterialRenderable::render(GLuint program)
 {
 	using namespace std;
 

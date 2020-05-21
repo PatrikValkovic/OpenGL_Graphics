@@ -46,7 +46,7 @@ static const unsigned int indices[] = {
 
 
 CubeModel::CubeModel() :
-	_elementBuffer(glDeleteBuffers, glGenBuffers)
+	ElementBufferModel()
 {
 	// bind
 	glBindVertexArray(_vertexArray);
@@ -70,7 +70,7 @@ CubeModel::CubeModel() :
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void CubeModel::render(GLuint program) const
+void CubeModel::render(GLuint program)
 {
 	this->_render(
 		program,

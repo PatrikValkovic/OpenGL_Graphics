@@ -11,9 +11,9 @@ private:
 	const BaseLight& _light;
 public:
 	LightObject(const BaseLight& light);
-	LightObject(const BaseLight& light, const Renderable& inner);
+	LightObject(const BaseLight& light, Renderable& inner);
 
-	virtual void render(GLuint program) const override;
+	virtual void render(GLuint program) override;
 
 	inline const BaseLight& getLight() const noexcept {
 		return _light;

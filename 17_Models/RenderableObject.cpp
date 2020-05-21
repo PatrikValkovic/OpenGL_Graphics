@@ -9,11 +9,11 @@ RenderableObject::RenderableObject(glm::vec3 translate, glm::vec3 scale, glm::ve
 {}
 
 
-RenderableObject::RenderableObject(const Renderable &renderable, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
+RenderableObject::RenderableObject(Renderable &renderable, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
 	: Transformable(translate, scale, rotate), _renderable(&renderable)
 {}
 
-void RenderableObject::render(GLuint program) const
+void RenderableObject::render(GLuint program)
 {
 	this->render(program, glm::mat4(1.0f), nullptr, nullptr);
 }
@@ -27,7 +27,7 @@ glm::mat4 RenderableObject::transformMatrix() const noexcept
 	) * glm::scale(_scale);
 }
 
-void RenderableObject::render(GLuint program, glm::mat4 model, glm::mat4* view, glm::mat4* projection) const
+void RenderableObject::render(GLuint program, glm::mat4 model, glm::mat4* view, glm::mat4* projection)
 {
 	if (this->_renderable == nullptr)
 		return;

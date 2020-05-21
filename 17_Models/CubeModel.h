@@ -1,15 +1,13 @@
 #ifndef __CUBE_MODEL_H__
 #define __CUBE_MODEL_H__
 
-#include "BaseModel.h"
+#include "ElementBufferModel.h"
 
-class CubeModel : public BaseModel
+class CubeModel : public ElementBufferModel
 {
-private:
-	RAIIArray<> _elementBuffer;
 public:
 	CubeModel();
-	virtual void render(GLuint program) const override;
+	virtual void render(GLuint program) override;
 };
 
 

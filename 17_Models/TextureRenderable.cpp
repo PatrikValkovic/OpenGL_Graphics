@@ -1,11 +1,11 @@
 #include "TextureRenderable.h"
 #include <iostream>
 
-TextureRenderable::TextureRenderable(const Renderable& inner, GLuint texture, TextureSlots slot, std::string uniform_variable)
-	: ComposeRenderable(inner), _texture(texture), _slot(slot), _variable(uniform_variable)
+TextureRenderable::TextureRenderable(Renderable& inner, GLuint texture, TextureSlots slot, std::string uniform_variable)
+	: WrapRenderable(inner), _texture(texture), _slot(slot), _variable(uniform_variable)
 {}
 
-void TextureRenderable::render(GLuint program) const
+void TextureRenderable::render(GLuint program)
 {
 	glUseProgram(program);
 

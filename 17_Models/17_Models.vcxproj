@@ -215,8 +215,10 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="BaseModel.cpp" />
     <ClCompile Include="Colorable.cpp" />
     <ClCompile Include="ComposeRenderable.cpp" />
+    <ClCompile Include="ComposerRenderable.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="ElementBufferModel.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="LightModel.cpp" />
     <ClCompile Include="LightObject.cpp" />
@@ -225,6 +227,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialRenderable.cpp" />
     <ClCompile Include="Materials.cpp" />
+    <ClCompile Include="MeshModel.cpp" />
     <ClCompile Include="Positionable.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="SimCamera.cpp" />
@@ -275,9 +278,12 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BaseModel.h" />
     <ClInclude Include="Colorable.h" />
-    <ClInclude Include="ComposeRenderable.h" />
+    <ClInclude Include="ComposerRenderable.h" />
+    <ClInclude Include="VertexDefinition.h" />
+    <ClInclude Include="WrapRenderable.h" />
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="ElementBufferModel.h" />
     <ClInclude Include="FlyCamera.h" />
     <ClInclude Include="LightModel.h" />
     <ClInclude Include="LightObject.h" />
@@ -286,6 +292,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialRenderable.h" />
     <ClInclude Include="Materials.h" />
+    <ClInclude Include="MeshModel.h" />
     <ClInclude Include="Positionable.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="RenderableObject.h" />

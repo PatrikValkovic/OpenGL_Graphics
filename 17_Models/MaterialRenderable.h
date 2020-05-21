@@ -1,15 +1,15 @@
 #ifndef __MATERIAL_RENDERABLE_H__
 #define __MATERIAL_RENDERABLE_H__
 
-#include "ComposeRenderable.h"
+#include "WrapRenderable.h"
 #include "Material.h"
 
-class MaterialRenderable : public ComposeRenderable
+class MaterialRenderable : public WrapRenderable
 {
 protected:
 	Material _material;
 public:
-	MaterialRenderable(const Renderable& inner, const Material& material);
+	MaterialRenderable(Renderable& inner, const Material& material);
 
 	MaterialRenderable(const MaterialRenderable&) = default;
 	MaterialRenderable(MaterialRenderable&&) = default;
@@ -17,7 +17,7 @@ public:
 	MaterialRenderable& operator=(MaterialRenderable&&) = default;
 	virtual ~MaterialRenderable() = default;
 
-	virtual void render(GLuint program) const override;
+	virtual void render(GLuint program) override;
 
 	inline MaterialRenderable& setMaterial(const Material& m) noexcept {
 		_material = m;

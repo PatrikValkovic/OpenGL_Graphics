@@ -9,7 +9,7 @@
 class RenderableObject : public Renderable, public Transformable
 {
 protected:
-	Renderable const * _renderable;
+	Renderable* _renderable;
 public:
 	RenderableObject(
 		glm::vec3 translate = glm::vec3(0.0f),
@@ -17,7 +17,7 @@ public:
 		glm::vec3 rotate = glm::vec3(0.0f)
 		);
 	RenderableObject(
-		const Renderable &renderable,
+		Renderable &renderable,
 		glm::vec3 translate = glm::vec3(0.0f),
 		glm::vec3 scale = glm::vec3(1.0f),
 		glm::vec3 rotate = glm::vec3(0.0f)
@@ -30,8 +30,8 @@ public:
 	RenderableObject& operator=(RenderableObject&&) = default;
 	virtual ~RenderableObject() = default;
 
-	virtual void render(GLuint program, glm::mat4 model, glm::mat4* view = nullptr, glm::mat4* projection = nullptr) const;
-	virtual void render(GLuint program) const override;
+	virtual void render(GLuint program, glm::mat4 model, glm::mat4* view = nullptr, glm::mat4* projection = nullptr);
+	virtual void render(GLuint program) override;
 	
 	glm::mat4 transformMatrix() const noexcept;
 
