@@ -8,7 +8,7 @@
 #include "TextureSlots.h"
 #include "UniformWrapper.h"
 
-template<typename PTRTYPE = std::unique_ptr<Renderable>>
+template<typename PTRTYPE>
 class TextureRenderable : public WrapRenderable<PTRTYPE>
 {
 private:
@@ -23,9 +23,20 @@ public:
 
 };
 
+
+using TextureRenderableRef = TextureRenderable<Renderable&>;
+using TextureRenderablePtr = TextureRenderable<Renderable*>;
+using TextureRenderableUniq = TextureRenderable<std::unique_ptr<Renderable>>;
+using TextureRenderableShare = TextureRenderable<std::shared_ptr<Renderable>>;
+
+
 template<typename PTRTYPE>
 TextureRenderable<PTRTYPE>::TextureRenderable(PTRTYPE&& inner, GLuint texture, TextureSlots slot, std::string uniform_variable)
-	: WrapRenderable(std::move(inner)), _texture(texture), _slot(slot), _variable(uniform_variable), _uniform()
+	: WrapRenderable<PTRTYPE>(std::move(inner)), _texture(texture), _slot(slot), _variable(uniform_variable), _uniform()
+{}
+template<>
+TextureRenderable<Renderable&>::TextureRenderable(Renderable& inner, GLuint texture, TextureSlots slot, std::string uniform_variable)
+	: WrapRenderable<Renderable&>(inner), _texture(texture), _slot(slot), _variable(uniform_variable), _uniform()
 {}
 
 template<typename PTRTYPE>
@@ -36,7 +47,7 @@ void TextureRenderable<PTRTYPE>::render(GLuint program)
 	glBindTexture(GL_TEXTURE_2D, _texture);
 	glUniform1i(texture_position, static_cast<GLuint>(_slot) - GL_TEXTURE0);
 
-	_inner.render(program);
+	WrapRenderable<PTRTYPE>::render(program);
 }
 
 

@@ -120,7 +120,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(OutputPath)shaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -150,7 +150,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(OutputPath)shaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -184,7 +184,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(OutputPath)shaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -218,7 +218,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(OutputPath)shaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -229,6 +229,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="BaseModel.cpp" />
+    <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Colorable.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
@@ -236,14 +237,11 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="LightModel.cpp" />
     <ClCompile Include="LightObject.cpp" />
-    <ClCompile Include="LightsWrapper.cpp" />
     <ClCompile Include="LoadedModel.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialRenderable.cpp" />
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="MeshModel.cpp" />
     <ClCompile Include="Positionable.cpp" />
-    <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="SimCamera.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="main.cpp" />
@@ -253,7 +251,6 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TexturedObject.cpp" />
     <ClCompile Include="Transformable.cpp" />
     <ClCompile Include="UniformWrapper.cpp" />
   </ItemGroup>
@@ -293,10 +290,13 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BaseModel.h" />
+    <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Colorable.h" />
+    <ClInclude Include="ComposeObject.h" />
     <ClInclude Include="ComposeRenderable.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="LightDefinition.h" />
+    <ClInclude Include="LightObject.h" />
     <ClInclude Include="MaterialDefinition.h" />
     <ClInclude Include="SharedProgram.h" />
     <ClInclude Include="TexturedObject.h" />
@@ -309,7 +309,6 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="ElementBufferModel.h" />
     <ClInclude Include="FlyCamera.h" />
     <ClInclude Include="LightModel.h" />
-    <ClInclude Include="LightObject.h" />
     <ClInclude Include="LightsWrapper.h" />
     <ClInclude Include="LoadedModel.h" />
     <ClInclude Include="Material.h" />
@@ -357,7 +356,12 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="light_types.txt" />
+    <Text Include="light_types.txt">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Text Include="models\calculator\calculadora.obj">

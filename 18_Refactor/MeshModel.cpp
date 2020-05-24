@@ -34,7 +34,7 @@ MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel()
 				mesh->mColors[0][vertex_i].a
 			);
 		}
-		for (unsigned int text_i = 0; text_i < VertexDefinition::MAX_TEXTURES && mesh->mTextureCoords[text_i] != nullptr; text_i++) {
+		for (unsigned int text_i = 0; text_i < MAX_TEXTURES && mesh->mTextureCoords[text_i] != nullptr; text_i++) {
 			vertex.textureCoords[text_i] = glm::vec2(
 				mesh->mTextureCoords[text_i][vertex_i].x,
 				mesh->mTextureCoords[text_i][vertex_i].y

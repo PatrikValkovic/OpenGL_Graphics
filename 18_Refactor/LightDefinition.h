@@ -2,6 +2,10 @@
 #define __LIGHT_DEFINITION_H__ 
 #include "Constants.h"
 
+/////////////////////////
+//// LightDefinition ////
+/////////////////////////
+
 struct LightDefinition {
 	float parameters[MAX_LIGHT_PARAMETERS];
 	vec4 position;
@@ -9,5 +13,9 @@ struct LightDefinition {
 	vec4 color;
 	uint type;
 };
+
+/////////////////////////////
+//// END LightDefinition ////
+/////////////////////////////
 
 #endif

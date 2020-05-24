@@ -11,7 +11,7 @@
 #include "MeshModel.h"
 #include "Renderable.h"
 
-
+//TODO
 class ModelNodeDefinition : public Renderable {
 public:
 	typedef std::vector<std::unique_ptr<MeshModel>> meshes_vector;

@@ -10,8 +10,8 @@ foreach($file in $files){
 	$outputfile = $output + "\" + $file.Name
 	# Write-Host $outputfile
 	$content = Get-Content $file.FullName
-	$content[1..$content.Length] | Out-File "tmp.txt"
-	$content[0] | Out-File $outputfile
-	& $compiler -EP "tmp.txt" | Out-File -Append $outputfile
+	$content[1..$content.Length] | Out-File "tmp.txt" -Encoding Ascii
+	$content[0] | Out-File $outputfile -Encoding Ascii
+	& $compiler /EP /C "tmp.txt" | Out-File -Append $outputfile -Encoding Ascii
 	Remove-Item -path "tmp.txt"
 }

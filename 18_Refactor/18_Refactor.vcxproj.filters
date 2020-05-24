@@ -111,15 +111,6 @@
     <ClCompile Include="AmbientLight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
-    <ClCompile Include="LightsWrapper.cpp">
-      <Filter>Source Files\lighting</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderableObject.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="LightObject.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="BaseLight.cpp">
       <Filter>Source Files\lighting</Filter>
     </ClCompile>
@@ -131,9 +122,6 @@
     </ClCompile>
     <ClCompile Include="Colorable.cpp">
       <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialRenderable.cpp">
-      <Filter>Source Files\materials</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\materials</Filter>
@@ -165,14 +153,17 @@
     <ClCompile Include="..\libraries\Glad\glad.c">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="TexturedObject.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
     <ClCompile Include="UniformWrapper.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
     <ClCompile Include="LoadedModel.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,9 +233,6 @@
       <Filter>Header Files\lighting</Filter>
     </ClInclude>
     <ClInclude Include="RenderableObject.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="LightObject.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="BaseLight.h">
@@ -330,6 +318,15 @@
     </ClInclude>
     <ClInclude Include="LoadedModel.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComposeObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

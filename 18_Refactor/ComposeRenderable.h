@@ -4,11 +4,11 @@
 #include <memory>
 #include "Renderable.h"
 
-template<typename PTRTYPE = std::unique_ptr<Renderable>>
+template<typename PTRTYPE = Renderable>
 class ComposeRenderable : public Renderable
 {
 protected:
-	std::vector<PTRTYPE<Renderable>> _renderables;
+	std::vector<PTRTYPE> _renderables;
 public:
 	ComposeRenderable() = default;
 	ComposeRenderable(std::vector<PTRTYPE>&& renderables);
@@ -19,7 +19,14 @@ public:
 	virtual ~ComposeRenderable() = default;
 
 	ComposeRenderable& addRenderable(PTRTYPE&& renderable);
+
+	virtual void render(GLuint program) override;
 };
+
+using ComposeRenderableVal = ComposeRenderable<Renderable>;
+using ComposeRenderablePtr = ComposeRenderable<Renderable*>;
+using ComposeRenderableUniq = ComposeRenderable<std::unique_ptr<Renderable>>;
+using ComposerRenderableShare = ComposeRenderable<std::shared_ptr<Renderable>>;
 
 
 template<typename PTRTYPE>
@@ -34,5 +41,17 @@ ComposeRenderable<PTRTYPE>& ComposeRenderable<PTRTYPE>::addRenderable(PTRTYPE&& 
 	return *this;
 }
 
+template<typename PTRTYPE>
+void ComposeRenderable<PTRTYPE>::render(GLuint program)
+{
+	for (PTRTYPE& val : _renderables)
+		val->render(program);
+}
+template<>
+inline void ComposeRenderable<Renderable>::render(GLuint program)
+{
+	for (Renderable& val : _renderables)
+		val.render(program);
+}
 
 #endif

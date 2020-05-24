@@ -12,7 +12,7 @@ uniform float ambient_strength;
 uniform vec3 ambient_color;
 
 uniform vec3 camera_view_direction;
-uniform Material material;
+uniform MaterialDefinition material;
 
 uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
@@ -82,7 +82,7 @@ vec3 compute_point_light(LightDefinition light, vec3 fragmentColor, vec3 specula
 	vec3 viewDir = normalize(camera_view_direction);
 	vec3 reflectDir = reflect(-lightDirection, norm);
 	float viewReflectAngle = max(dot(-viewDir, reflectDir), 0.0f);
-	float spec = pow(viewReflectAngle, material.shininess);
+	float spec = pow(viewReflectAngle, 32);
 	//vec3 specular_self = light.strength * distanceReduction * spec * objectColor * material.specular_self;
 	//vec3 specular_light = light.strength * distanceReduction * spec * light.color * material.specular_light;
 	vec3 specular = spec * specularStrength;
@@ -103,7 +103,7 @@ vec3 compute_direction_light(LightDefinition light, vec3 fragmentColor, vec3 spe
 	vec3 viewDir = normalize(camera_view_direction);
 	vec3 reflectDir = reflect(-lightDirection, norm);
 	float viewReflectAngle = max(dot(-viewDir, reflectDir), 0.0f);
-	float spec = pow(viewReflectAngle, material.shininess);
+	float spec = pow(viewReflectAngle, 32);
 	vec3 specular = spec * specularStrength;
 
 	return (diffuse + specular) * fragmentColor * lightStrength;
@@ -137,7 +137,7 @@ vec3 compute_spot_light(LightDefinition light, vec3 fragmentColor, vec3 specular
 	vec3 viewDir = normalize(camera_view_direction);
 	vec3 reflectDir = reflect(-lightDirection, norm);
 	float viewReflectAngle = max(dot(-viewDir, reflectDir), 0.0f);
-	float spec = pow(viewReflectAngle, material.shininess);
+	float spec = pow(viewReflectAngle, 32);
 	vec3 specular = spec * specularStrength;
 
 	return (diffuse + specular) * fragmentColor * lightStrength * intensity * attenuation;

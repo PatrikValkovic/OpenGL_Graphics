@@ -1,19 +1,19 @@
 #ifndef __LIGHT_OBJECT_H__
 #define __LIGHT_OBJECT_H__
-
-
 #include "BaseLight.h"
-#include "RenderableObject.h"
+#include "BaseObject.h"
 
-class LightObject : public RenderableObject
+class LightObject : public BaseObject
 {
 private:
 	const BaseLight& _light;
 public:
-	LightObject(const BaseLight& light);
-	LightObject(const BaseLight& light, Renderable& inner);
-
-	virtual void render(GLuint program) override;
+	LightObject(
+		const BaseLight& light,
+		glm::vec3 translate = glm::vec3(0.0f),
+		glm::vec3 scale = glm::vec3(1.0f),
+		glm::vec3 rotate = glm::vec3(0.0f)
+	);
 
 	inline const BaseLight& getLight() const noexcept {
 		return _light;

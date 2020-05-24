@@ -1,6 +1,10 @@
 #ifndef __MATERIAL_DEFINITION_H__
 #define __MATERIAL_DEFINITION_H__
 
+////////////////////////////
+//// MaterialDefinition ////
+////////////////////////////
+
 struct MaterialDefinition {
 	vec3 diffuse;
 	vec3 specular;
@@ -9,5 +13,9 @@ struct MaterialDefinition {
 	float shininess;
 };
 
+
+////////////////////////////////
+//// END MaterialDefinition ////
+////////////////////////////////
 
 #endif

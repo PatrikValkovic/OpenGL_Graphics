@@ -30,8 +30,8 @@ void MainLoop::compile_program()
 {
 	// compile shaders
 	{
-		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "shaders/object.vert", GL_VERTEX_SHADER);
-		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "shaders/object.frag", GL_FRAGMENT_SHADER);
+		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "compiledshaders/object.vert", GL_VERTEX_SHADER);
+		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "compiledshaders/object.frag", GL_FRAGMENT_SHADER);
 		// create program
 		_objectProgram = RAII<GLuint>(glDeleteProgram, glCreateProgram);
 		glAttachShader(_objectProgram, vertexShader);
@@ -41,8 +41,8 @@ void MainLoop::compile_program()
 
 	// compile light program
 	{
-		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "shaders/light.vert", GL_VERTEX_SHADER);
-		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "shaders/light.frag", GL_FRAGMENT_SHADER);
+		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "compiledshaders/light.vert", GL_VERTEX_SHADER);
+		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "compiledshaders/light.frag", GL_FRAGMENT_SHADER);
 		_lightProgram = RAII<GLuint>(glDeleteProgram, glCreateProgram);
 		glAttachShader(_lightProgram, vertexShader);
 		glAttachShader(_lightProgram, fragmentShader);
@@ -51,8 +51,8 @@ void MainLoop::compile_program()
 
 	// compile imported program
 	{
-		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "shaders/imported.vert", GL_VERTEX_SHADER);
-		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "shaders/imported.frag", GL_FRAGMENT_SHADER);
+		RAII<GLuint> vertexShader(glDeleteShader, compile_shader, "compiledshaders/imported.vert", GL_VERTEX_SHADER);
+		RAII<GLuint> fragmentShader(glDeleteShader, compile_shader, "compiledshaders/imported.frag", GL_FRAGMENT_SHADER);
 		_importedProgram = RAII<GLuint>(glDeleteProgram, glCreateProgram);
 		glAttachShader(_importedProgram, vertexShader);
 		glAttachShader(_importedProgram, fragmentShader);
@@ -60,6 +60,7 @@ void MainLoop::compile_program()
 	}
 }
 
+//TODO
 void MainLoop::loop()
 {
 	// CONFIGURE
@@ -81,46 +82,46 @@ void MainLoop::loop()
 	DirectionalLight direction_light(glm::vec3(1.0, -5.0, -2.0), glm::vec3(1.0, 1.0, 1.0), 1.0f);
 	Texture texture_diffuse = Texture::fromFile("textures/container.png");
 	Texture texture_specular = Texture::fromFile("textures/container_specular.png");
-	TextureRenderable diffusedCube(cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
-	TextureRenderable texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
-	LoadedModel<> guitar("models/SurvivalBackPack/Survival_BackPack_2.fbx", _lightProgram);
-	TexturedObject guitar_textured(guitar);
-	guitar_textured
-		.useTexture("models/SurvivalBackPack/1001_albedo.jpg", TextureTypes::diffuse, 0, false)
-		.useTexture("models/SurvivalBackPack/1001_AO.jpg", TextureTypes::ambient_occlusion, 0, false)
-		.useTexture("models/SurvivalBackPack/1001_metallic.jpg", TextureTypes::specular, 0, false)
-		.useTexture("models/SurvivalBackPack/1001_normal.png", TextureTypes::normal, 0, false)
-		.useTexture("models/SurvivalBackPack/1001_roughness.jpg", TextureTypes::rougness, 0, false);
-	guitar_textured.setScale(glm::vec3(0.004f))
-				   .setPosition(glm::vec3(-0.5,1.5,3));
-	LoadedModel<> calculator("models/calculator/calculadora.obj", _lightProgram);
-	TexturedObject calcTextured(calculator);
-	calcTextured.useTexture("models/calculator/Calculadora_Color.png", TextureTypes::diffuse, 0, false);
-	calcTextured.setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-5, 0, 4));
+	TextureRenderablePtr diffusedCube(&cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
+	TextureRenderableRef texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
+	//LoadedModel<> guitar("models/SurvivalBackPack/Survival_BackPack_2.fbx", _lightProgram);
+	//TexturedObject guitar_textured(guitar);
+	//guitar_textured
+	//	.useTexture("models/SurvivalBackPack/1001_albedo.jpg", TextureTypes::diffuse, 0, false)
+	//	.useTexture("models/SurvivalBackPack/1001_AO.jpg", TextureTypes::ambient_occlusion, 0, false)
+	//	.useTexture("models/SurvivalBackPack/1001_metallic.jpg", TextureTypes::specular, 0, false)
+	//	.useTexture("models/SurvivalBackPack/1001_normal.png", TextureTypes::normal, 0, false)
+	//	.useTexture("models/SurvivalBackPack/1001_roughness.jpg", TextureTypes::rougness, 0, false);
+	//guitar_textured.setScale(glm::vec3(0.004f))
+	//			   .setPosition(glm::vec3(-0.5,1.5,3));
+	//LoadedModel<> calculator("models/calculator/calculadora.obj", _lightProgram);
+	//TexturedObject calcTextured(calculator);
+	//calcTextured.useTexture("models/calculator/Calculadora_Color.png", TextureTypes::diffuse, 0, false);
+	//calcTextured.setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-5, 0, 4));
 
-	std::vector<std::unique_ptr<RenderableObject>> toRender;
-	MaterialRenderable first_cube_with_material(texturedCube, MATERIALS::emerald);
-	MaterialRenderable second_cube_with_material(texturedCube, MATERIALS::gold);
-	MaterialRenderable floor_cube_with_material(texturedCube, MATERIALS::obsidian);
-	toRender.push_back(std::make_unique<RenderableObject>(floor_cube_with_material, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
-	toRender.push_back(std::make_unique<RenderableObject>(first_cube_with_material, glm::vec3(0, 0, 0)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(0, 0, 8)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-9, 5, 9)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-7, 4, 5)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-5, 2, 2)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(7, 6, 7)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-7, 3, -2)));
-	toRender.push_back(std::make_unique<RenderableObject>(second_cube_with_material, glm::vec3(-9, 1, -4)));
+	std::vector<std::unique_ptr<RenderableObjectRef>> toRender;
+	//MaterialRenderableRef first_cube_with_material(texturedCube, MATERIALS::emerald);
+	//MaterialRenderableRef second_cube_with_material(texturedCube, MATERIALS::gold);
+	//MaterialRenderableRef floor_cube_with_material(texturedCube, MATERIALS::obsidian);
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(0, 0, 0)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(0, 0, 8)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-9, 5, 9)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-7, 4, 5)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-5, 2, 2)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(7, 6, 7)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-7, 3, -2)));
+	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-9, 1, -4)));
 
 	std::vector<LightObject> lights{
-		LightObject(spot_light, light_model),
-		LightObject(point_light, light_model),
+		LightObject(spot_light),
+		LightObject(point_light),
 		LightObject(direction_light),
 	};
 	lights[0].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.0f));
 	lights[1].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-7.0f, 1.0f, 5.0f));
 	AmbientLight ambient(0.25f);
-	LightsWrapper lights_wrapper;
+	LightsWrapperPtr lights_wrapper;
 
 	// main loop
 	SDL_Event e;
@@ -186,29 +187,29 @@ void MainLoop::loop()
 		// update lighting
 		lights_wrapper.clear();
 		for (LightObject& obj : lights) {
-			lights_wrapper.addLight(obj);
+			lights_wrapper.addLight(&obj);
 		}
 
 		// render light cube
-		lights_wrapper.updateRendering(_lightProgram, *c, false);
-		RenderableObject::transformations(_lightProgram, nullptr, &view, &projective);
-		for (LightObject& obj : lights) {
-			obj.render(_lightProgram);
-		}
+		//lights_wrapper.updateRendering(_lightProgram, *c, false);
+		//BaseObject::transformations(_lightProgram, nullptr, &view, &projective);
+		//for (LightObject& obj : lights) {
+		//	obj.render(_lightProgram);
+		//}
 
 		// render imported
-		ambient.use(_importedProgram);
-		lights_wrapper.updateRendering(_importedProgram, *c);
-		RenderableObject::transformations(_importedProgram, nullptr, &view, &projective);
-		guitar_textured.render(_importedProgram);
-		calcTextured.render(_importedProgram);
+		//ambient.use(_importedProgram);
+		//lights_wrapper.updateRendering(_importedProgram, *c);
+		//RenderableObject::transformations(_importedProgram, nullptr, &view, &projective);
+		//guitar_textured.render(_importedProgram);
+		//calcTextured.render(_importedProgram);
 
 		// render objects
 		ambient.use(_objectProgram);
-		RenderableObject::transformations(_objectProgram, nullptr, &view, &projective);
+		BaseObject::transformations(_objectProgram, nullptr, &view, &projective);
 		lights_wrapper.updateRendering(_objectProgram, *c);
 		for (auto& obj : toRender) {
-			//obj->render(_objectProgram);
+			obj->render(_objectProgram);
 		}
 
 		// Swap the buffers
