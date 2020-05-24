@@ -231,6 +231,8 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="BaseModel.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Colorable.cpp" />
+    <ClCompile Include="ComposeObject.cpp" />
+    <ClCompile Include="ComposeRenderable.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="ElementBufferModel.cpp" />
@@ -238,10 +240,13 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="LightModel.cpp" />
     <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="LoadedModel.cpp" />
+    <ClCompile Include="Materiable.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialRenderable.cpp" />
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="MeshModel.cpp" />
     <ClCompile Include="Positionable.cpp" />
+    <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="SimCamera.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="main.cpp" />
@@ -249,10 +254,14 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="SDLsupport.cpp" />
     <ClCompile Include="ShaderSupport.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="LightsWrapper.cpp" />
     <ClCompile Include="Spotlight.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TexturedObject.cpp" />
+    <ClCompile Include="TextureRenderable.cpp" />
     <ClCompile Include="Transformable.cpp" />
     <ClCompile Include="UniformWrapper.cpp" />
+    <ClCompile Include="WrapRenderable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="models\SurvivalBackPack\Survival_BackPack_2.fbx">
@@ -297,6 +306,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="Constants.h" />
     <ClInclude Include="LightDefinition.h" />
     <ClInclude Include="LightObject.h" />
+    <ClInclude Include="Materiable.h" />
     <ClInclude Include="MaterialDefinition.h" />
     <ClInclude Include="SharedProgram.h" />
     <ClInclude Include="TexturedObject.h" />

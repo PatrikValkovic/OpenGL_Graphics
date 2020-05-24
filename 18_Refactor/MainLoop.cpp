@@ -82,8 +82,8 @@ void MainLoop::loop()
 	DirectionalLight direction_light(glm::vec3(1.0, -5.0, -2.0), glm::vec3(1.0, 1.0, 1.0), 1.0f);
 	Texture texture_diffuse = Texture::fromFile("textures/container.png");
 	Texture texture_specular = Texture::fromFile("textures/container_specular.png");
-	TextureRenderablePtr diffusedCube(&cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
-	TextureRenderableRef texturedCube(diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
+	TextureRenderable diffusedCube(&cube_model, texture_diffuse, TextureSlots::Texture10, "diffuse_texture");
+	TextureRenderable texturedCube(&diffusedCube, texture_specular, TextureSlots::Texture11, "specular_texture");
 	//LoadedModel<> guitar("models/SurvivalBackPack/Survival_BackPack_2.fbx", _lightProgram);
 	//TexturedObject guitar_textured(guitar);
 	//guitar_textured
@@ -99,19 +99,19 @@ void MainLoop::loop()
 	//calcTextured.useTexture("models/calculator/Calculadora_Color.png", TextureTypes::diffuse, 0, false);
 	//calcTextured.setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-5, 0, 4));
 
-	std::vector<std::unique_ptr<RenderableObjectRef>> toRender;
+	std::vector<std::unique_ptr<RenderableObject>> toRender;
 	//MaterialRenderableRef first_cube_with_material(texturedCube, MATERIALS::emerald);
 	//MaterialRenderableRef second_cube_with_material(texturedCube, MATERIALS::gold);
 	//MaterialRenderableRef floor_cube_with_material(texturedCube, MATERIALS::obsidian);
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(0, 0, 0)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(0, 0, 8)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-9, 5, 9)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-7, 4, 5)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-5, 2, 2)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(7, 6, 7)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-7, 3, -2)));
-	toRender.push_back(std::make_unique<RenderableObjectRef>(texturedCube, glm::vec3(-9, 1, -4)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(0, 0, 0)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(0, 0, 8)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(-9, 5, 9)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(-7, 4, 5)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(-5, 2, 2)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(7, 6, 7)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(-7, 3, -2)));
+	toRender.push_back(std::make_unique<RenderableObject>(&texturedCube, glm::vec3(-9, 1, -4)));
 
 	std::vector<LightObject> lights{
 		LightObject(spot_light),
@@ -121,7 +121,7 @@ void MainLoop::loop()
 	lights[0].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.0f));
 	lights[1].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-7.0f, 1.0f, 5.0f));
 	AmbientLight ambient(0.25f);
-	LightsWrapperPtr lights_wrapper;
+	LightsWrapper lights_wrapper;
 
 	// main loop
 	SDL_Event e;

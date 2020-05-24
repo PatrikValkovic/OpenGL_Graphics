@@ -15,7 +15,11 @@ public:
 	Material(glm::vec3 diffuseColor);
 	Material(glm::vec3 diffuseColor, float specularSelf, float specularLight, float shininess = 32.f);
 	Material(glm::vec3 diffuseColor, glm::vec3 specularColor, float specularSelf, float specularLight, float shininess = 32.0f);
-
+	Material(const Material&) = default;
+	Material(Material&&) = default;
+	Material& operator=(const Material&) = default;
+	Material& operator=(Material&&) = default;
+	virtual ~Material() = default;
 
 	inline glm::vec3 getDiffuseColor() const noexcept {
 		return _diffuse;
