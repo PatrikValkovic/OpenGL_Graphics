@@ -1,6 +1,12 @@
 #include "RenderableObject.h"
+#include <iostream>
+#include "Constants.h"
 
-RenderableObject::RenderableObject(Renderable* renderable, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
+RenderableObject::RenderableObject()
+	: RenderableObject(nullptr)
+{}
+
+RenderableObject::RenderableObject(Renderable* renderable, glm::vec3 translate, glm::vec3 scale, glm::mat3 rotate)
 	: WrapRenderable(renderable), BaseObject(translate, scale, rotate)
 {}
 
@@ -17,4 +23,16 @@ void RenderableObject::render(GLuint program, glm::mat4 model)
 	BaseObject::transformations(program, &my_transform);
 
 	_inner->render(program);
+}
+
+RenderableObjectDestroy::RenderableObjectDestroy(Renderable* renderable, glm::vec3 translate, glm::vec3 scale, glm::mat3 rotate)
+	: RenderableObject(renderable, translate, scale, rotate)
+{}
+
+RenderableObjectDestroy::~RenderableObjectDestroy()
+{
+	if (VERBOSE) {
+		std::cout << "Destroying RenderableObject " << this << std::endl;
+	}
+	delete _inner;
 }

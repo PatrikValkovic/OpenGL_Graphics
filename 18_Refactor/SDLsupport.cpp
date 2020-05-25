@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <SDL_image.h>
 #include <assimp/version.h>
+#include "Constants.h"
 
 RAII<void> load_sdl(unsigned int flags, bool main_ready)
 {
@@ -73,11 +74,11 @@ RAII<SDL_GLContext> create_context(SDL_Window* window)
 			using namespace std;
 			if (severity == GL_DEBUG_SEVERITY_HIGH || severity == GL_DEBUG_SEVERITY_MEDIUM) {
 				cerr << "Error in OpenGL: " << message << endl 
-					 << "\tof type 0x" << hex << type << "("
+					 << "\tof type 0x" << hex << type
 					 << " from source 0x" << source << endl;
 			}
-			else {
-				//cout << "OpenGL log: " << message << endl;
+			else if (VERBOSE){
+				cout << "OpenGL log: " << message << endl;
 			}
 	}, nullptr);
 

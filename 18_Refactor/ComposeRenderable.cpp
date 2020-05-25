@@ -1,4 +1,6 @@
 #include "ComposeRenderable.h"
+#include <iostream>
+#include "Constants.h"
 
 ComposeRenderable::ComposeRenderable(std::vector<Renderable*>&& renderables)
 	: _renderables(std::move(renderables))
@@ -24,6 +26,9 @@ ComposeRenderableDestroy::ComposeRenderableDestroy(std::vector<Renderable*>&& re
 
 ComposeRenderableDestroy::~ComposeRenderableDestroy()
 {
+	if (VERBOSE) {
+		std::cout << "Destroying ComposerRenderable " << this << std::endl;
+	}
 	for (Renderable* val : _renderables)
 		delete val;
 }

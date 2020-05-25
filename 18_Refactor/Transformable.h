@@ -8,21 +8,20 @@ class Transformable : public Positionable
 {
 protected:
 	glm::vec3 _scale;
-	glm::vec3 _rotate;
+	glm::mat4 _rotate;
 public:
 	Transformable(
 		glm::vec3 translate = glm::vec3(0.0f),
 		glm::vec3 scale = glm::vec3(1.0f),
-		glm::vec3 rotate = glm::vec3(0.0f)
+		glm::mat3 rotate = glm::mat3(1.0f)
 	);
-
 	Transformable(const Transformable&) = default;
 	Transformable(Transformable&&) = default;
 	Transformable& operator=(const Transformable&) = default;
 	Transformable& operator=(Transformable&&) = default;
 	virtual ~Transformable() = default;
 
-	
+
 
 	inline glm::vec3 getScale() noexcept {
 		return _scale;
@@ -45,14 +44,14 @@ public:
 	}
 
 
-	inline glm::vec3 getRotation() {
+	inline glm::mat3 getRotation() {
 		return _rotate;
 	}
-	inline Transformable& setRotation(glm::vec3 rotation) {
+	inline Transformable& setRotation(glm::mat3 rotation) {
 		_rotate = rotation;
 		return *this;
 	}
-	inline Transformable& rotate(glm::vec3 rotation) noexcept {
+	/*inline Transformable& rotate(glm::vec3 rotation) noexcept {
 		return this->setRotation(this->getRotation() + rotation);
 	}
 	inline Transformable& rotateAroundX(float degree) noexcept {
@@ -63,9 +62,9 @@ public:
 	}
 	inline Transformable& rotateAroundZ(float degree) noexcept {
 		return this->rotate(glm::vec3(0.0f, 0.0f, degree));
-	}
+	}*/
 
-
+	void setFromMatrix(glm::mat4 transformation);
 };
 
 

@@ -8,7 +8,7 @@ class ComposeObject : public RenderableObject
 protected:
 	std::vector<RenderableObject*> _inner;
 public:
-	ComposeObject() = default;
+	ComposeObject();
 	ComposeObject(std::vector<RenderableObject*>&& vect);
 	ComposeObject(const ComposeObject&) = default;
 	ComposeObject(ComposeObject&&) = default;
@@ -17,8 +17,21 @@ public:
 	virtual ~ComposeObject() = default;
 
 	virtual void render(GLuint program, glm::mat4 model) override;
+	virtual void render(GLuint program) override;
 
 	ComposeObject& addObject(RenderableObject* obj);
+};
+
+class ComposeObjectDestroy : public ComposeObject
+{
+public:
+	ComposeObjectDestroy() = default;
+	ComposeObjectDestroy(std::vector<RenderableObject*> && vect);
+	ComposeObjectDestroy(const ComposeObjectDestroy&) = delete;
+	ComposeObjectDestroy(ComposeObjectDestroy&&) = default;
+	ComposeObjectDestroy& operator=(const ComposeObjectDestroy&) = delete;
+	ComposeObjectDestroy& operator=(ComposeObjectDestroy&&) = default;
+	virtual ~ComposeObjectDestroy();
 };
 
 

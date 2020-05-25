@@ -2,13 +2,13 @@
 #define __TEXTURED_OBJECT_H__
 #include <vector>
 #include <iostream>
-#include "RenderableObject.h"
+#include "WrapObject.h"
 #include "Texture.h"
 #include "TextureTypes.h"
 #include "TextureSlots.h"
 #include "UniformWrapper.h"
 
-class TexturedObject: public RenderableObject
+class TexturedObject: public WrapObject
 {
 protected:
 	static UniformWrapper _uniform;
@@ -18,9 +18,7 @@ protected:
 		Wrap(Wrap&&) = default;
 		GLuint texture;
 		TextureTypes type;
-		GLint sampler_location;
-		GLint pos_location;
-		int coord_index;
+		int coord_index = -1;
 	};
 	class WrapIncludingTexture : public Wrap {
 	public:
@@ -31,10 +29,10 @@ protected:
 	std::vector<std::unique_ptr<Wrap>> _textures;
 public:
 	TexturedObject(
-		Renderable* renderable,
+		RenderableObject* renderable,
 		glm::vec3 translate = glm::vec3(0.0f),
 		glm::vec3 scale = glm::vec3(1.0f),
-		glm::vec3 rotate = glm::vec3(0.0f)
+		glm::mat3 rotate = glm::mat3(1.0f)
 	);
 	TexturedObject(const TexturedObject&) = delete;
 	TexturedObject(TexturedObject&&) = default;	

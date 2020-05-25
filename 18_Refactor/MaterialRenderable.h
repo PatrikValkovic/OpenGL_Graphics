@@ -18,7 +18,7 @@ public:
 	virtual void render(GLuint program) override;
 };
 
-class MaterialRenderableDestroy : public WrapRenderableDestroy, public Materiable
+class MaterialRenderableDestroy : public MaterialRenderable
 {
 public:
 	MaterialRenderableDestroy(Renderable* inner, const Material& material);
@@ -26,10 +26,7 @@ public:
 	MaterialRenderableDestroy(MaterialRenderableDestroy&&) = default;
 	MaterialRenderableDestroy& operator=(const MaterialRenderableDestroy&) = delete;
 	MaterialRenderableDestroy& operator=(MaterialRenderableDestroy&&) = default;
-	virtual ~MaterialRenderableDestroy() = default;
-
-
-	virtual void render(GLuint program) override;
+	virtual ~MaterialRenderableDestroy();
 };
 
 

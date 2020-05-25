@@ -5,17 +5,13 @@
 
 UniformWrapper BaseObject::_uniform;
 
-BaseObject::BaseObject(glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
+BaseObject::BaseObject(glm::vec3 translate, glm::vec3 scale, glm::mat3 rotate)
 	: Transformable(translate, scale, rotate)
 {}
 
 glm::mat4 BaseObject::transformMatrix() const noexcept
 {
-	return glm::translate(_position) * glm::yawPitchRoll(
-		glm::radians(_rotate.y),
-		glm::radians(_rotate.x),
-		glm::radians(_rotate.z)
-	) * glm::scale(_scale);
+	return glm::translate(_position) * glm::mat4(_rotate) * glm::scale(_scale);
 }
 
 void BaseObject::transformations(GLuint program, glm::mat4* model, glm::mat4* view, glm::mat4* projection)

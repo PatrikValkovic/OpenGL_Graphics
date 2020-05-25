@@ -3,8 +3,8 @@
 UniformWrapper TexturedObject::_uniform;
 
 
-TexturedObject::TexturedObject(Renderable* renderable, glm::vec3 translate, glm::vec3 scale, glm::vec3 rotate)
-	: RenderableObject(renderable, translate, scale, rotate)
+TexturedObject::TexturedObject(RenderableObject* renderable, glm::vec3 translate, glm::vec3 scale, glm::mat3 rotate)
+	: WrapObject(renderable, translate, scale, rotate)
 {}
 
 
@@ -46,33 +46,26 @@ void TexturedObject::render(GLuint program, glm::mat4 model)
 
 	for (unsigned int i = 0; i < _textures.size(); i++) {
 		std::unique_ptr<Wrap> &w = _textures[i];
-		if (w->sampler_location == -2 || w->pos_location == -2) {
-			const char* sampler_name = TEXTURETYPE_TO_UNIFORM.at(w->type);
-			const char* location_name = TEXTURETYPE_TO_COORD.at(w->type);
-			w->sampler_location = _uniform(program, sampler_name);
-			w->pos_location = _uniform(program, location_name);
-		}
-
 		GLuint slot = static_cast<GLuint>(TextureSlots::Texture31) - i;
 		glActiveTexture(slot);
 		glBindTexture(GL_TEXTURE_2D, w->texture);
-		glUniform1i(w->sampler_location, slot - GL_TEXTURE0);
-		glUniform1i(w->pos_location, w->coord_index);
+		glUniform1i(_uniform(program, TEXTURETYPE_TO_UNIFORM.at(w->type)), slot - GL_TEXTURE0);
+		glUniform1i(_uniform(program, TEXTURETYPE_TO_COORD.at(w->type)), w->coord_index);
 		not_used.erase(w->type);
 	}
 
 	for (TextureTypes type : not_used) {
 		const char* name = TEXTURETYPE_TO_COORD.at(type);
-		int position = glGetUniformLocation(program, name);
+		GLint position = _uniform(program, name);
 		glUniform1i(position, -1);
 	}
 
-	return RenderableObject::render(program, model);
+	return WrapObject::render(program, model);
 }
 
 void TexturedObject::render(GLuint program)
 {
-	return RenderableObject::render(program);
+	return WrapObject::render(program);
 }
 
 

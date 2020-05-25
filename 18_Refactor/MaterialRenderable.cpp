@@ -1,4 +1,6 @@
 #include "MaterialRenderable.h"
+#include <iostream>
+#include "Constants.h"
 
 MaterialRenderable::MaterialRenderable(Renderable* inner, const Material& material)
 	: WrapRenderable(inner), Materiable(material)
@@ -52,10 +54,13 @@ void MaterialRenderable::render(GLuint program)
 }
 
 MaterialRenderableDestroy::MaterialRenderableDestroy(Renderable* inner, const Material& material)
-	: WrapRenderableDestroy(inner), Materiable(material)
+	: MaterialRenderable(inner, material)
 {}
 
-void MaterialRenderableDestroy::render(GLuint program)
+MaterialRenderableDestroy::~MaterialRenderableDestroy()
 {
-	throw std::exception("Rendering material is not supported");
+	if (VERBOSE) {
+		std::cout << "Destroying Material Renderable" << this << std::endl;
+	}
+	delete _inner;
 }

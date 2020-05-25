@@ -237,9 +237,9 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="ElementBufferModel.cpp" />
     <ClCompile Include="FlyCamera.cpp" />
-    <ClCompile Include="LightModel.cpp" />
     <ClCompile Include="LightObject.cpp" />
-    <ClCompile Include="LoadedModel.cpp" />
+    <ClCompile Include="MirrorPaneModel.cpp" />
+    <ClCompile Include="ModelObject.cpp" />
     <ClCompile Include="Materiable.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialRenderable.cpp" />
@@ -261,35 +261,33 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="TextureRenderable.cpp" />
     <ClCompile Include="Transformable.cpp" />
     <ClCompile Include="UniformWrapper.cpp" />
+    <ClCompile Include="WrapObject.cpp" />
     <ClCompile Include="WrapRenderable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="models\IronManMark\Iron_Man_Mark_44_Hulkbuster_fbx.FBX" />
+    <None Include="models\penguin\PenguinBaseMesh.fbx" />
+    <None Include="models\plant\indoor plant_02_+2.fbx" />
     <None Include="models\SurvivalBackPack\Survival_BackPack_2.fbx">
       <DeploymentContent>true</DeploymentContent>
     </None>
     <None Include="processshaders.ps1" />
-    <None Include="shaders\imported.frag">
+    <None Include="shaders\main.frag">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>
-    <None Include="shaders\imported.vert">
+    <None Include="shaders\main.vert">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>
-    <None Include="shaders\light.frag">
+    <None Include="shaders\white.frag">
       <DeploymentContent>true</DeploymentContent>
     </None>
-    <None Include="shaders\light.vert">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="shaders\object.frag">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="shaders\object.vert">
+    <None Include="shaders\white.vert">
       <DeploymentContent>true</DeploymentContent>
     </None>
   </ItemGroup>
@@ -308,19 +306,20 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="Materiable.h" />
     <ClInclude Include="MaterialDefinition.h" />
+    <ClInclude Include="MirrorPaneModel.h" />
     <ClInclude Include="SharedProgram.h" />
     <ClInclude Include="TexturedObject.h" />
     <ClInclude Include="TextureTypes.h" />
     <ClInclude Include="VertexDefinition.h" />
     <ClInclude Include="UniformWrapper.h" />
+    <ClInclude Include="WrapObject.h" />
     <ClInclude Include="WrapRenderable.h" />
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="ElementBufferModel.h" />
     <ClInclude Include="FlyCamera.h" />
-    <ClInclude Include="LightModel.h" />
     <ClInclude Include="LightsWrapper.h" />
-    <ClInclude Include="LoadedModel.h" />
+    <ClInclude Include="ModelObject.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialRenderable.h" />
     <ClInclude Include="Materials.h" />
@@ -343,6 +342,10 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
   </ItemGroup>
   <ItemGroup>
     <Image Include="models\calculator\Calculadora_Color.png" />
+    <Image Include="models\mirror\dcmap_Baker_Emerald Mirror_diff.jpg" />
+    <Image Include="models\penguin\Penguin Diffuse Color.png" />
+    <Image Include="models\plant\indoor plant_2_COL.jpg" />
+    <Image Include="models\plant\indoor plant_2_NOR.jpg" />
     <Image Include="models\SurvivalBackPack\1001_albedo.jpg">
       <DeploymentContent>true</DeploymentContent>
     </Image>
@@ -381,6 +384,28 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="models\mirror\Baker_Emerald_Mirror.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Object>
+    <Object Include="models\mirror\Baker_Emerald_Mirror_plane.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </Object>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

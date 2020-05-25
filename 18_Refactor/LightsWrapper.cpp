@@ -1,4 +1,6 @@
 #include "LightsWrapper.h"
+#include <iostream>
+#include "Constants.h"
 
 UniformWrapper LightsWrapper::_uniform;
 
@@ -49,6 +51,9 @@ void LightsWrapper::updateRendering(GLuint program, BaseCamera& camera, bool ver
 
 LightsWrapperDestroy::~LightsWrapperDestroy()
 {
+	if (VERBOSE) {
+		std::cout << "Destroying LightsWrapper " << this << std::endl;
+	}
 	for (LightObject* lightobj : _lights)
 		delete lightobj;
 }

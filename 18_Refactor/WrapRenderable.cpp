@@ -1,4 +1,6 @@
 #include "WrapRenderable.h"
+#include <iostream>
+#include "Constants.h"
 
 WrapRenderable::WrapRenderable(Renderable* inner)
 	: _inner(inner)
@@ -15,5 +17,8 @@ WrapRenderableDestroy::WrapRenderableDestroy(Renderable* inner)
 
 WrapRenderableDestroy::~WrapRenderableDestroy()
 {
+	if (VERBOSE) {
+		std::cout << "Destroying WrapRenderable " << this << std::endl;
+	}
 	delete _inner;
 }

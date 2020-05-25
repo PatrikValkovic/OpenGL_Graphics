@@ -11,7 +11,7 @@ GLint UniformWrapper::uniformloc(GLuint program, const std::string& name) noexce
     if (nameiter == program_mapping.end()) {
         GLint location = glGetUniformLocation(program, name.c_str());
         if (location == -1) {
-            std::cerr << "Uniform variable " << name << " not found " << std::endl;
+            std::cerr << "Uniform variable " << name << " not found in program " << program << std::endl;
         }
         program_mapping.insert(std::make_pair(name, location));
         return location;

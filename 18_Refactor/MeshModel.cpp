@@ -5,13 +5,17 @@
 
 using namespace std;
 
-MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel()
+MeshModel::MeshModel(const aiMesh* mesh) 
+	: ElementBufferModel()
 {
 	vector<VertexDefinition> vertices;
 	vector<unsigned int> indices;
 
 	if (!mesh->mColors[0]) {
 		cerr << "Model doesn't has colors defined" << endl;
+	}
+	if (!mesh->mNormals) {
+		cerr << "Model doesn't has normals defined" << endl;
 	}
 
 	for (unsigned int vertex_i = 0; vertex_i < mesh->mNumVertices; vertex_i++) {
@@ -21,11 +25,13 @@ MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel()
 			mesh->mVertices[vertex_i].y,
 			mesh->mVertices[vertex_i].z
 		);
-		vertex.normal = glm::vec3(
-			mesh->mNormals[vertex_i].x,
-			mesh->mNormals[vertex_i].y,
-			mesh->mNormals[vertex_i].z
-		);
+		if (mesh->mNormals != nullptr) {
+			vertex.normal = glm::vec3(
+				mesh->mNormals[vertex_i].x,
+				mesh->mNormals[vertex_i].y,
+				mesh->mNormals[vertex_i].z
+			);
+		}
 		if (mesh->mColors[0] != nullptr) {
 			vertex.color = glm::vec4(
 				mesh->mColors[0][vertex_i].r,
@@ -45,9 +51,7 @@ MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel()
 
 	for (unsigned int face_i = 0; face_i < mesh->mNumFaces; face_i++) {
 		aiFace& face = mesh->mFaces[face_i];
-		for (unsigned int i = 0; i < face.mNumIndices; i++)
-			indices.push_back(face.mIndices[i]);
-		//indices.insert(indices.end(), face.mIndices, face.mIndices + face.mNumIndices);
+		indices.insert(indices.end(), face.mIndices, face.mIndices + face.mNumIndices);
 	}
 	_numOfElements = static_cast<unsigned int>(indices.size());
 
@@ -62,10 +66,17 @@ MeshModel::MeshModel(const aiMesh* mesh) : ElementBufferModel()
 	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, position)));
 	glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, normal)));
 	glVertexAttribPointer(2, 4, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, color)));
-	for(int i=3; i < 3 + MAX_TEXTURES; i++)
-		glVertexAttribPointer(3, 2, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[i])));
-	for (unsigned int i = 0; i < 3 + MAX_TEXTURES; i++)
-		glEnableVertexAttribArray(i);
+	glVertexAttribPointer(3, 2, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[0])));
+	glVertexAttribPointer(4, 2, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[1])));
+	glVertexAttribPointer(5, 2, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[2])));
+	glVertexAttribPointer(6, 2, GL_FLOAT, false, sizeof(VertexDefinition), reinterpret_cast<void*>(offsetof(VertexDefinition, textureCoords[3])));
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
+	glEnableVertexAttribArray(4);
+	glEnableVertexAttribArray(5);
+	glEnableVertexAttribArray(6);
 	// unbind
 	glBindVertexArray(0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -77,7 +88,7 @@ void MeshModel::render(GLuint program)
 	this->_render(
 		program,
 		[this]() {
-			glDrawElements(GL_TRIANGLES, _numOfElements, GL_UNSIGNED_INT, nullptr);
+ 			glDrawElements(GL_TRIANGLES, _numOfElements, GL_UNSIGNED_INT, nullptr);
 		}
 	);
 	return;
