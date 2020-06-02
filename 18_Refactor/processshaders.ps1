@@ -2,8 +2,14 @@ $where = $args[0]
 $compiler = $args[1]
 $output = $args[2]
 
+#Write-Host $where
+#Write-Host $compiler
+#Write-Host $output
+
 $files = Get-ChildItem $where -Recurse -File
-New-Item -Path $output -ItemType "directory"
+If (-Not (Test-Path $output)){
+	New-Item -Path $output -ItemType "directory"
+}
 
 foreach($file in $files){
 	# $file | Get-Member

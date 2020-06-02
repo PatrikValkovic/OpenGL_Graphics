@@ -120,7 +120,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "&amp; '$(ProjectDir)processshaders.ps1' '$(ProjectDir)shaders' '$(ClCompilerPath)' '$(ProjectDir)compiledshaders'";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -150,7 +150,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "&amp; '$(ProjectDir)processshaders.ps1' '$(ProjectDir)shaders' '$(ClCompilerPath)' '$(ProjectDir)compiledshaders'";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -184,7 +184,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "&amp; '$(ProjectDir)processshaders.ps1' '$(ProjectDir)shaders' '$(ClCompilerPath)' '$(ProjectDir)compiledshaders'";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -218,7 +218,7 @@ copy $(SolutionDir)libraries\SDL_image\lib\$(PlatformTarget)\zlib1.dll $(OutputP
 copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.dll $(OutputPath);</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "$(ProjectDir)processshaders.ps1 $(ProjectDir)shaders $(ClCompilerPath) $(ProjectDir)compiledshaders";
+      <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive  "&amp; '$(ProjectDir)processshaders.ps1' '$(ProjectDir)shaders' '$(ClCompilerPath)' '$(ProjectDir)compiledshaders'";
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -271,7 +271,16 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <None Include="models\SurvivalBackPack\Survival_BackPack_2.fbx">
       <DeploymentContent>true</DeploymentContent>
     </None>
-    <None Include="processshaders.ps1" />
+    <None Include="processshaders.ps1">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </None>
     <None Include="shaders\main.frag">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
