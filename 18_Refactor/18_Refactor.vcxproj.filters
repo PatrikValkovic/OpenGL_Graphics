@@ -207,6 +207,9 @@
     <ClCompile Include="MirrorPaneModel.cpp">
       <Filter>Source Files\models</Filter>
     </ClCompile>
+    <ClCompile Include="ReflectionObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="models\SurvivalBackPack\Survival_BackPack_2.fbx">
@@ -221,12 +224,6 @@
     <None Include="shaders\main.frag">
       <Filter>Resource Files\shaders</Filter>
     </None>
-    <None Include="shaders\white.frag">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="shaders\white.vert">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
     <None Include="models\IronManMark\Iron_Man_Mark_44_Hulkbuster_fbx.FBX">
       <Filter>Resource Files\models\IronManMark</Filter>
     </None>
@@ -235,6 +232,12 @@
     </None>
     <None Include="models\plant\indoor plant_02_+2.fbx">
       <Filter>Resource Files\models\plant</Filter>
+    </None>
+    <None Include="shaders\background.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\background.vert">
+      <Filter>Resource Files\shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +381,9 @@
     </ClInclude>
     <ClInclude Include="MirrorPaneModel.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionObject.h">
+      <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

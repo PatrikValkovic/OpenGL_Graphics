@@ -22,6 +22,12 @@ RAII<void> load_sdl(unsigned int flags, bool main_ready)
 		throw LoadException("Can't load SDL Image library");
 	}
 
+	// set context version and compatibility mode
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1); // request stencil buffer
+
 	return RAII<void>([]() {
 		IMG_Quit();
 		SDL_Quit();
@@ -40,10 +46,6 @@ RAII<SDL_Window*> create_window(std::string title, int x, int y, int w, int h, u
 
 RAII<SDL_GLContext> create_context(SDL_Window* window)
 {
-	// set context version and compatibility mode
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4);
 	// create context
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 	if (context == nullptr) {

@@ -3,11 +3,10 @@
 Spotlight::Spotlight(
 	float innerCutoff, 
 	float outerCufoff, 
-	glm::vec3 direction, 
 	glm::vec3 color, 
 	glm::vec3 attenuation,
 	float strength)
-	: DirectionalLight(direction, color, strength), 
+	: DirectionalLight(color, strength), 
 	  AttenuatibleLight(attenuation),
 	  _innerCutoff(innerCutoff), _outerCutoff(outerCufoff)
 {

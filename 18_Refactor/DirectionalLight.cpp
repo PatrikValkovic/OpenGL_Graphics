@@ -1,7 +1,7 @@
 #include "DirectionalLight.h"
 
-DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color, float strength)
-	: BaseLight(strength, color), _direction(direction)
+DirectionalLight::DirectionalLight(glm::vec3 color, float strength)
+	: BaseLight(strength, color)
 {}
 
 unsigned int DirectionalLight::getType() const noexcept
@@ -17,5 +17,5 @@ int DirectionalLight::getParameters(float parameters[8]) const noexcept
 
 glm::vec3 DirectionalLight::getDirection() const noexcept
 {
-	return _direction;
+	return glm::vec3(0.0f, -1.0f, 0.0f); //TODO transformation
 }

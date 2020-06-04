@@ -14,7 +14,6 @@ public:
 	Spotlight(
 		float innerCutoff=30.0f,
 		float outerCufoff=45.0f,
-		glm::vec3 direction = glm::vec3(0.0, -1.0, 0.0),
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3 attenuation = glm::vec3(1, 0.14, 0.07),
 		float strength = 1.0

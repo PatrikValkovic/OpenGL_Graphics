@@ -246,6 +246,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="MeshModel.cpp" />
     <ClCompile Include="Positionable.cpp" />
+    <ClCompile Include="ReflectionObject.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="SimCamera.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
@@ -293,10 +294,10 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>
-    <None Include="shaders\white.frag">
+    <None Include="shaders\background.frag">
       <DeploymentContent>true</DeploymentContent>
     </None>
-    <None Include="shaders\white.vert">
+    <None Include="shaders\background.vert">
       <DeploymentContent>true</DeploymentContent>
     </None>
   </ItemGroup>
@@ -316,6 +317,7 @@ copy $(SolutionDir)libraries\assimp-5.0.1\lib\$(PlatformTarget)\assimp-vc142-mt.
     <ClInclude Include="Materiable.h" />
     <ClInclude Include="MaterialDefinition.h" />
     <ClInclude Include="MirrorPaneModel.h" />
+    <ClInclude Include="ReflectionObject.h" />
     <ClInclude Include="SharedProgram.h" />
     <ClInclude Include="TexturedObject.h" />
     <ClInclude Include="TextureTypes.h" />
