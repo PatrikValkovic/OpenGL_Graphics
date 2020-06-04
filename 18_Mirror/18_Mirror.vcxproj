@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{3AFA221B-AB8D-4CE9-9E76-47E4BEF83059}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>18_Refactor</RootNamespace>
+    <RootNamespace>18_Mirror</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

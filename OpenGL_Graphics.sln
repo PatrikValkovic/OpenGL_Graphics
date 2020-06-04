@@ -37,7 +37,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "16_LightsTypes", "16_Lights
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "17_Models", "17_Models\17_Models.vcxproj", "{D8BCD7F9-4150-41A0-A4AD-90A805740770}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "18_Refactor", "18_Refactor\18_Refactor.vcxproj", "{3AFA221B-AB8D-4CE9-9E76-47E4BEF83059}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "18_Mirror", "18_Mirror\18_Mirror.vcxproj", "{3AFA221B-AB8D-4CE9-9E76-47E4BEF83059}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

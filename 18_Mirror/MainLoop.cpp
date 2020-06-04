@@ -157,7 +157,9 @@ void MainLoop::loop()
 	lights[2].setRotation(glm::rotate(glm::radians(30.0f), glm::vec3(-1, 0, -0.5f)));
 	AmbientLight ambient(0.25f);
 	LightsWrapper lights_wrapper;
-
+	for (LightObject& obj : lights) {
+		lights_wrapper.addLight(&obj);
+	}
 
 	// main loop
 	SDL_Event e;
@@ -219,13 +221,6 @@ void MainLoop::loop()
 		glm::mat4 projective = glm::perspective(glm::radians(45.0f), (float)w / (float)h, 0.1f, 200.0f);
 		glm::mat4 view = camera->createTransformMatrix();
 
-		// update lighting
-		lights_wrapper.clear();
-		for (LightObject& obj : lights) {
-			lights_wrapper.addLight(&obj);
-		}
-
-
 		// render light cube
 		BaseObject::transformations(_backgroundProgram, nullptr, &view, &projective);
 		for (LightObject& obj : lights) {
@@ -241,6 +236,7 @@ void MainLoop::loop()
 			obj->render(_mainProgram);
 		}
 
+		// set stencil to 1 where the mirror is
 		glEnable(GL_STENCIL_TEST);
 		glStencilFunc(GL_ALWAYS, 1, 0xFF);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
@@ -254,17 +250,27 @@ void MainLoop::loop()
 			glClear(GL_DEPTH_BUFFER_BIT);
 			glm::vec4 planeformula = mirror_reflection.getPlaneFormula(view);
 			glm::mat4 reflection_matrix = mirror_reflection.getReflectionMatrix();
+			// transform lights
+			std::map<Transformable*, glm::mat4> orig_transforms;
+			for (LightObject& obj : lights) {
+				glm::mat4 orig = obj.transformMatrix();
+				orig_transforms.insert(std::make_pair(&obj, orig));
+				obj.setFromMatrix(reflection_matrix * orig);
+			}
+			lights_wrapper.updateRendering(_mainProgram, *camera);
 			// render
 			BaseObject::transformations(_mainProgram, nullptr, &view, &projective);
-			lights_wrapper.updateRendering(_mainProgram, *camera); // TODO update lights
 			glUniform4f(glGetUniformLocation(_mainProgram, "clip_plane"), planeformula.x, planeformula.y, planeformula.z, planeformula.w);
 			for (auto& obj : toRender) {
 				obj->render(_mainProgram, reflection_matrix);
 			}
+			// reset lights
+			for (auto& entry : orig_transforms)
+				entry.first->setFromMatrix(entry.second);
+			// reset state
 			glFrontFace(GL_CCW);
 			glDisable(GL_CLIP_DISTANCE0);
 		}
-
 		glDisable(GL_STENCIL_TEST);
 
 		// Swap the buffers
