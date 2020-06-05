@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\models">
+      <UniqueIdentifier>{0fbce2ca-7f4e-48de-9e6a-a02f641c4ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\models">
+      <UniqueIdentifier>{a6c5d4d5-2a12-47ba-a2d0-e0228f6cf022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\camera">
+      <UniqueIdentifier>{0ae21ffc-72e8-4ce5-a1dc-963cd0527f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\camera">
+      <UniqueIdentifier>{d8470b2b-a54a-4597-a333-a83ba0ce44e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lighting">
+      <UniqueIdentifier>{03d54900-e3f5-4615-90bd-993a8a9d4499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lighting">
+      <UniqueIdentifier>{f99621ff-f6d4-481e-9d52-2f9a8edd26ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects">
+      <UniqueIdentifier>{301806e6-71f4-43ce-8ae7-ad0dd4344e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\base">
+      <UniqueIdentifier>{2e59b1b8-2f8a-4581-8cf4-4f34b1454465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\base">
+      <UniqueIdentifier>{2f1815cf-4aa2-475a-a898-898e305c7e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\materials">
+      <UniqueIdentifier>{91f1e079-631c-4716-a3e2-f34c4ff760ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\materials">
+      <UniqueIdentifier>{a721863b-0f54-49f7-bf50-dca1501b2f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\textures">
+      <UniqueIdentifier>{bf94da23-a2e3-4843-be0a-484ef6e4fe01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\textures">
+      <UniqueIdentifier>{82a0279b-1927-439b-8e02-2fb430037570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models">
+      <UniqueIdentifier>{1b1d6094-6a4d-4e0b-bcd0-d9675321f414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models\SurvivalBackPack">
+      <UniqueIdentifier>{acc17e70-1c90-48b1-ad3f-9cba5a6b099d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{a2e552c6-3486-4658-8bb6-989778f1488d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\textures">
+      <UniqueIdentifier>{969df55b-6a4f-422b-97a5-5a1b930bc827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models\calculator">
+      <UniqueIdentifier>{ae1a8768-7763-43cc-8a6b-66b0a0181048}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shared">
+      <UniqueIdentifier>{9b9197b1-62ca-47e4-ad73-e5f68c8fdc55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\objects">
+      <UniqueIdentifier>{18dc304c-b1ff-4170-8d29-d52402804d89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models\IronManMark">
+      <UniqueIdentifier>{d99e3d0e-7e33-431d-abb7-b04c66a5d348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models\penguin">
+      <UniqueIdentifier>{73f6208b-16e5-40d4-b2a2-295ffa6f2f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models\plant">
+      <UniqueIdentifier>{4333d214-1fea-4066-9182-683408b6a051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\models\mirror">
+      <UniqueIdentifier>{c61399f6-ddd7-4915-90f3-cd200e79013d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderSupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLsupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyCamera.cpp">
+      <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SimCamera.cpp">
+      <Filter>Source Files\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="AmbientLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Transformable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="Positionable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="Colorable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="AttenuatibleLight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Spotlight.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ElementBufferModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libraries\Glad\glad.c">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformWrapper.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ComposeRenderable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="WrapRenderable.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="LightsWrapper.cpp">
+      <Filter>Source Files\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialRenderable.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Materiable.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureRenderable.cpp">
+      <Filter>Source Files\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ComposeObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="WrapObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MirrorPaneModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectionObject.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenPlaneModel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="models\SurvivalBackPack\Survival_BackPack_2.fbx">
+      <Filter>Resource Files\models\SurvivalBackPack</Filter>
+    </None>
+    <None Include="processshaders.ps1">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\main.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\main.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="models\IronManMark\Iron_Man_Mark_44_Hulkbuster_fbx.FBX">
+      <Filter>Resource Files\models\IronManMark</Filter>
+    </None>
+    <None Include="models\penguin\PenguinBaseMesh.fbx">
+      <Filter>Resource Files\models\penguin</Filter>
+    </None>
+    <None Include="models\plant\indoor plant_02_+2.fbx">
+      <Filter>Resource Files\models\plant</Filter>
+    </None>
+    <None Include="shaders\background.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\background.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\dof.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="shaders\dof.vert">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ShadersSupport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLsupport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyCamera.h">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCamera.h">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimCamera.h">
+      <Filter>Header Files\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="AmbientLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="LightsWrapper.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Transformable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Positionable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Colorable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialRenderable.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureSlots.h">
+      <Filter>Header Files\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureRenderable.h">
+      <Filter>Header Files\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Spotlight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="AttenuatibleLight.h">
+      <Filter>Header Files\lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="ElementBufferModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="WrapRenderable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexDefinition.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureTypes.h">
+      <Filter>Header Files\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="ComposeRenderable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformWrapper.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDefinition.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedProgram.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialDefinition.h">
+      <Filter>Header Files\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="ComposeObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Materiable.h">
+      <Filter>Header Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="WrapObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="RAII.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionObject.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenPlaneModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+    <ClInclude Include="MirrorPaneModel.h">
+      <Filter>Header Files\models</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="models\SurvivalBackPack\1001_albedo.jpg">
+      <Filter>Resource Files\models\SurvivalBackPack</Filter>
+    </Image>
+    <Image Include="models\SurvivalBackPack\1001_AO.jpg">
+      <Filter>Resource Files\models\SurvivalBackPack</Filter>
+    </Image>
+    <Image Include="models\SurvivalBackPack\1001_metallic.jpg">
+      <Filter>Resource Files\models\SurvivalBackPack</Filter>
+    </Image>
+    <Image Include="models\SurvivalBackPack\1001_normal.png">
+      <Filter>Resource Files\models\SurvivalBackPack</Filter>
+    </Image>
+    <Image Include="models\SurvivalBackPack\1001_roughness.jpg">
+      <Filter>Resource Files\models\SurvivalBackPack</Filter>
+    </Image>
+    <Image Include="textures\container.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+    <Image Include="textures\container_specular.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+    <Image Include="models\calculator\Calculadora_Color.png">
+      <Filter>Resource Files\models\calculator</Filter>
+    </Image>
+    <Image Include="models\penguin\Penguin Diffuse Color.png">
+      <Filter>Resource Files\models\penguin</Filter>
+    </Image>
+    <Image Include="models\plant\indoor plant_2_COL.jpg">
+      <Filter>Resource Files\models\plant</Filter>
+    </Image>
+    <Image Include="models\plant\indoor plant_2_NOR.jpg">
+      <Filter>Resource Files\models\plant</Filter>
+    </Image>
+    <Image Include="models\mirror\dcmap_Baker_Emerald Mirror_diff.jpg">
+      <Filter>Resource Files\models\mirror</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="light_types.txt">
+      <Filter>Header Files\lighting</Filter>
+    </Text>
+    <Text Include="models\calculator\calculadora.obj">
+      <Filter>Resource Files\models\calculator</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="models\mirror\Baker_Emerald_Mirror.obj">
+      <Filter>Resource Files\models\mirror</Filter>
+    </Object>
+    <Object Include="models\mirror\Baker_Emerald_Mirror_plane.obj">
+      <Filter>Resource Files\models\mirror</Filter>
+    </Object>
+  </ItemGroup>
+</Project>
