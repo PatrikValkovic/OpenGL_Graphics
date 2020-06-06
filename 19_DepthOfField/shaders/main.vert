@@ -15,20 +15,18 @@ uniform mat4 modelintern;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform vec4 clip_plane;
+
 
 void main(){
 
 	mat4 transformation = projection * view * model;
 
 
-	Normal = mat3(transpose(inverse(model))) * aNormal;
+	Normal = aNormal;
 	Color = aColor;
 	Position = vec3(model * vec4(aPosition, 1.0f));
 	for(uint i=0;i < MAX_TEXTURES;i++)
 		TextureCoords[i]=aTextureCoords[i];
 
 	gl_Position = transformation * vec4(aPosition, 1);
-	vec4 in_view = view * model * vec4(aPosition, 1.0f);
-	gl_ClipDistance[0] = -dot(clip_plane, in_view);
 }

@@ -11,7 +11,7 @@
 #define CLEAR_COLOR_X 0.1f
 #define CLEAR_COLOR_Y 0.2f
 #define CLEAR_COLOR_Z 0.4f
-#define DEPTHOFFIELD_REPEATS 8
+#define DEPTHOFFIELD_REPEATS 16
 
 ///////////////////////
 //// END CONSTANTS ////

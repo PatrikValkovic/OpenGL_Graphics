@@ -93,7 +93,6 @@ void MainLoop::compile_program()
 void MainLoop::loop()
 {
 	// CONFIGURE
-	glClearColor(CLEAR_COLOR_X, CLEAR_COLOR_Y, CLEAR_COLOR_Z, 1.0f);
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -108,12 +107,6 @@ void MainLoop::loop()
 
 	FPSCounter fps;
 	std::unique_ptr<BaseCamera> camera = std::make_unique<FlyCamera>(glm::vec3(0, 1, 0), glm::vec3(1, 1, 2));
-	// lights
-	CubeModel light_model;
-	RenderableObject light_object(&light_model, glm::vec3(0), glm::vec3(0.1f));
-	Spotlight spot_light(5.0f, 10.0f);
-	PointLight point_light(glm::vec3(1.0, 0.14, 0.07), 2.0f);
-	DirectionalLight direction_light;
 	// cube
 	CubeModel cube_model;
 	RenderableObject cube_object(&cube_model);
@@ -154,38 +147,21 @@ void MainLoop::loop()
 		.setScale(glm::vec3(0.001f))
 		.setPosition(glm::vec3(8, 0, 0));
 	ScreenPlaneModel screenplane;
-	
-	std::vector<std::unique_ptr<WrapObject>> toRender;
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(0, 0, 0)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(0, 0, 8)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(-9, 5, 9)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(-7, 4, 5)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(-5, 2, 2)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(7, 6, 7)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(-7, 3, -2)));
-	toRender.push_back(std::make_unique<WrapObject>(&cube_textured, glm::vec3(-9, 1, -4)));
-	toRender.push_back(std::make_unique<WrapObject>(&guitar_textured));
-	toRender.push_back(std::make_unique<WrapObject>(&calcTextured));
-	toRender.push_back(std::make_unique<WrapObject>(&penguinTextured));
-	toRender.push_back(std::make_unique<WrapObject>(&ironman));
-	toRender.push_back(std::make_unique<WrapObject>(&plant_textured));
-
-	std::vector<LightObject> lights{
-		LightObject(spot_light),
-		LightObject(point_light),
-		LightObject(direction_light),
-	};
-	lights[0]
-		.setRotation(glm::rotate(glm::radians(20.0f), glm::vec3(0, -1, 0)) * glm::rotate(glm::radians(80.0f), glm::vec3(-1,0,0)))
-		.setScale(glm::vec3(0.2f)).setPosition(glm::vec3(1.5f, 2.0f, -3.0f));
-	lights[1].setScale(glm::vec3(0.2f)).setPosition(glm::vec3(-7.0f, 1.0f, 5.0f));
-	lights[2].setRotation(glm::rotate(glm::radians(30.0f), glm::vec3(-1, 0, -0.5f)));
-	AmbientLight ambient(0.25f);
-	LightsWrapper lights_wrapper;
-	for (LightObject& obj : lights) {
-		lights_wrapper.addLight(&obj);
-	}
+	ComposeObjectDestroy scene;
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(0, -1.5f, 0), glm::vec3(40.0f, 0.1f, 40.0f)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(0, 0, 0)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(0, 0, 8)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(-9, 5, 9)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(-7, 4, 5)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(-5, 2, 2)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(7, 6, 7)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(-7, 3, -2)));
+	scene.addObject(new WrapObject(&cube_textured, glm::vec3(-9, 1, -4)));
+	scene.addObject(new WrapObject(&guitar_textured));
+	scene.addObject(new WrapObject(&calcTextured));
+	scene.addObject(new WrapObject(&penguinTextured));
+	scene.addObject(new WrapObject(&ironman));
+	scene.addObject(new WrapObject(&plant_textured));
 
 	// main loop
 	SDL_Event e;
@@ -253,39 +229,41 @@ void MainLoop::loop()
 		glBindRenderbuffer(GL_RENDERBUFFER, _depthBuffer);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, w, h);
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// setup camera
 		glm::mat4 projective = glm::perspective(glm::radians(45.0f), (float)w / (float)h, 0.1f, 200.0f);
 		glm::vec3 cam_view = glm::normalize(camera->getViewDirection());
-		glm::vec3 cam_up  = glm::normalize(camera->getCameraUp());
+		glm::vec3 cam_up = glm::normalize(camera->getCameraUp());
 		glm::vec3 cam_right = glm::normalize(glm::cross(cam_view, cam_up));
 		glm::vec3 cam_pos = camera->getPos();
 		glm::vec3 looking_at = cam_pos + cam_view * distance;
+		
+		// render standard scene
+		glEnable(GL_DEPTH_TEST);
+		glClearColor(CLEAR_COLOR_X, CLEAR_COLOR_Y, CLEAR_COLOR_Z, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glm::mat4 view = glm::lookAt(cam_pos, looking_at, cam_up);
+		BaseObject::transformations(_mainProgram, nullptr, &view, &projective);
+		scene.render(_mainProgram); 
 
+		// rerender from different angle
 		for (int i = 0; i < DEPTHOFFIELD_REPEATS; i++) {
 			// standard render to texture
 			glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer);
 			glEnable(GL_DEPTH_TEST);
+			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			glm::vec3 bokeh = cam_right * cosf((float)i * 2.0f * M_PI / (float)DEPTHOFFIELD_REPEATS) + cam_up * sinf((float)i * 2.0f * M_PI / (float)DEPTHOFFIELD_REPEATS);
+			glm::vec3 bokeh = 
+				cam_right * cosf((float)i * 2.0f * (float)M_PI / (float)DEPTHOFFIELD_REPEATS) + 
+				cam_up * sinf((float)i * 2.0f * (float)M_PI / (float)DEPTHOFFIELD_REPEATS);
 			glm::mat4 view = glm::lookAt(cam_pos + aperture * bokeh, looking_at, cam_up);
 
-			BaseObject::transformations(_backgroundProgram, nullptr, &view, &projective);
-			for (LightObject& obj : lights) {
-				light_object.setPosition(obj.getPosition());
-				light_object.render(_backgroundProgram);
-			}
-
-			ambient.use(_mainProgram);
-			lights_wrapper.updateRendering(_mainProgram, *camera);
-			RenderableObject::transformations(_mainProgram, nullptr, &view, &projective);
-			for (auto& obj : toRender) {
-				obj->render(_mainProgram);
-			}
+			BaseObject::transformations(_mainProgram, nullptr, &view, &projective);
+			scene.render(_mainProgram);
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+			// opacity overlay
 			glUseProgram(_dofProgram);
 			glDisable(GL_DEPTH_TEST);
 			glEnable(GL_BLEND);
@@ -293,8 +271,7 @@ void MainLoop::loop()
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, _renderTexture);
 			glUniform1i(uniform(_dofProgram, "screenTexture"), 0);
-			float opa = i == 0 ? 1.0f : 1.0f / (float)DEPTHOFFIELD_REPEATS;
- 			glUniform1f(uniform(_dofProgram, "opacity"),  opa);
+ 			glUniform1f(uniform(_dofProgram, "opacity"), 1.0f / (float)DEPTHOFFIELD_REPEATS);
 			screenplane.render(_dofProgram);
 			glEnable(GL_DEPTH_TEST);
 		}
